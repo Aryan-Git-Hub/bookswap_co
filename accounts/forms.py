@@ -9,6 +9,11 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password', 'confirm_password']
+        
+        
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        return email.lower()
 
 # class UserProfileForm(forms.ModelForm):
 #     username = forms.CharField(label='Your Name*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))

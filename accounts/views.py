@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # for authentication
+from django.contrib.auth import login, logout
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import SignupForm
 # for OTP
@@ -24,24 +26,35 @@ def sendEmail(to, subject, message):
 def signup(request):
     if request.method=='POST':
         fm = SignupForm(request.POST)
-        print(fm)
+        
         if fm.is_valid():
             email = fm.cleaned_data['email']
             password = fm.cleaned_data['password']
             confirm_password = fm.cleaned_data['confirm_password']
             if password==confirm_password:
-                # Generate OTP
-                otp = random.randint(100000, 999999)
-                # Send Email
-                subject = 'Your OTP for Account Verification'
-                message = f'Your OTP is {otp}'
-                sendEmail(email, subject, message)
-                return render(request, "accounts/verify.html", {'email': email, 'otp': otp})
+                # # Generate OTP
+                # otp = random.randint(100000, 999999)
+                # # Send Email
+                # subject = 'Your OTP for Account Verification'
+                # message = f'Your OTP is {otp}'
+                # sendEmail(email, subject, message)
+                # return render(request, "accounts/verify.html", {'email': email, 'otp': otp})
+                user = fm.save()
+                login(request, user)
+                messages.success(request, 'Account Created Successfully!')
+                return redirect('home')
             else:
                 return render(request, "accounts/signup.html", {'form': fm, 'error': 'Password and Confirm Password not matched!'})
     else:
         fm = SignupForm()
     return render(request, "accounts/signup.html", {'form': fm})
 
-def login(request):
+
+def auth_login(request):
     return render(request, "accounts/login.html")
+
+@login_required
+def auth_logout(request):
+    logout(request)
+    messages.warning(request, 'Logged Out Successfully!')
+    return redirect('login')
