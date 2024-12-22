@@ -1,0 +1,110 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+# for managing images
+from django.conf import settings
+# to change dimentions of image
+from PIL import Image
+
+
+base_path = str(settings.BASE_DIR)
+
+def resize_img(img_path, output_size):
+    img = Image.open(img_path)
+    img.thumbnail(output_size)
+    background = Image.new('RGB', output_size, (255, 255, 255))  # Transparent background
+    offset = ((output_size[0] - img.size[0]) // 2, (output_size[1] - img.size[1]) // 2)
+    background.paste(img, offset)
+    img = background
+    img.save(img_path, format='JPEG', quality=95)
+
+
+def del_img(file_path):
+    import os
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+    except Exception as e:
+        print('file does not delete because of', e)
+
+
+# Create your models here.
+class CustomUser(AbstractUser):
+    STATE_CHOICES = (
+        ("--",'----------'),
+        ("Andaman & Nicobar Islands",'Andaman & Nicobar Islands'),
+        ("Andhra Pradesh",'Andhra Pradesh'),
+        ("Arunachal Pradesh",'Arunachal Pradesh'),
+        ("Assam",'Assam'),
+        ("Bihar",'Bihar'),
+        ("Chandigarh",'Chandigarh'),
+        ("Chhattisgarh",'Chhattisgarh'),
+        ("Dadra & Nagar Haveli",'Dadra & Nagar Haveli'),
+        ("Daman and Diu",'Daman and Diu'),
+        ("Delhi",'Delhi'),
+        ("Goa",'Goa'),
+        ("Gujarat",'Gujarat'),
+        ("Haryana",'Haryana'),
+        ("Himachal Pradesh",'Himachal Pradesh'),
+        ("Jammu & Kashmir",'Jammu & Kashmir'),
+        ("Jharkhand",'Jharkhand'),
+        ("Karnataka",'Karnataka'),
+        ("Kerala",'Kerala'),
+        ("Lakshadweep",'Lakshadweep'),
+        ("Madhya Pradesh",'Madhya Pradesh'),
+        ("Maharashtra",'Maharashtra'),
+        ("Manipur",'Manipur'),
+        ("Meghalaya",'Meghalaya'),
+        ("Mizoram",'Mizoram'),
+        ("Nagaland",'Nagaland'),
+        ("Odisha",'Odisha'),
+        ("Puducherry",'Puducherry'),
+        ("Punjab",'Punjab'),
+        ("Rajasthan",'Rajasthan'),
+        ("Sikkim",'Sikkim'),
+        ("Tamil Nadu",'Tamil Nadu'),
+        ("Telangana",'Telangana'),
+        ("Tripura",'Tripura'),
+        ("Uttarakhand",'Uttarakhand'),
+        ("Uttar Pradesh",'Uttar Pradesh'),
+        ("West Bengal",'West Bengal'),
+        )
+    username = models.CharField(max_length=50, unique=False)
+    email = models.EmailField(max_length=255, unique=True)
+    photo = models.ImageField(upload_to='user_photos', default='default_user_photo.png')
+    mobile = models.CharField(max_length=10, default=1234567890)
+    gender = models.CharField(max_length=50, default="Male")
+    dilevery_address = models.TextField(blank=True)
+    pincode = models.CharField(max_length=6, default=123456)
+    landmark = models.CharField(max_length=500, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=100,choices=STATE_CHOICES)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+
+    def __str__(self):
+        return self.email
+
+
+    # To saving image in a particular dimentions
+    def save(self, *args, **kwargs):
+        try:
+            self_user = CustomUser.objects.get(id=self.id)
+            if self_user.photo.path!=base_path+'/media/default_user_photo.png' and self.photo!=self_user.photo:
+                # to remove previous images
+                import os
+                os.remove(self_user.photo.path)
+        except:
+            pass
+        super().save(*args, **kwargs)
+        img = Image.open(self.photo.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            resize_img(self.photo.path, output_size)
+
+    def delete(self, *args, **kwargs):
+        self_user_photo_path = self.photo.path
+        super().delete(*args, **kwargs)
+        if self_user_photo_path!=base_path+'/media/default_user_photo.png':
+            del_img(self_user_photo_path)

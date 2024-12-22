@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BookSwap{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}">
+    <script src="{% static "bootstrap/bootstrap.bundle.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    {% block css %}{% endblock css %}
+</head>
+<body>
+    {% include "header.html" %}
+    {% block content %}{% endblock content %}
+    {% block js %}{% endblock js %}
+    {% include "footer.html" %}
+</body>
+</html>
