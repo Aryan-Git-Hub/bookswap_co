@@ -1,6 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "css/header.css" %}">
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary position-sticky top-0">
     <div class="custom_container">
         <a class="navbar-brand" href="{% url 'home' %}">
         <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
@@ -10,16 +10,23 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <img src="{% static "images/search_logo.png" %}" alt="" id="search_logo">
             </form>
+            {% if request.user.is_authenticated %}
             <div class="dropdown">
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <img class="profile-pic" src="{% static "images/default_user_photo.png" %}" >
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
-              </div>
+            </div>
+            {% else %}
+            <div class="navbar-nav" style="display: flex; flex-direction: row; gap: 1.5vw; font-size: 1.2rem;">
+                <a class="nav-link" href="{% url "login" %}">Login</a>
+                <a class="nav-link" href="{% url "signup" %}">SignUp</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </nav>

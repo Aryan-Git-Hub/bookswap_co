@@ -69,10 +69,10 @@ class CustomUser(AbstractUser):
         ("West Bengal",'West Bengal'),
         )
     username = models.CharField(max_length=50, unique=False)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=150, unique=True)
     photo = models.ImageField(upload_to='user_photos', default='default_user_photo.png')
     mobile = models.CharField(max_length=10, default=1234567890)
-    gender = models.CharField(max_length=50, default="Male")
+    gender = models.CharField(max_length=50, default="M")
     dilevery_address = models.TextField(blank=True)
     pincode = models.CharField(max_length=6, default=123456)
     landmark = models.CharField(max_length=500, blank=True)

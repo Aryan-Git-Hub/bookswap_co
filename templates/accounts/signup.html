@@ -1,6 +1,30 @@
 {% extends "base.html" %}
+
 {% block content %}
-    <div class="container">
-        <h1>This is SignUp</h1>
-    </div>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+      <h2 class="text-center mb-4">Sign Up</h2>
+      <form id="signup-form" method="POST" novalidate action="{% url "signup" %}"> {% csrf_token %}
+        {% for field in form %}
+          <div class="mb-3">
+            {{field.label_tag}}
+            {{field}}
+            {{field.errors}}
+            {% if field.errors %}
+              <div class="invalid-feedback">
+                {% for error in field.errors %}
+                  <span>{{error}}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+          <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+          <p class="text-center mt-3">Already have an account? <a href="{% url "login" %}">Login</a></p>
+      </form>
+  </div>
+</div>
 {% endblock content %}
