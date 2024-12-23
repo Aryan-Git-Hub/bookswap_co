@@ -6,7 +6,7 @@
         </a>
         <div class="form_dropdown">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;">
                 <img src="{% static "images/search_logo.png" %}" alt="" id="search_logo">
             </form>
             {% if request.user.is_authenticated %}
@@ -21,7 +21,7 @@
                 </ul>
             </div>
             {% else %}
-            <div class="navbar-nav" style="display: flex; flex-direction: row; gap: 1.5vw; font-size: 1.2rem;">
+            <div class="navbar-nav" style="display: flex; flex-direction: row; gap: 1.8vw; font-size: 1.2rem;">
                 <a class="nav-link" href="{% url "login" %}">Login</a>
                 <a class="nav-link" href="{% url "signup" %}">SignUp</a>
             </div>
