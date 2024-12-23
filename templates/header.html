@@ -12,12 +12,11 @@
             {% if request.user.is_authenticated %}
             <div class="dropdown">
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="profile-pic" src="{% static "images/default_user_photo.png" %}" >
+                    <img class="profile-pic" src="/media/{{request.user.photo.name}}" >
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end z-1">
-                    <li><a class="dropdown-item" href="{% url "logout" %}">Logout</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="{% url "profile" %}">Your Profile</a></li>
+                    <li><a class="dropdown-item logout">Logout</a></li>
                 </ul>
             </div>
             {% else %}

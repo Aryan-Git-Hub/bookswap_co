@@ -66,7 +66,6 @@ def signup(request):
 @not_auth_user
 def auth_login(request):
     fm = LoginForm()
-    for m in messages.get_messages(request): print(m)
     if request.method=='POST':
         fm = LoginForm(request.POST)
         if fm.is_valid():
@@ -88,3 +87,9 @@ def auth_logout(request):
     logout(request)
     messages.success(request, 'Logged Out Successfully!')
     return HttpResponseRedirect('/accounts/login/')
+
+
+@login_required
+def profile(request):
+    return render(request, "accounts/profile.html")
+
