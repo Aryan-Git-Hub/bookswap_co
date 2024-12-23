@@ -1,6 +1,5 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/header.css" %}">
-<nav class="navbar bg-body-tertiary position-sticky top-0">
+<nav class="navbar bg-body-tertiary position-sticky top-0 z-1">
     <div class="custom_container">
         <a class="navbar-brand" href="{% url 'home' %}">
         <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
@@ -15,7 +14,7 @@
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <img class="profile-pic" src="{% static "images/default_user_photo.png" %}" >
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end z-1">
                     <li><a class="dropdown-item" href="{% url "logout" %}">Logout</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li>

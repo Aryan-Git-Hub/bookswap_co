@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, HttpResponseRedirect
 # for authentication
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import SignupForm
+from accounts.forms import SignupForm, LoginForm
 # for OTP
 from django.core.mail import send_mail
 import random
@@ -23,7 +23,21 @@ def sendEmail(to, subject, message):
     return True
 
 
+# making custom decorator function
+def not_auth_user(func):
+    def ref(*args, **kwargs):
+        req = args[0]
+        if req.user.is_authenticated:    
+            messages.warning(req, "You are already Logged in!!!")
+            return HttpResponseRedirect('/')
+        else:
+            return func(*args, **kwargs)
+    return ref
+
+
+@not_auth_user
 def signup(request):
+    fm = SignupForm()
     if request.method=='POST':
         fm = SignupForm(request.POST)
         
@@ -42,19 +56,35 @@ def signup(request):
                 user = fm.save()
                 login(request, user)
                 messages.success(request, 'Account Created Successfully!')
-                return redirect('home')
+                return HttpResponseRedirect('/')
             else:
-                return render(request, "accounts/signup.html", {'form': fm, 'error': 'Password and Confirm Password not matched!'})
-    else:
-        fm = SignupForm()
+                messages.error(request, 'Password and Confirm Password not matched!')
+                return render(request, "accounts/signup.html", {'form': fm})
     return render(request, "accounts/signup.html", {'form': fm})
 
 
+@not_auth_user
 def auth_login(request):
-    return render(request, "accounts/login.html")
+    fm = LoginForm()
+    for m in messages.get_messages(request): print(m)
+    if request.method=='POST':
+        fm = LoginForm(request.POST)
+        if fm.is_valid():
+            email = fm.cleaned_data['email']
+            password = fm.cleaned_data['password']
+            user = authenticate(email=email, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Logged In Successfully!')
+                return HttpResponseRedirect('/')
+            
+            messages.error(request, 'Invalid Credentials!')
+
+    return render(request, "accounts/login.html", {'form': fm})
+
 
 @login_required
 def auth_logout(request):
     logout(request)
-    messages.warning(request, 'Logged Out Successfully!')
-    return redirect('login')
+    messages.success(request, 'Logged Out Successfully!')
+    return HttpResponseRedirect('/accounts/login/')

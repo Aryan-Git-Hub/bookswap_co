@@ -1,48 +1,25 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-{% for message in messages %}
-{% if message.tags == "warning" %}
-<div class="alert alert-warning alert-dismissible fade show custom-alert" role="alert">
-  {{message}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-{% elif message.tags == "success" %}
-<div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
-  <strong>Success!!!</strong> {{message}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-{% elif message.tags == "error" %}
-<div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
-  <strong>{{message}}</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-{% endif %}
-{% endfor %}
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-      <h2 class="text-center mb-4">Login</h2>
-      <form id="login-form" method="POST"> {% csrf_token %}
-          <div class="mb-3">
-              <label for="email" class="form-label">Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
-          </div>
-          <div class="mb-3">
-              <label for="password" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
-          </div>
-          <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Login</button>
-          </div>
-          <p class="text-center mt-3"><a href="/accounts/forgot_pass/">Forgot Password</a></p>
-          <p class="text-center mt-3">Don't have an account? <a href="{% url "signup" %}">Sign Up</a></p>
-      </form>
-  </div>
+
+{% include "sticky_messages_alert.html" %}
+
+
+<div
+  class="container d-flex flex-column justify-content-center align-items-center"
+  style="min-height: 90vh"
+>
+  <h2 class="text-center">Login</h2>
+  <form method="POST" class="needs-validation" novalidate>
+    {% csrf_token %} {% for field in form %}
+    <div>
+      <label class="form-label">{{field.label}}</label>
+      {{field}}
+      <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
+    </div>
+    {% endfor %}
+    <div class="col-12 mt-3">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </form>
 </div>
 {% endblock content %}

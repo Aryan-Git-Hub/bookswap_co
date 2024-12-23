@@ -42,3 +42,9 @@ form {
   width: 3rem;
   object-fit: cover;
 }
+
+/* Adjust the alert to stay sticky below the navbar */
+.sticky-alert {
+  position: sticky;
+  top: 5rem; /* Height of the navbar */
+}
