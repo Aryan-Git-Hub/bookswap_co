@@ -30,7 +30,6 @@ def del_img(file_path):
 # Create your models here.
 class CustomUser(AbstractUser):
     STATE_CHOICES = (
-        ("--",'----------'),
         ("Andaman & Nicobar Islands",'Andaman & Nicobar Islands'),
         ("Andhra Pradesh",'Andhra Pradesh'),
         ("Arunachal Pradesh",'Arunachal Pradesh'),
