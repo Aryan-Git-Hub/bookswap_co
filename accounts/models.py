@@ -29,54 +29,54 @@ def del_img(file_path):
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    STATE_CHOICES = (
-        ("Andaman & Nicobar Islands",'Andaman & Nicobar Islands'),
-        ("Andhra Pradesh",'Andhra Pradesh'),
-        ("Arunachal Pradesh",'Arunachal Pradesh'),
-        ("Assam",'Assam'),
-        ("Bihar",'Bihar'),
-        ("Chandigarh",'Chandigarh'),
-        ("Chhattisgarh",'Chhattisgarh'),
-        ("Dadra & Nagar Haveli",'Dadra & Nagar Haveli'),
-        ("Daman and Diu",'Daman and Diu'),
-        ("Delhi",'Delhi'),
-        ("Goa",'Goa'),
-        ("Gujarat",'Gujarat'),
-        ("Haryana",'Haryana'),
-        ("Himachal Pradesh",'Himachal Pradesh'),
-        ("Jammu & Kashmir",'Jammu & Kashmir'),
-        ("Jharkhand",'Jharkhand'),
-        ("Karnataka",'Karnataka'),
-        ("Kerala",'Kerala'),
-        ("Lakshadweep",'Lakshadweep'),
-        ("Madhya Pradesh",'Madhya Pradesh'),
-        ("Maharashtra",'Maharashtra'),
-        ("Manipur",'Manipur'),
-        ("Meghalaya",'Meghalaya'),
-        ("Mizoram",'Mizoram'),
-        ("Nagaland",'Nagaland'),
-        ("Odisha",'Odisha'),
-        ("Puducherry",'Puducherry'),
-        ("Punjab",'Punjab'),
-        ("Rajasthan",'Rajasthan'),
-        ("Sikkim",'Sikkim'),
-        ("Tamil Nadu",'Tamil Nadu'),
-        ("Telangana",'Telangana'),
-        ("Tripura",'Tripura'),
-        ("Uttarakhand",'Uttarakhand'),
-        ("Uttar Pradesh",'Uttar Pradesh'),
-        ("West Bengal",'West Bengal'),
-        )
+    # STATE_CHOICES = (
+    #     ("Andaman & Nicobar Islands",'Andaman & Nicobar Islands'),
+    #     ("Andhra Pradesh",'Andhra Pradesh'),
+    #     ("Arunachal Pradesh",'Arunachal Pradesh'),
+    #     ("Assam",'Assam'),
+    #     ("Bihar",'Bihar'),
+    #     ("Chandigarh",'Chandigarh'),
+    #     ("Chhattisgarh",'Chhattisgarh'),
+    #     ("Dadra & Nagar Haveli",'Dadra & Nagar Haveli'),
+    #     ("Daman and Diu",'Daman and Diu'),
+    #     ("Delhi",'Delhi'),
+    #     ("Goa",'Goa'),
+    #     ("Gujarat",'Gujarat'),
+    #     ("Haryana",'Haryana'),
+    #     ("Himachal Pradesh",'Himachal Pradesh'),
+    #     ("Jammu & Kashmir",'Jammu & Kashmir'),
+    #     ("Jharkhand",'Jharkhand'),
+    #     ("Karnataka",'Karnataka'),
+    #     ("Kerala",'Kerala'),
+    #     ("Lakshadweep",'Lakshadweep'),
+    #     ("Madhya Pradesh",'Madhya Pradesh'),
+    #     ("Maharashtra",'Maharashtra'),
+    #     ("Manipur",'Manipur'),
+    #     ("Meghalaya",'Meghalaya'),
+    #     ("Mizoram",'Mizoram'),
+    #     ("Nagaland",'Nagaland'),
+    #     ("Odisha",'Odisha'),
+    #     ("Puducherry",'Puducherry'),
+    #     ("Punjab",'Punjab'),
+    #     ("Rajasthan",'Rajasthan'),
+    #     ("Sikkim",'Sikkim'),
+    #     ("Tamil Nadu",'Tamil Nadu'),
+    #     ("Telangana",'Telangana'),
+    #     ("Tripura",'Tripura'),
+    #     ("Uttarakhand",'Uttarakhand'),
+    #     ("Uttar Pradesh",'Uttar Pradesh'),
+    #     ("West Bengal",'West Bengal'),
+    #     )
     username = models.CharField(max_length=50, unique=False)
     email = models.EmailField(max_length=150, unique=True)
     photo = models.ImageField(upload_to='user_photos', default='default_user_photo.png')
     mobile = models.CharField(max_length=10, default=1234567890)
     gender = models.CharField(max_length=50, default="M")
-    dilevery_address = models.TextField(blank=True)
-    pincode = models.CharField(max_length=6, default=123456)
-    landmark = models.CharField(max_length=500, blank=True)
-    city = models.CharField(max_length=100, null=True, blank=True)
-    state = models.CharField(max_length=100,choices=STATE_CHOICES)
+    # dilevery_address = models.TextField(blank=True)
+    # pincode = models.CharField(max_length=6, default=123456)
+    # landmark = models.CharField(max_length=500, blank=True)
+    # city = models.CharField(max_length=100, null=True, blank=True)
+    # state = models.CharField(max_length=100,choices=STATE_CHOICES)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
