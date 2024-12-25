@@ -5,12 +5,13 @@
 }
 
 #logo {
-  height: 4rem;
+  height: 3.2rem;
+  border-radius: 50%;
 }
 
 .custom_container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin: 0px 1vw;
@@ -19,23 +20,32 @@
 
 .form_dropdown {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  width: 80%;
+  width: 86%;
   height: 100%;
 }
 
-form {
+form.forLargerDevices {
   width: 80%;
 }
 
-#search_logo {
-  height: 3rem;
+
+.search_logo {
+  height: 2rem;
   cursor: pointer;
 }
 
 #search_logo:hover {
   transform: scale(1.1);
+}
+
+.notificationIcon {
+  height: 1.8rem;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0;
 }
 
 .profile_pic {
@@ -47,4 +57,34 @@ form {
 .sticky-alert {
   position: sticky;
   top: 5rem; /* Height of the navbar */
+}
+
+@media (max-width: 993px) {
+  .form_dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+    min-width: 20%;
+    height: 100%;
+  }
+}
+@media (max-width: 630px) {
+  .form_dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    max-width: 80%;
+    height: 100%;
+  }
+}
+@media (max-width: 330px) {
+  .form_dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 80%;
+    height: 100%;
+  }
 }
