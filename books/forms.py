@@ -2,6 +2,48 @@ from django import forms
 from books.models import Book
 from accounts.models import CustomUser
 
+STATE_CHOICES = [
+  ["Andaman and Nicobar Islands", "Andaman and Nicobar Islands"],
+  ["Andhra Pradesh", "Andhra Pradesh"],
+  ["Arunachal Pradesh", "Arunachal Pradesh"],
+  ["Assam", "Assam"],
+  ["Bihar", "Bihar"],
+  ["Chandigarh", "Chandigarh"],
+  ["Chhattisgarh", "Chhattisgarh"],
+  ["Dadra and Nagar Haveli", "Dadra and Nagar Haveli"],
+  ["Daman and Diu", "Daman and Diu"],
+  ["Delhi", "Delhi"],
+  ["Goa", "Goa"],
+  ["Gujarat", "Gujarat"],
+  ["Haryana", "Haryana"],
+  ["Himachal Pradesh", "Himachal Pradesh"],
+  ["Jammu and Kashmir", "Jammu and Kashmir"],
+  ["Jharkhand", "Jharkhand"],
+  ["Karnataka", "Karnataka"],
+  ["Kerala", "Kerala"],
+  ["Ladakh", "Ladakh"],
+  ["Lakshadweep", "Lakshadweep"],
+  ["Madhya Pradesh", "Madhya Pradesh"],
+  ["Maharashtra", "Maharashtra"],
+  ["Manipur", "Manipur"],
+  ["Meghalaya", "Meghalaya"],
+  ["Mizoram", "Mizoram"],
+  ["Nagaland", "Nagaland"],
+  ["Narora", "Narora"],
+  ["Odisha", "Odisha"],
+  ["Pondicherry", "Pondicherry"],
+  ["Punjab", "Punjab"],
+  ["Rajasthan", "Rajasthan"],
+  ["Sikkim", "Sikkim"],
+  ["Tamil Nadu", "Tamil Nadu"],
+  ["Telangana", "Telangana"],
+  ["Tripura", "Tripura"],
+  ["Uttar Pradesh", "Uttar Pradesh"],
+  ["Uttarakhand", "Uttarakhand"],
+  ["West Bengal", "West Bengal"]
+]
+
+
 class BookForm(forms.ModelForm):
     book_name = forms.CharField(label='Book Name*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     author = forms.CharField(label='Author*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -12,8 +54,8 @@ class BookForm(forms.ModelForm):
     pages = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     photo = forms.ImageField(label='Photo*', widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
-    state = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    state = forms.ChoiceField(choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    city = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}))
     colony = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
