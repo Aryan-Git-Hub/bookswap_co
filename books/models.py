@@ -13,5 +13,5 @@ class Book(models.Model):
     edition = models.CharField(max_length=50, blank=True)
     publication = models.CharField(max_length=100, blank=True)
     category = models.CharField(max_length=50, blank=True)
-    pages = models.IntegerField(default=0)
+    pages = models.IntegerField(default=0, null=True)
     photo = models.ImageField(upload_to='books/', blank=True)

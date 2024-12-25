@@ -17,12 +17,14 @@ def checkout(request):
 
 @login_required
 def post_ad(request):
-    fm = BookForm()
+    fm = BookForm(initial={'seller': request.user})
     if request.method=="POST":
         fm = BookForm(request.POST, request.FILES)
-        print(fm)
-        print(request.FILES)
+        if int(request.POST.get('seller'))!=request.user.id:
+            messages.error(request, "Please try again!")
+            return HttpResponseRedirect('/post/')
         if fm.is_valid():
+            fm.save()
             messages.success(request, "Your Ad is now Published!")
             return HttpResponseRedirect('/')
     return render(request, "books/post_ad.html", {"form":fm})
