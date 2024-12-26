@@ -15,4 +15,6 @@ footer {
   margin-top: 1vh;
 }
 
-
+.card {
+  z-index: -999 !important;
+}

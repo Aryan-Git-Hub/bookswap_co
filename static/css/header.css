@@ -68,6 +68,11 @@ form.forLargerDevices {
     min-width: 20%;
     height: 100%;
   }
+  .alert {
+    position: sticky !important;
+    width: 100%;
+    top: 6.5rem !important;
+  }
 }
 @media (max-width: 630px) {
   .form_dropdown {
@@ -78,6 +83,11 @@ form.forLargerDevices {
     max-width: 80%;
     height: 100%;
   }
+  .alert {
+    position: sticky !important;
+    width: 100%;
+    top: 6.5rem !important;
+  }
 }
 @media (max-width: 330px) {
   .form_dropdown {
@@ -87,4 +97,10 @@ form.forLargerDevices {
     min-width: 80%;
     height: 100%;
   }
+  .alert {
+    position: sticky !important;
+    width: 100%;
+    top: 6.5rem !important;
+  }
 }
+

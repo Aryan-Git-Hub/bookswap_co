@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar bg-body-tertiary position-sticky top-0 z-1 py-0">
+<nav class="navbar bg-body-tertiary position-sticky top-0 z-1 pt-0 pb-1">
     <div class="custom_container">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
@@ -9,6 +9,7 @@
                 <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;">
                 <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo" id="search_logo">
             </form>
+
             {% if request.user.is_authenticated %}
             <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
                 <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">
