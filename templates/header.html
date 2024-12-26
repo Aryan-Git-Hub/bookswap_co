@@ -7,7 +7,7 @@
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
             <form class="d-none col-9 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search">
                 <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;">
-                <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo">
+                <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo" id="search_logo">
             </form>
             {% if request.user.is_authenticated %}
             <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
