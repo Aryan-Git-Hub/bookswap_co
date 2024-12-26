@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import SignupForm, LoginForm
+from accounts.forms import SignupForm, LoginForm, UserProfileForm
 # for OTP
 from django.core.mail import send_mail
 import random
@@ -91,5 +91,10 @@ def auth_logout(request):
 
 @login_required
 def profile(request):
-    return render(request, "accounts/profile.html")
+    fm = UserProfileForm(instance=request.user)
+    if request.method=="POST":
+        fm = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if fm.is_valid():
+            fm.save()
+    return render(request, "accounts/profile.html", {"form":fm})
 

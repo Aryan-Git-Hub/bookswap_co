@@ -1,28 +1,31 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
 {% include "sticky_messages_alert.html" %}
-
-
-<div class="container border my-5 d-flex">
-  <form method="POST" class="border justify-content-center align-items-center" style="width: 100%;">
-    {% csrf_token %}
-    <div class="row my-2">
-      <div class="form-group col-4">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
-      </div>
-      <div class="form-group col-8">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
-      </div>
+<div class="container">
+    <h1 class="mt-5">User Profile</h1>
+    <div class="card mt-3">
+        <div class="card-header text-center">
+            <img id="profile-photo" src="{{ user.photo.url }}" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
+        </div>
+        <div class="card-body">
+            <form id="profile-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.label != "Photo*" %}
+                        <div class="">
+                        <label class="form-label">{{field.label}}</label>
+                        {{field}}
+                        <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <input type="file" id="photo-input" name="photo" style="display:none;" onchange="document.getElementById('profile-form').submit();">
+                <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
+            </form>
+        </div>
     </div>
-
-    <div class="row my-2">
-      <div class="form-group col-12">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
-      </div>
-    </div>
-  </form>
 </div>
-
+    
 {% endblock content %}

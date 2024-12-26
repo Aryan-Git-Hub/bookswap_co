@@ -27,10 +27,17 @@ class LoginForm(forms.Form):
         email = self.cleaned_data['email']
         return email.lower()
 
-# class UserProfileForm(forms.ModelForm):
-#     username = forms.CharField(label='Your Name*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-#     email = forms.EmailField(label='Your Email*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-#     gender = forms.ChoiceField(label='Gender*', choices=CustomUser.GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
-#     class Meta:
-#         model = CustomUser
-#         fields = ['username', 'email', 'gender']
+
+GENDER_CHOICES = [
+    ['M', 'Male'],
+    ['F', 'Female'],
+    ['O', 'Other']
+]
+class UserProfileForm(forms.ModelForm):
+    username = forms.CharField(label='Your Name*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    mobile = forms.IntegerField(min_value=1000000000, max_value=9999999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    gender = forms.ChoiceField(label='Gender*', choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    photo = forms.ImageField(label='Photo*', widget=forms.ClearableFileInput(attrs={'class': 'form-control'}), required=False)
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'mobile', 'gender', 'photo']

@@ -53,11 +53,6 @@ form.forLargerDevices {
   object-fit: cover;
 }
 
-/* Adjust the alert to stay sticky below the navbar */
-.sticky-alert {
-  position: sticky;
-  top: 4rem; /* Height of the navbar */
-}
 
 @media (max-width: 993px) {
   .form_dropdown {
