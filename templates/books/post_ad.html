@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 {% include "sticky_messages_alert.html" %}
@@ -17,7 +18,7 @@
             {% endif %}
             {% endfor %}
             {{form.seller}}
-            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center mt-3 mt-lg-0">
+            <div class="col-12 col-lg-8 d-flex justify-content-center align-items-center mt-3 mt-lg-0">
                 <button class="btn btn-info form-control" type="submit">POST</button>
             </div>
         </form>
@@ -25,3 +26,35 @@
     </div>
 
 {% endblock content %}
+
+{% block js %}
+
+<script>
+    const state = document.getElementById("state_id");
+    const city = document.getElementById("city_id");
+    // Fetching data from cities.json
+    async function getData() {
+        city.disabled = true;
+        city.innerHTML = '<option value selected>---Select City---</option>';
+        if(state.value!="") {
+            city.disabled = false;
+            let response = await fetch("{% static 'JSON/state_cities.json' %}");
+            let data = await response.json();
+            search_result = data.find(item=>item.state==state.value);
+            cities_arr = search_result.cities
+            for (let i = 0; i < cities_arr.length; i++) {
+                let element = cities_arr[i];
+                // Create new option elements
+                let newOption = document.createElement("option");
+                newOption.value = element[0];
+                newOption.textContent = element[1];
+                // Append the new options to the select element
+                city.appendChild(newOption);
+            }
+        }
+    }
+    getData();
+    state.addEventListener("change", getData);
+</script>
+
+{% endblock js %}

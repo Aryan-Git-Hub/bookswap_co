@@ -6,7 +6,6 @@ class Book(models.Model):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='book')
     state = models.CharField(max_length=70)
     city = models.CharField(max_length=70)
-    colony = models.CharField(max_length=70)
     book_name = models.CharField(max_length=100, blank=True)
     author = models.CharField(max_length=100, blank=True)
     desc = models.CharField(max_length=300, blank=True)

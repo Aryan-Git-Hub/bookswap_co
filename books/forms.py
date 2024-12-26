@@ -3,6 +3,7 @@ from books.models import Book
 from accounts.models import CustomUser
 
 STATE_CHOICES = [
+  [None, "---Select State---"],
   ["Andaman and Nicobar Islands", "Andaman and Nicobar Islands"],
   ["Andhra Pradesh", "Andhra Pradesh"],
   ["Arunachal Pradesh", "Arunachal Pradesh"],
@@ -54,10 +55,9 @@ class BookForm(forms.ModelForm):
     pages = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     photo = forms.ImageField(label='Photo*', widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
-    state = forms.ChoiceField(choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
-    city = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}))
-    colony = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    state = forms.ChoiceField(choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
+    city = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
 
     class Meta:
         model = Book
-        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'photo', 'seller', 'state', 'city', 'colony']
+        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'photo', 'seller', 'state', 'city']

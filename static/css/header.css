@@ -56,7 +56,7 @@ form.forLargerDevices {
 /* Adjust the alert to stay sticky below the navbar */
 .sticky-alert {
   position: sticky;
-  top: 5rem; /* Height of the navbar */
+  top: 4rem; /* Height of the navbar */
 }
 
 @media (max-width: 993px) {

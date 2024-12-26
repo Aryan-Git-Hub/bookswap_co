@@ -20,6 +20,20 @@ def post_ad(request):
     fm = BookForm(initial={'seller': request.user})
     if request.method=="POST":
         fm = BookForm(request.POST, request.FILES)
+        # setting city choices according to the state value
+        try:
+            state_val = request.POST.get("state", "")
+            if state_val!="":
+                import json
+                with open("static/JSON/state_cities.json", "r") as f:
+                    data = json.load(f)
+                    for i in data:
+                        if i["state"]==state_val:
+                            fm.fields["city"].choices = i["cities"]
+                            break;
+        except Exception as e:
+            messages.error(request, "Please try again!")
+            return HttpResponseRedirect('/post/')
         if int(request.POST.get('seller'))!=request.user.id:
             messages.error(request, "Please try again!")
             return HttpResponseRedirect('/post/')
