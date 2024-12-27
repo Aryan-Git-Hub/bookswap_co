@@ -1,9 +1,11 @@
 from django.shortcuts import render, HttpResponseRedirect
 # for authentication
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import SignupForm, LoginForm, UserProfileForm
+from accounts.models import CustomUser
+from django.contrib.auth.hashers import make_password, check_password
 # for OTP
 from django.core.mail import send_mail
 import random
@@ -22,6 +24,15 @@ def sendEmail(to, subject, message):
     )
     return True
 
+
+def custom_authenticate(user_email, user_pass):
+    try:
+        user = CustomUser.objects.get(email=user_email)
+        if(check_password(user_pass, user.password)):
+            return user
+        return None
+    except:
+        return None
 
 # making custom decorator function
 def not_auth_user(func):
@@ -53,7 +64,10 @@ def signup(request):
                 # message = f'Your OTP is {otp}'
                 # sendEmail(email, subject, message)
                 # return render(request, "accounts/verify.html", {'email': email, 'otp': otp})
+                fm.fields['password'] = make_password(confirm_password)
                 user = fm.save()
+                user.password = make_password(confirm_password)
+                user.save()
                 login(request, user)
                 messages.success(request, 'Account Created Successfully!')
                 return HttpResponseRedirect('/')
@@ -71,7 +85,7 @@ def auth_login(request):
         if fm.is_valid():
             email = fm.cleaned_data['email']
             password = fm.cleaned_data['password']
-            user = authenticate(email=email, password=password)
+            user = custom_authenticate(email, password)
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Logged In Successfully!')
