@@ -6,7 +6,6 @@ from django.conf import settings
 from PIL import Image
 
 
-base_path = str(settings.BASE_DIR)
 
 def resize_img(img_path, output_size):
     img = Image.open(img_path)
@@ -18,6 +17,7 @@ def resize_img(img_path, output_size):
     img.save(img_path, format='JPEG', quality=95)
 
 
+base_path = str(settings.BASE_DIR)
 def del_img(file_path):
     import os
     try:

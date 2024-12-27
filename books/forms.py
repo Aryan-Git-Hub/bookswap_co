@@ -1,5 +1,5 @@
 from django import forms
-from books.models import Book
+from books.models import Book, ImageModel
 from accounts.models import CustomUser
 
 STATE_CHOICES = [
@@ -53,11 +53,19 @@ class BookForm(forms.ModelForm):
     publication = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     category = forms.CharField(label='Category*', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     pages = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    photo = forms.ImageField(label='Photo*', widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
-    state = forms.ChoiceField(choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
-    city = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
+    state = forms.ChoiceField(label='State*', choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
+    city = forms.ChoiceField(label='City*', choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
+    price = forms.IntegerField(label='Price*', widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Book
-        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'photo', 'seller', 'state', 'city']
+        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'seller', 'state', 'city', 'price']
+
+
+class BookImageForm(forms.ModelForm):
+  images = forms.ImageField(label="Images*", widget=forms.ClearableFileInput(attrs={"class":"form-control", "id":"images"}))
+    
+  class Meta:
+    model = ImageModel
+    fields = ["images"]

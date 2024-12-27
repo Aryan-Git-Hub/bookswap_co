@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
-from books.models import Book
-from books.forms import BookForm
+from books.models import Book, ImageModel
+from books.forms import BookForm, BookImageForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -18,8 +18,11 @@ def checkout(request):
 @login_required
 def post_ad(request):
     fm = BookForm(initial={'seller': request.user})
+    book_image_fm = BookImageForm()
     if request.method=="POST":
-        fm = BookForm(request.POST, request.FILES)
+        fm = BookForm(request.POST)
+        book_image_fm = BookImageForm(request.POST, request.FILES)
+        image_files = request.FILES.getlist("images")
         # setting city choices according to the state value
         try:
             state_val = request.POST.get("state", "")
@@ -37,11 +40,13 @@ def post_ad(request):
         if int(request.POST.get('seller'))!=request.user.id:
             messages.error(request, "Please try again!")
             return HttpResponseRedirect('/post/')
-        if fm.is_valid():
-            fm.save()
+        elif fm.is_valid() & book_image_fm.is_valid():
+            book = fm.save()
+            for image in image_files:
+                ImageModel.objects.create(book=book, image=image)
             messages.success(request, "Your Ad is now Published!")
             return HttpResponseRedirect('/')
-    return render(request, "books/post_ad.html", {"form":fm})
+    return render(request, "books/post_ad.html", {"form":fm, "book_image_form":book_image_fm})
 
 
 def user_posted_ads(request):

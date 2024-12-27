@@ -9,7 +9,7 @@
         <form class="needs-validation row" method="POST" novalidate enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
-            {% if not field.is_hidden %}
+            {% if not field.is_hidden and field.label != "Images*" %}
                 <div class="col-12 col-lg-4">
                 <label class="form-label">{{field.label}}</label>
                 {{field}}
@@ -18,7 +18,13 @@
             {% endif %}
             {% endfor %}
             {{form.seller}}
-            <div class="col-12 col-lg-8 d-flex justify-content-center align-items-center mt-3 mt-lg-0">
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Images*</label>
+                {{book_image_form.images}}
+                <div class="feedback" style="color: red">{{book_image_form.images.errors.as_text}}</div>
+            </div>
+            
+            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center mt-3 mt-lg-0">
                 <button class="btn btn-info form-control" type="submit">POST</button>
             </div>
         </form>
@@ -55,6 +61,10 @@
     }
     getData();
     state.addEventListener("change", getData);
+
+
+    const images = document.getElementById("images");
+    images.multiple = true;
 </script>
 
 {% endblock js %}
