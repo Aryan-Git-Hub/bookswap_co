@@ -7,7 +7,7 @@
     <div class="row gap-3 justify-content-center">
 
       {% for book in all_books %}
-        <div class="card" style="width: 18rem;z-index:-999;">
+        <div class="card" style="width: 18rem;z-index:0 !important;">
             <img src="/media/{{book.photo}}" class="card-img-top" alt="..." style="height: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{book.book_name}}</h5>
