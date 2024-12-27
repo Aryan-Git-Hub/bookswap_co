@@ -42,3 +42,15 @@ def post_ad(request):
             messages.success(request, "Your Ad is now Published!")
             return HttpResponseRedirect('/')
     return render(request, "books/post_ad.html", {"form":fm})
+
+
+def user_posted_ads(request):
+    user_ads = Book.objects.filter(seller=request.user)
+    return render(request, "books/user_posted_ads.html", {"user_ads":user_ads})
+
+
+def book_view(request, book_id):
+    book = Book.objects.filter(id=book_id).first()
+    if(book==None):
+        return HttpResponseRedirect("/")
+    return render(request, "books/book_view.html", {"book":book})

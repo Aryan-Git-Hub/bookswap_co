@@ -6,7 +6,11 @@
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="mt-5">User Profile</h1>
     <div class="text-center">
+        {% if request.user.photo.url == "/media/default_user_photo.png" %}
+        <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
+        {% else %}
         <img src="{{ user.photo.url }}" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
+        {% endif %}
     </div>
     <div>
         <form id="profile-form" method="post" enctype="multipart/form-data" novalidate>
