@@ -1,10 +1,87 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %}
+
+{% block css %}
+
+<style>
+  .thumbnail-images img {
+    cursor: pointer;
+    margin: 5px;
+    border: 2px solid transparent;
+  }
+  .thumbnail-images img:hover,
+  .thumbnail-images img.active {
+    border-color: #007bff;
+  }
+</style>
+
+{% endblock css %}
+
+{% block content %}
 
 <div class="container my-4">
-    <h2>{{book.book_name}}</h2>
-    <div class="container my-4 min-vh-100">
-        
+  <h2>{{book.book_name}}</h2>
+  <div class="container my-4 min-vh-100">
+    <div class="row">
+      <!-- Book Image and Thumbnails -->
+      <div class="col-md-4 text-center">
+        <!-- Main Image -->
+        <img
+          id="mainImage"
+          src="/media/{{book.photo.name}}"
+          alt="Book Cover"
+          class="img-fluid rounded shadow mb-3"
+          width="300"
+          height="330"
+        />
+
+        <!-- Thumbnail Images -->
+        <div class="thumbnail-images d-flex justify-content-center">
+          <img
+            src="/media/{{book.photo.name}}"
+            alt="Thumbnail 1"
+            class="img-fluid rounded shadow"
+            onclick="changeImage(this)"
+            width="100"
+            height="110"
+          />
+          <img
+            src="/media/{{book.photo.name}}"
+            alt="Thumbnail 1"
+            class="img-fluid rounded shadow"
+            onclick="changeImage(this)"
+            width="100"
+            height="110"
+          />
+          <img
+            src="/media/{{book.photo.name}}"
+            alt="Thumbnail 1"
+            class="img-fluid rounded shadow"
+            onclick="changeImage(this)"
+            width="100"
+            height="110"
+          />
+        </div>
+      </div>
+      <!-- Book Details -->
+      <div class="col-md-8">
+        <h1 class="display-4">{{book.book_name}}</h1>
+        <p class="text-muted">by <strong>{{book.author}}</strong></p>
+        <p><strong>Edition:</strong> {{book.edition}}</p>
+        <p><strong>Description:</strong> {{book.desc}}</p>
+        <p><strong>Category:</strong> {{book.category}}</p>
+        <p><strong>Pages:</strong> {{book.pages}}</p>
+        <p><strong>Publication:</strong> {{book.publication}}</p>
+        <p class="mt-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+          blandit massa enim. Nullam id varius nunc id varius nunc.
+        </p>
+        <a href="#" class="btn btn-primary btn-lg mt-3">Buy Now</a>
+        <a href="#" class="btn btn-outline-secondary btn-lg mt-3"
+          >Read Sample</a
+        >
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock content %}
