@@ -96,5 +96,6 @@ def profile(request):
         fm = UserProfileForm(request.POST, request.FILES, instance=request.user)
         if fm.is_valid():
             fm.save()
+            messages.success(request, "Profile Updated!")
     return render(request, "accounts/profile.html", {"form":fm})
 
