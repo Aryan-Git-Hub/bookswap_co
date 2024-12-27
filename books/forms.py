@@ -56,7 +56,7 @@ class BookForm(forms.ModelForm):
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
     state = forms.ChoiceField(label='State*', choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
     city = forms.ChoiceField(label='City*', choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
-    price = forms.IntegerField(label='Price*', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    price = forms.IntegerField(label='Price*', min_value=10, widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Book
