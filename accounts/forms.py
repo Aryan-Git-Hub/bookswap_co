@@ -29,6 +29,7 @@ class LoginForm(forms.Form):
 
 
 GENDER_CHOICES = [
+    [None, '---Select Gender---'],
     ['M', 'Male'],
     ['F', 'Female'],
     ['O', 'Other']

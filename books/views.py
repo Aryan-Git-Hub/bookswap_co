@@ -53,4 +53,4 @@ def book_view(request, book_id):
     book = Book.objects.filter(id=book_id).first()
     if(book==None):
         return HttpResponseRedirect("/")
-    return render(request, "books/book_view.html", {"book":book})
+    return render(request, "books/book_preview.html", {"book":book})
