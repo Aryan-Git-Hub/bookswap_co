@@ -24,26 +24,10 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            <input type="file" id="photo-input" name="photo" style="display:none;">
+            <input type="file" id="photo-input" name="photo" style="display:none;" onchange="document.getElementById('profile-form').submit">
             <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
         </form>
     </div>
 </div>
     
 {% endblock content %}
-
-{% block js %}
-
-<script>
-
-const profile_input = document.getElementById('profile-input');
-const profile_form = document.getElementById('profile-form');
-
-profile_form.addEventListner("change", (event)=>{
-    profile_form.submit()
-});
-
-
-</script>
-
-{% endblock js %}
