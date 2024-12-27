@@ -11,14 +11,18 @@ for (let index = 0; index < logout.length; index++) {
 
 
 // for search_results
-const search_for = document.getElementsByName("search_for");
+const search_for = document.getElementById("search_for");
 const search_btn = document.getElementById("search_btn");
 const search_logo = document.getElementById("search_logo");
-if (search_for.value=="" || search_for.value==null) {
-    search_btn.disabled==true;
-    search_logo.classList.remove("search_logo_transform");
-    console.log("Hello")
-} else {
-    search_btn.disabled==false;
-    search_logo.classList.add("search_logo_transform");
+
+function disable_search() {
+  if (search_for.value=="" || search_for.value==null) {
+      search_btn.disabled = true;
+      search_logo.classList.remove("search_logo_transform");
+  } else {
+      search_btn.disabled = false;
+      search_logo.classList.add("search_logo_transform");
+  }
 }
+disable_search();
+search_for.addEventListener('input', disable_search);
