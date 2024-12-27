@@ -23,6 +23,9 @@ def post_ad(request):
         fm = BookForm(request.POST)
         book_image_fm = BookImageForm(request.POST, request.FILES)
         image_files = request.FILES.getlist("images")
+        # limiting image selection
+        if(len(image_files)>4):
+            book_image_fm.add_error("images", "You can upload a maximum of 4 images.")
         # setting city choices according to the state value
         try:
             state_val = request.POST.get("state", "")
