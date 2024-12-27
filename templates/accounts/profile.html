@@ -3,7 +3,7 @@
 {% block content %}
 
 {% include "sticky_messages_alert.html" %}
-<div class="container">
+<div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="mt-5">User Profile</h1>
     <div class="text-center">
         <img src="{{ user.photo.url }}" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">

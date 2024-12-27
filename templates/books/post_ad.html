@@ -4,7 +4,7 @@
 
 {% include "sticky_messages_alert.html" %}
 
-    <div class="container d-flex flex-column gap-5 justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="container d-flex flex-column gap-5 justify-content-center align-items-center min-vh-100">
         <h2>Post Ad</h2>
         <form class="needs-validation row" method="POST" novalidate enctype="multipart/form-data">
             {% csrf_token %}
