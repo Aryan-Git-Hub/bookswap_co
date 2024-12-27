@@ -106,9 +106,17 @@ def auth_logout(request):
 @login_required
 def profile(request):
     fm = UserProfileForm(instance=request.user)
+    user = CustomUser.objects.get(email=request.user.email)
     if request.method=="POST":
         fm = UserProfileForm(request.POST, request.FILES, instance=request.user)
         if fm.is_valid():
+            username = fm.cleaned_data["username"]
+            mobile = fm.cleaned_data["mobile"]
+            gender = fm.cleaned_data["gender"]
+            photo = fm.cleaned_data["photo"]
+            if((user.username==username) & (user.mobile==str(mobile)) & (user.gender==gender) & (user.photo==photo)):
+                messages.warning(request, "Your profile is already updated!")
+                return HttpResponseRedirect('/accounts/profile/')
             fm.save()
             messages.success(request, "Profile Updated!")
     return render(request, "accounts/profile.html", {"form":fm})
