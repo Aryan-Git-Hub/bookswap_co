@@ -5,9 +5,9 @@
             <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
         </a>
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
-            <form class="d-none col-9 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search">
-                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;">
-                <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo" id="search_logo">
+            <form class="d-none col-9 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
+                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;" name="search_for" value="{{search_for}}">
+                <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn"><img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform" id="search_logo"></button>
             </form>
 
             {% if request.user.is_authenticated %}

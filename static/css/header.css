@@ -36,7 +36,7 @@ form.forLargerDevices {
   cursor: pointer;
 }
 
-#search_logo:hover {
+.search_logo_transform:hover {
   transform: scale(1.2);
 }
 

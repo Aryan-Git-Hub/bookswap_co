@@ -3,6 +3,8 @@ from books.models import Book, ImageModel
 from books.forms import BookForm, BookImageForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+# for search_results()
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -62,3 +64,17 @@ def book_view(request, book_id):
     if(book==None):
         return HttpResponseRedirect("/")
     return render(request, "books/book_preview.html", {"book":book})
+
+
+def search_results(request):
+    query = request.GET.get("search_for")
+    bks = Book.objects.all()
+
+    if query:
+        bks = bks.filter(
+            Q(book_name__icontains=query) | Q(desc__icontains=query) | Q(category__icontains=query) | Q(author__icontains=query) | Q(publication__icontains=query)
+        )
+    else:
+        query = ""
+        bks = None
+    return render(request, "books/search_results.html", {"books":bks, "search_for":query})
