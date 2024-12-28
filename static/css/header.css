@@ -20,10 +20,13 @@
 
 .form_dropdown {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 86%;
+  width: 90%;
   height: 100%;
+}
+a.navbar-brand {
+  max-width: 5%;
 }
 
 form.forLargerDevices {
@@ -100,5 +103,34 @@ form.forLargerDevices {
     width: 100%;
     top: 6.5rem !important;
   }
+  .notificationIcon, .cartIcon {
+    height: 1.48rem;
+  }
+  .profile_pic {
+    width: 2.4rem
+  }
+  #logo {
+    height: 2.8rem;
+  }
+}
+
+i {
+  margin:0;
+  padding: 0;
+}
+.badge-custom {
+  position: absolute;
+  top: -1px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.25em 0.4em;
+  font-size: 0.75em;
+}
+.icon-container {
+  position: relative;
+  font-size: 1rem;
+  margin-right: 20px;
 }
 

@@ -6,21 +6,33 @@
         </a>
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
             <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
-                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;" name="search_for" value="{{search_for}}" id="search_for">
-                <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn"><img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform" id="search_logo"></button>
+                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for">
+                <span class="input-group-text bg-light border-0">
+                    <i class="fas fa-search"></i>
+                </span>
+                &nbsp;
+                <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn">
+                    {% comment %} <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform" id="search_logo"  style="position:relative; right: -10px; top:0"> {% endcomment %}
+                    {% comment %} <i class="fas fa-search" style="display:absolute; right: -10px; top:0"></i> {% endcomment %}
+                </button>
             </form>
 
             {% if request.user.is_authenticated %}
-            <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
-                <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">
+            <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
+                <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">    
+                {% comment %} <i class="fas fa-bell"></i> {% endcomment %}
+            <span class="badge badge-custom">3</span>
             </div>
-            <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
+            <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 <img class="notificationIcon" src="{% static "images/cart_icon.png" %}">
+                {% comment %} <i class="fas fa-shopping-cart"></i> {% endcomment %}
+                <span class="badge badge-custom">5</span> 
             </div>
-            <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
-                <a class="btn btn-info" href="{% url "post_ad" %}">SELL</a>
+            <div class="d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
+                <a class="btn btn-info btn-sm d-sm-none" href="{% url "post_ad" %}">SELL</a>
+                <a class="btn btn-info d-none d-sm-inline-block" href="{% url "post_ad" %}">SELL</a>
             </div>
-            <div class="dropdown col-1 d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
+            <div class="dropdown d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     {% if request.user.photo.url == "/media/default_user_photo.png" %}
                     <img class="profile_pic" src="https://api.multiavatar.com/{{request.user.username}}.svg" >
@@ -45,7 +57,9 @@
     </div>
     
     <form class="d-flex forSmallerDevices mt-1 col-11 d-lg-none" role="search">
-        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;">
-        <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo">
+        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for">
+                <span class="input-group-text bg-light border-0">
+                    <i class="fas fa-search"></i>
+                </span>
     </form>
 </nav>
