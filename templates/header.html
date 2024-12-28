@@ -6,31 +6,23 @@
         </a>
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
             <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
-<<<<<<< HEAD
-                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for">
-                <span class="input-group-text bg-light border-0">
-                    <i class="fas fa-search"></i>
-                </span>
-                &nbsp;
+                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for_1" value="{{search_for}}" id="search_for_1">
                 <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn">
-                    {% comment %} <img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform" id="search_logo"  style="position:relative; right: -10px; top:0"> {% endcomment %}
-                    {% comment %} <i class="fas fa-search" style="display:absolute; right: -10px; top:0"></i> {% endcomment %}
+                    <span class="input-group-text bg-light border-0">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </button>
-=======
-                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;" name="search_for" value="{{search_for}}" id="search_for_1">
-                <button type="submit" style="border: none; padding: 0; background: none;" class="search_btn"><img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform"></button>
->>>>>>> 2f6b4dbd84188b14eb9de19dc248d3f65f123d61
+                &nbsp;
+                
             </form>
 
             {% if request.user.is_authenticated %}
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
-                <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">    
-                {% comment %} <i class="fas fa-bell"></i> {% endcomment %}
+                <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">   
             <span class="badge badge-custom">3</span>
             </div>
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 <img class="notificationIcon" src="{% static "images/cart_icon.png" %}">
-                {% comment %} <i class="fas fa-shopping-cart"></i> {% endcomment %}
                 <span class="badge badge-custom">5</span> 
             </div>
             <div class="d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
@@ -62,9 +54,11 @@
     </div>
     
     <form class="d-flex forSmallerDevices mt-1 col-11 d-lg-none" role="search">
-        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for">
-                <span class="input-group-text bg-light border-0">
-                    <i class="fas fa-search"></i>
-                </span>
+        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for_2" value="{{search_for}}" id="search_for_2">
+        <button type="submit" style="border: none; padding: 0; background: none;" class="search_btn">
+            <span class="input-group-text bg-light border-0">
+                <i class="fas fa-search"></i>
+            </span>
+        </button>    
     </form>
 </nav>
