@@ -1,56 +1,125 @@
-{% extends "base.html" %} {% load static %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block css %}
 
 <style>
-  .thumbnail-images img {
-    cursor: pointer;
-    margin: 5px;
-    border: 2px solid transparent;
+.bookFields p {
+    margin-left: 1rem;
+}
+
+  strong {
+    font-weight: 600;
   }
-  .thumbnail-images img:hover,
-  .thumbnail-images img.active {
-    border-color: #007bff;
+
+   strong.bookFieldTitle {
+    font-weight: 610;
+    position: relative;
   }
+   strong.bookFieldTitle::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 2rem;  
+    height: 4px; 
+    background-color: #ff9900;  
+    transition: 0.5s;
+}
+
+strong.bookFieldTitle:hover::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;  
+    height: 4px; 
+    background-color: #ff9900;  
+}
+
+  .pageBox {
+    padding: 0.2rem 0;
+    text-align:center;
+    width: 10rem;
+    border: 2px solid #ff9900;
+    border-radius: 1rem;
+    background-color: rgba(255, 210, 90, 0.25);
+    color:rgb(255, 115, 0);
+    font-weight: 600;
+    cursor: default;
+  }
+
+{% comment %} a.add-to-cart {
+    color: rgb(255, 136, 0);
+    border-color: rgb(255, 136, 0);
+}
+a.buy-now {
+    color: white;
+    background-color:rgb(255, 136, 0);
+    border:0;
+} {% endcomment %}
+
 </style>
 
 {% endblock css %}
 
 {% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <!-- Carousel -->
+            <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel" style="position: relative;">
+                <div class="carousel-inner">
+                    {% for img in book.images.all %} 
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="/media/{{ img.image.name }}" class="d-block w-100" alt="Book Image" width="300" height="330">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: -20px; transform: translateY(-50%);">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%); background-color: rgba(0, 0, 0, 0.9); border-radius: 50%; padding: 10px;"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: -20px; transform: translateY(-50%);">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%); background-color: rgba(0, 0, 0, 0.9); border-radius: 50%; padding: 10px;"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
 
-<div class="container my-4 min-vh-100 d-flex justify-content-center">
-  <div class="row">
-    <!-- Book Image and Thumbnails -->
-    <div class="col-lg-4 text-center">
-      <!-- Main Image -->
-      <img id="mainImage" src="/media/{{book.images.all.0.image.name}}" alt="Book Cover" class="img-fluid rounded shadow mb-3" width="300" height="330"/>
+            <div class="mt-3 d-flex justify-content-center">
+                {% for img in book.images.all %}
+                    <img src="/media/{{img.image.name}}" class="img-thumbnail mx-1" alt="Thumbnail" style="width: 80px; height: 80px; cursor: pointer;"
+                        onclick="document.querySelector('#bookCarousel .carousel-item.active').classList.remove('active'); document.querySelector('#bookCarousel .carousel-inner .carousel-item:nth-child({{ forloop.counter }})').classList.add('active');">
+                {% endfor %}
+            </div>
+        </div>
 
-      <!-- Thumbnail Images -->
-      <div class="thumbnail-images d-flex justify-content-center">
-        {% for img in book.images.all %}
-        <img src="/media/{{img.image.name}}" alt="Thumbnail 1" class="img-fluid rounded shadow" onclick="changeImage(this)" width="100" height="110"/>
-        {% endfor %}
-      </div>
+        <div class="col-md-6 offset-lg-1 col-lg-7 bookFields">
+            <h3 class="display-5 ms-3">{{ book.book_name }}</h3>
+            <p><img src="/static/images/author.svg" class="d-inline me-2" alt="" width="36" height="33" style=""> By <strong>{{ book.author }}</strong></p>
+            <p><strong class="bookFieldTitle">Publication:</strong> {{ book.publication }}</p>
+            <p><strong class="bookFieldTitle">Edition:</strong> {{ book.edition }}</p>
+            <p><strong class="bookFieldTitle">Category:</strong> {{ book.category }}</p>
+            <p class="pageBox">
+                <img src="/static/images/pages.png" class="d-inline me-2" alt="" width="36" height="33">
+                {{ book.pages }} pages
+            </p>
+            <p>
+                <h4 class="pe-5" style="text-align:right;"><strong class="bookFieldTitle">Price:</strong></h4>
+                <p class="h3 text-success" style="text-align:right;">₹ {{book.price}}.00 </p>
+            </p>
+            <p class="text-muted fst-italic">{{ book.desc }}</p>
+
+            <div class="d-lg-flex">        
+                <a href="#" class="btn btn-success btn-md col-12 col-lg-6 w-sm-100 h-100 buy-now">
+                    <i class="fas fa-bolt"></i> Buy Now
+                </a>
+                <a href="#" class="btn btn-outline-success my-2 my-lg-0 ms-lg-2 btn-md col-12 col-lg-6 add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </a>
+            </div>
+        </div>
     </div>
-    <!-- Book Details -->
-    <div class="col-lg-8">
-      <h1 class="display-4">{{book.book_name}}</h1>
-      <p class="text-muted">by <strong>{{book.author}}</strong></p>
-      <p><strong>Edition:</strong> {{book.edition}}</p>
-      <p><strong>Description:</strong> {{book.desc}}</p>
-      <p><strong>Category:</strong> {{book.category}}</p>
-      <p><strong>Pages:</strong> {{book.pages}}</p>
-      <p><strong>Publication:</strong> {{book.publication}}</p>
-      <p class="mt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        blandit massa enim. Nullam id varius nunc id varius nunc.
-      </p>
-      <a href="#" class="btn btn-primary btn-lg mt-3">Buy Now</a>
-      <a href="#" class="btn btn-outline-secondary btn-lg mt-3"
-        >Read Sample</a
-      >
-    </div>
-  </div>
 </div>
 
 {% endblock content %}
