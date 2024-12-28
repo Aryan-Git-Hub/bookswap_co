@@ -20,7 +20,7 @@
             <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
                 <a class="btn btn-info" href="{% url "post_ad" %}">SELL</a>
             </div>
-            <div class="dropdown col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
+            <div class="dropdown col-1 d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     {% if request.user.photo.url == "/media/default_user_photo.png" %}
                     <img class="profile_pic" src="https://api.multiavatar.com/{{request.user.username}}.svg" >

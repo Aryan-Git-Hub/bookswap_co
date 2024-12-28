@@ -40,7 +40,7 @@ form.forLargerDevices {
   transform: scale(1.2);
 }
 
-.notificationIcon {
+.notificationIcon, .cartIcon {
   height: 1.8rem;
 }
 
@@ -69,12 +69,12 @@ form.forLargerDevices {
     top: 6.5rem !important;
   }
 }
-@media (max-width: 630px) {
+@media (max-width: 710px) {
   .form_dropdown {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
+    width: 60%;
     max-width: 80%;
     height: 100%;
   }
@@ -84,13 +84,16 @@ form.forLargerDevices {
     top: 6.5rem !important;
   }
 }
-@media (max-width: 330px) {
+@media (max-width: 390px) {
   .form_dropdown {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-width: 80%;
+    min-width: 88%;
     height: 100%;
+  }
+  a.navbar-brand {
+    max-width: 12%;
   }
   .alert {
     position: sticky !important;
