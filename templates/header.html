@@ -6,23 +6,23 @@
         </a>
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
             <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
-                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for_1" value="{{search_for}}" id="search_for_1">
-                <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn">
+                <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for_1">
+                <button type="submit" style="border: none; padding: 0; background: none;" class="search_btn">
                     <span class="input-group-text bg-light border-0">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search search_logo fa-lg"></i>
                     </span>
                 </button>
-                &nbsp;
-                
             </form>
 
             {% if request.user.is_authenticated %}
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
-                <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">   
+                {% comment %} <img class="notificationIcon" src="{% static "images/notification_icon.png" %}"> {% endcomment %}
+                <i class="fas fa-bell fa-lg icon_transform"></i>
             <span class="badge badge-custom">3</span>
             </div>
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
-                <img class="notificationIcon" src="{% static "images/cart_icon.png" %}">
+                {% comment %} <img class="notificationIcon" src="{% static "images/cart_icon.png" %}"> {% endcomment %}
+                <i class="fas fa-shopping-cart fa-lg icon_transform"></i>
                 <span class="badge badge-custom">5</span> 
             </div>
             <div class="d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
@@ -30,7 +30,7 @@
                 <a class="btn btn-info d-none d-sm-inline-block" href="{% url "post_ad" %}">SELL</a>
             </div>
             <div class="dropdown d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
-                <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="box-shadow: none;">
                     {% if request.user.photo.url == "/media/default_user_photo.png" %}
                     <img class="profile_pic" src="https://api.multiavatar.com/{{request.user.username}}.svg" >
                     {% else %}
@@ -54,11 +54,11 @@
     </div>
     
     <form class="d-flex forSmallerDevices mt-1 col-11 d-lg-none" role="search">
-        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for_2" value="{{search_for}}" id="search_for_2">
+        <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for_2">
         <button type="submit" style="border: none; padding: 0; background: none;" class="search_btn">
             <span class="input-group-text bg-light border-0">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-search search_logo fa-lg"></i>
             </span>
-        </button>    
+        </button>
     </form>
 </nav>

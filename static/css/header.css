@@ -34,12 +34,7 @@ form.forLargerDevices {
 }
 
 
-.search_logo {
-  height: 2rem;
-  cursor: pointer;
-}
-
-.search_logo_transform:hover {
+.icon_transform:hover {
   transform: scale(1.2);
 }
 

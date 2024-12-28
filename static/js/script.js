@@ -26,7 +26,7 @@ function disable_search() {
     }
       for (let i = 0; i < search_logo.length; i++) {
         const element = search_logo[i];
-        element.classList.remove("search_logo_transform");
+        element.classList.remove("icon_transform");
         element.title = "Please type something to Search...";
       }
   } else {
@@ -36,7 +36,7 @@ function disable_search() {
     }
       for (let i = 0; i < search_logo.length; i++) {
         const element = search_logo[i];
-        element.classList.add("search_logo_transform");
+        element.classList.add("icon_transform");
         element.removeAttribute("title");
       }
   }
