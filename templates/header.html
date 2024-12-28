@@ -5,7 +5,7 @@
             <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
         </a>
         <div class="form_dropdown d-flex m-0 p-0 gap-1">
-            <form class="d-none col-9 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
+            <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
                 <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem;" name="search_for" value="{{search_for}}" id="search_for">
                 <button type="submit" style="border: none; padding: 0; background: none;" id="search_btn"><img src="{% static "images/search_logo.png" %}" alt="" class="search_logo search_logo_transform" id="search_logo"></button>
             </form>
@@ -13,6 +13,9 @@
             {% if request.user.is_authenticated %}
             <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
                 <img class="notificationIcon" src="{% static "images/notification_icon.png" %}">
+            </div>
+            <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
+                <img class="notificationIcon" src="{% static "images/cart_icon.png" %}">
             </div>
             <div class="col-1 d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
                 <a class="btn btn-info" href="{% url "post_ad" %}">SELL</a>
