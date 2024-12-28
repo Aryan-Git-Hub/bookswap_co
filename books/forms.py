@@ -52,7 +52,7 @@ class BookForm(forms.ModelForm):
     edition = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     publication = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     category = forms.CharField(label='Category*', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    pages = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    pages = forms.IntegerField(min_value=0, label='Pages*', widget=forms.NumberInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
     state = forms.ChoiceField(label='State*', choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
     city = forms.ChoiceField(label='City*', choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))

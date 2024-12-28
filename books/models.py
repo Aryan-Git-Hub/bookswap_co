@@ -37,7 +37,7 @@ class Book(models.Model):
     edition = models.CharField(max_length=50, blank=True)
     publication = models.CharField(max_length=100, blank=True)
     category = models.CharField(max_length=50, blank=True)
-    pages = models.IntegerField(blank=True, null=True)
+    pages = models.IntegerField(blank=True)
     price = models.IntegerField(blank=True)
 
     def delete(self, *args, **kwargs):
