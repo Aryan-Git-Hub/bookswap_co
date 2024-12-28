@@ -1,0 +1,44 @@
+.bookFields p {
+  margin-left: 1rem;
+}
+
+strong {
+  font-weight: 600;
+}
+
+strong.bookFieldTitle {
+  font-weight: 610;
+  position: relative;
+}
+strong.bookFieldTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 2rem;
+  height: 4px;
+  background-color: #ff9900;
+  transition: 0.5s;
+}
+
+strong.bookFieldTitle:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #ff9900;
+}
+
+.pageBox {
+  padding: 0.2rem 0;
+  text-align: center;
+  width: 10rem;
+  border: 2px solid #ff9900;
+  border-radius: 1rem;
+  background-color: rgba(255, 210, 90, 0.25);
+  color: rgb(255, 115, 0);
+  font-weight: 600;
+  cursor: default;
+}
