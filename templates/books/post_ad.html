@@ -19,7 +19,7 @@
             {% endfor %}
             {{form.seller}}
             <div class="col-12 col-lg-4">
-                <label class="form-label">Images*</label>
+                <label class="form-label">Images<span style="color: red; font-weight:bolder;">*</span></label>
                 {{book_image_form.images}}
                 <div class="feedback" style="color: red">{{book_image_form.images.errors.as_text}}</div>
             </div>
