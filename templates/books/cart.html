@@ -1,13 +1,17 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "books/cart.css" %}">
+{% endblock css %}
+
 {% block content %}
 {% load math_filters %}
-
 <body>
     <div class="container my-5">
         <h1 class="text-center">Book Cart</h1>
         <div class="table-responsive">
             <table class="table table-bordered">
-                <thead class="table-dark">
+                <thead class="table-dark text-center">
                     <tr>
                         <th>Image</th>
                         <th>Title</th>
@@ -23,16 +27,26 @@
                             <img src="/media/{{book.images.all.0.image.name}}" class="img-thumbnail mx-1" alt="Thumbnail" style="height: 20vh; cursor: pointer;"/>
                         </td>
                         <td>{{book.book_name}}</td>
-                        <td>{{book.price}}</td>
-                        <td>{{qty}}</td>
-                        <td>{{book.price|multiply:qty}}</td>
+                        <td>{{book.price}}.00</td>
+                        <td class="d-flex align-items-center justify-content-center">
+                            <div class="d-flex align-items-center justify-content-center border rounded col-10">
+                                <button class="btn btn-light border-0 px-3" onclick="decreaseQuantity()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" id="" class="form-control text-center border-0 quantityInCart" value="{{qty}}" style="width: 50px;" readonly>
+                                <button class="btn btn-light border-0 pe-3" onclick="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="text-end pe-3">{{book.price|multiply:qty}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="4" class="text-end"><strong>Total:</strong></td>
-                        <td id="total-price" class="fw-bold">₹{{books|total_price}}</td>
+                        <td id="total-price" class="fw-bold text-end pe-3">₹ {{books|total_price}}</td>
                     </tr>
                 </tfoot>
             </table>
