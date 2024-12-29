@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+{% load math_filters %}
+
+<body>
+    <div class="container my-5">
+        <h1 class="text-center">Book Cart</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Price (₹)</th>
+                        <th>Quantity</th>
+                        <th>Subtotal (₹)</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    {% for book, qty in books.items %}
+                    <tr>
+                        <td class="text-center">
+                            <img src="/media/{{book.images.all.0.image.name}}" class="img-thumbnail mx-1" alt="Thumbnail" style="height: 20vh; cursor: pointer;"/>
+                        </td>
+                        <td>{{book.book_name}}</td>
+                        <td>{{book.price}}</td>
+                        <td>{{qty}}</td>
+                        <td>{{book.price|multiply:qty}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                        <td id="total-price" class="fw-bold">₹{{books|total_price}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

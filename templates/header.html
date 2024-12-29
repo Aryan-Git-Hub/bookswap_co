@@ -17,13 +17,17 @@
             {% if request.user.is_authenticated %}
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 {% comment %} <img class="notificationIcon" src="{% static "images/notification_icon.png" %}"> {% endcomment %}
-                <i class="fas fa-bell fa-lg icon_transform"></i>
+                <a href="#" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-bell fa-lg icon_transform"></i>
+                </a>
             <span class="badge badge-custom">3</span>
             </div>
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 {% comment %} <img class="notificationIcon" src="{% static "images/cart_icon.png" %}"> {% endcomment %}
-                <i class="fas fa-shopping-cart fa-lg icon_transform"></i>
-                <span class="badge badge-custom">5</span> 
+                <a href="{% url "cart" %}" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-shopping-cart fa-lg icon_transform"></i>
+                </a>
+                <span class="badge badge-custom">{{request.user.cart.cart_val}}</span> 
             </div>
             <div class="d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
                 <a class="btn btn-info btn-sm d-sm-none" href="{% url "post_ad" %}">SELL</a>

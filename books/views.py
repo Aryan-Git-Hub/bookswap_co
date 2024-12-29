@@ -59,10 +59,20 @@ def user_posted_ads(request):
     return render(request, "books/user_posted_ads.html", {"user_ads":user_ads})
 
 
-def book_view(request, book_id):
+def book_preview(request, book_id):
     book = Book.objects.filter(id=book_id).first()
     if(book==None):
         return HttpResponseRedirect("/")
+    user = request.user
+    if((request.method=="POST") & (user.is_authenticated)):
+        add_to_cart = request.POST.get("add_to_cart", None)
+        if(add_to_cart=="true"):
+            user.cart.cart_val += 1
+            if(user.cart.books.get(str(book_id))):
+                user.cart.books[str(book_id)] += 1
+            else:
+                user.cart.books[str(book_id)] = 1
+            user.cart.save()
     return render(request, "books/book_preview.html", {"book":book})
 
 
@@ -78,3 +88,12 @@ def search_results(request):
         query = ""
         bks = None
     return render(request, "books/search_results.html", {"books":bks, "search_for":query})
+
+
+@login_required
+def cart(request):
+    bks = request.user.cart.books
+    books = {}
+    for book_id, qty in bks.items():
+        books[Book.objects.get(id=int(book_id))] = qty
+    return render(request, "books/cart.html", {"books":books})

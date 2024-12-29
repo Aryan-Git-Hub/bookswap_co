@@ -57,3 +57,9 @@ class ImageModel(models.Model):
         if img.height > h or img.width > w:
             output_size = (w, h) # (width, height)
             resize_img(self.image.path, output_size)
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="cart")
+    books = models.JSONField(default=dict, blank=True)
+    cart_val = models.IntegerField(default=0, blank=True)

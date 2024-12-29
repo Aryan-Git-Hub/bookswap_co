@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 # to change dimentions of image
 from PIL import Image
+# creating user cart
 
 
 
@@ -45,6 +46,7 @@ class CustomUser(AbstractUser):
 
     # To saving image in a particular dimentions
     def save(self, *args, **kwargs):
+        # user photo saving
         try:
             self_user = CustomUser.objects.get(id=self.id)
             if self_user.photo.path!=base_path+'/media/default_user_photo.png' and self.photo!=self_user.photo:

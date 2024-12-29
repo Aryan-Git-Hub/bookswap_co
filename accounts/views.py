@@ -10,6 +10,8 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import send_mail
 import random
 from django.conf import settings
+# creating user cart
+from books.models import Cart
 
 # Send Email Function
 def sendEmail(to, subject, message):
@@ -66,6 +68,8 @@ def signup(request):
                 # return render(request, "accounts/verify.html", {'email': email, 'otp': otp})
                 fm.fields['password'] = make_password(confirm_password)
                 user = fm.save()
+                # creating user cart
+                Cart.objects.create(user=user)
                 user.password = make_password(confirm_password)
                 user.save()
                 login(request, user)
