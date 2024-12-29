@@ -1,13 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block css %}
+<style>
+      .edit-icon:hover {
+        {% comment %} transform: scale(1.15); {% endcomment %}
+      }
+      
+</style>
+{% endblock css %}
+
 {% block content %}
 
 {% include "sticky_messages_alert.html" %}
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-    <h1 class="mt-5">User Profile</h1>
+    <h1 class="mt-5">Your Profile</h1>
     <div class="text-center">
         {% if request.user.photo.url == "/media/default_user_photo.png" %}
-        <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
+        <div class="image-container mb-3">
+            <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;width:150px;height:150px;z-index:-1 !importtant">
+            <i class="fas fa-edit fa-lg edit-icon" onclick="document.getElementById('photo-input').click();" style="cursor: pointer"></i>
+        </div>
         {% else %}
         <img src="{{ user.photo.url }}" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
         {% endif %}
@@ -17,17 +30,41 @@
             {% csrf_token %}
             {% for field in form %}
                 {% if field.label != "Photo*" %}
-                    <div class="">
-                    <label class="form-label">{{field.label}}</label>
+                    <div class="mb-2">
+                    <label class="form-label" style="font-weight:600;">{{field.label}}</label>
                     {{field}}
                     <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
                     </div>
                 {% endif %}
             {% endfor %}
             <input type="file" id="photo-input" name="photo" style="display:none;" onchange="document.getElementById('profile-form').submit">
-            <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
+            <button type="submit" class="btn btn-primary mt-3" id="submitBtnForProfile" onclick="" style="display:none">Update Profile</button>
+            <button type="button" class="btn btn-primary mt-3" id="editBtnForProfile" onclick="enableInputs();">Edit Profile</button>
         </form>
     </div>
 </div>
+
+<script>
+for (i=2; i<=4; i++) {
+    document.getElementsByClassName("form-control")[i].setAttribute("disabled", true);
+}
+function enableInputs(val=true) {
+    if (val) {
+        for (i=2; i<=4; i++) {
+            document.getElementsByClassName("form-control")[i].removeAttribute("disabled");
+        }
+        document.getElementById("submitBtnForProfile").style.display = "block";
+        document.getElementById("editBtnForProfile").style.display = "none";
+    } else {
+        setTimeout(()=> {
+            for (i=2; i<=4; i++) {
+                document.getElementsByClassName("form-control")[i].setAttribute("disabled", true);
+            }
+        }, 1000)
+        document.getElementById("submitBtnForProfile").style.display = "none";
+        document.getElementById("editBtnForProfile").style.display = "block";
+    }
+}
+</script>
     
 {% endblock content %}
