@@ -1,59 +1,65 @@
-{% extends "base.html" %} {% load static %}
+{% extends "base.html" %}
+{% load static %}
+{% load math_filters %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static "css/cart.css" %}">
+{% endblock css %}
 
 {% block content %}
-{% load math_filters %}
-<body>
-    <div class="container my-5">
-        <h1 class="text-center">Book Cart</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>Price (₹)</th>
-                        {% comment %} <th>Quantity</th>
-                        <th>Subtotal (₹)</th> {% endcomment %}
-                    </tr>
-                </thead>
-                <tbody id="cart-items">
-                    {% csrf_token %}
-                    {% for book, qty in books.items %}
-                    <tr>
-                        <td class="text-center">
-                            <img src="/media/{{book.images.all.0.image.name}}" class="img-thumbnail mx-1" alt="Thumbnail" style="height: 20vh; cursor: pointer;"/>
-                        </td>
-                        <td>{{book.book_name}}</td>
-                        <td>{{book.price}}.00</td>
-                        <td class="text-center"><button class="btn btn-danger" onclick="deleteBook(this, {{book.id}})">Remove</button></td>
-                        {% comment %} <td class="d-flex align-items-center justify-content-center">
-                            <div class="d-flex align-items-center justify-content-center border rounded col-10">
-                                <button class="btn btn-light border-0 px-3" onclick="decreaseQuantity(this, {{book.id}}, {{qty}})">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="text" class="form-control text-center border-0 quantityInCart" value="{{qty}}" style="width: 50px;" readonly>
-                                <button class="btn btn-light border-0 pe-3" onclick="increaseQuantity(this, {{book.id}}, {{qty}})">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="text-end pe-3">{{book.price|multiply:qty}}</td> {% endcomment %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2" class="text-end"><strong>Total:</strong></td>
-                        <td class="fw-bold text-end pe-3">₹ <span id="total-price">{{books|total_price}}</span></td>
-                    </tr>
-                </tfoot>
-            </table>
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Your Cart</h2>
+    <div class="row">
+        <!-- Cart Items -->
+        <div class="col-12">
+            {% if books %}
+                {% for book, qty in books.items %}
+                <a class="d-block cart-details">
+                    <div class="row align-items-center">
+                        <!-- Book Image -->
+                        <div class="col-12 col-md-3 text-center">
+                            <img src="/media/{{ book.images.all.0.image.name }}" 
+                                 alt="{{ book.book_name }}" 
+                                 class="img-fluid rounded shadow-sm">
+                            <!-- Remove Button for Small Devices -->
+                            <button class="btn btn-sm btn-outline-danger mt-2 d-block d-md-none remove-btn col-6 col-md-4 offset-3 offset-md-4" onclick="deleteBook(this, {{book.id}})">
+                                <i class="fas fa-trash me-1"></i> Remove
+                            </button>
+                        </div>
+
+                        <!-- Book Details -->
+                        <div class="col-12 col-md-9">
+                            <p class="book-title highlight fs-4 mt-md-0 mt-2">{{ book.book_name }}</p>
+                            <p class="book-detail"><i class="fas fa-user cart-icon"></i>By <strong>{{ book.author }}</strong></p>
+                            <p class="book-detail"><i class="fas fa-building cart-icon"></i><strong>Publication:</strong> {{ book.publication }}</p>
+                            <span class="book-detail d-flex justify-content-end"><span class="text-black category-badge d-flex justify-content-center vertical-align-center col-5 col-md-3" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid #777; font-size: 0.82rem;color:#777"><i class="fas fa-tags cart-icon category-icon" style="color:#777;"></i> {{book.category}}</span></span> 
+                            <p class="price">₹ {{ book.price }}.00</p>
+                            <!-- Remove Button for Larger Devices -->
+                            <button class="btn btn-sm btn-outline-danger mt-2 d-none d-md-inline-block remove-btn col-6 col-md-4 offset-3 offset-md-4 col-lg-3 offset-lg-0" onclick="deleteBook(this, {{book.id}})">
+                                <i class="fas fa-trash me-1"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p class="empty-cart">Your cart is empty. Explore amazing books on <span class="highlight">Book Swap</span>!</p>
+            {% endif %}
         </div>
     </div>
-{% endblock content %}
 
+    {% if books %}
+    <div class="row mt-4">
+        <div class="col-12 text-end">
+            <h4 class="price">Total: ₹ {{ books|total_price }}</h4>
+            <button class="btn btn-primary btn-lg mt-3"> Place Order <i class="fas fa-shopping-bag ms-1"></i> </button>
+        </div>
+    </div>
+    {% endif %}
+</div>
 
 {% block js %}
 <script src="{% static "books/cart.js" %}"></script>
 {% endblock js %}
+
+{% endblock %}
