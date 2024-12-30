@@ -100,21 +100,36 @@ def cart(request):
         data_body = json.loads(request.body) # to convert string data into json object
         user_cart = request.user.cart
 
+        # to add qty
+        bk = Book.objects.get(id=data_body["book_id"])
+        total_price = float(data_body["total_price"])
+        qty = user_cart.books[str(data_body["book_id"])]
         if(data_body["inc_or_dec_or_rem"]=="increaseQuantity"):
             user_cart.books[str(data_body["book_id"])] += 1
-            res = user_cart.books[str(data_body["book_id"])]
+            total_price += bk.price
+            qty = user_cart.books[str(data_body["book_id"])]
             user_cart.cart_val += 1
             user_cart.save()
         
+        # to decrease qty
         elif(data_body["inc_or_dec_or_rem"]=="decreaseQuantity"):
             user_cart.books[str(data_body["book_id"])] -= 1
-            res = user_cart.books[str(data_body["book_id"])]
-            if(res<=0):
+            total_price -= bk.price
+            qty = user_cart.books[str(data_body["book_id"])]
+            if(qty<=0):
                 del user_cart.books[str(data_body["book_id"])]
-            if(res>=0): user_cart.cart_val -= 1
+            if(qty>=0): user_cart.cart_val -= 1
             user_cart.save()
         
-        return JsonResponse({"response":res})
+        # to delete book from cart
+        
+        elif(data_body["inc_or_dec_or_rem"]=="deleteBook"):
+            total_price -= bk.price*qty
+            user_cart.cart_val -= qty
+            del user_cart.books[str(data_body["book_id"])]
+            user_cart.save()
+            
+        return JsonResponse({"qty":qty, "total_price":total_price})
         
     bks = request.user.cart.books
     books = {}
