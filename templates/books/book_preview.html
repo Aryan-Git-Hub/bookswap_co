@@ -38,12 +38,11 @@
 
         <div class="col-md-6 offset-lg-1 col-lg-7 bookFields">
             <h3 class="display-5 ms-3">{{ book.book_name }}</h3>
-            <p><img src="/static/images/author.svg" class="d-inline me-2" alt="" width="36" height="33" style=""> By <strong>{{ book.author }}</strong></p>
+            <p> By <strong>{{ book.author }}</strong></p>
             <p><strong class="bookFieldTitle">Publication:</strong> {{ book.publication }}</p>
             <p><strong class="bookFieldTitle">Edition:</strong> {{ book.edition }}</p>
             <p><strong class="bookFieldTitle">Category:</strong> {{ book.category }}</p>
             <p class="pageBox">
-                <img src="/static/images/pages.png" class="d-inline me-2" alt="" width="36" height="33">
                 {{ book.pages }} pages
             </p>
                 <h4 class="pe-5"><strong class="bookFieldTitle">Price:</strong></h4>

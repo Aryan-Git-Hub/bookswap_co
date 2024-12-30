@@ -68,10 +68,12 @@ def book_preview(request, book_id):
         add_to_cart = request.POST.get("add_to_cart", None)
         if(add_to_cart=="true"):
             user.cart.cart_val += 1
-            if(user.cart.books.get(str(book_id))):
-                user.cart.books[str(book_id)] += 1
-            else:
-                user.cart.books[str(book_id)] = 1
+            user.cart.books[str(book_id)] = 1
+            # for increasing qty
+            # if(user.cart.books.get(str(book_id))):
+            #     user.cart.books[str(book_id)] += 1
+            # else:
+            #     user.cart.books[str(book_id)] = 1
             user.cart.save()
     return render(request, "books/book_preview.html", {"book":book})
 
@@ -92,6 +94,28 @@ def search_results(request):
 
 @login_required
 def cart(request):
+    if request.method=="POST":
+        import json
+        from django.http import JsonResponse
+        data_body = json.loads(request.body) # to convert string data into json object
+        user_cart = request.user.cart
+
+        if(data_body["inc_or_dec_or_rem"]=="increaseQuantity"):
+            user_cart.books[str(data_body["book_id"])] += 1
+            res = user_cart.books[str(data_body["book_id"])]
+            user_cart.cart_val += 1
+            user_cart.save()
+        
+        elif(data_body["inc_or_dec_or_rem"]=="decreaseQuantity"):
+            user_cart.books[str(data_body["book_id"])] -= 1
+            res = user_cart.books[str(data_body["book_id"])]
+            if(res<=0):
+                del user_cart.books[str(data_body["book_id"])]
+            if(res>=0): user_cart.cart_val -= 1
+            user_cart.save()
+        
+        return JsonResponse({"response":res})
+        
     bks = request.user.cart.books
     books = {}
     for book_id, qty in bks.items():

@@ -1,8 +1,5 @@
 {% extends "base.html" %} {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static "books/cart.css" %}">
-{% endblock css %}
 
 {% block content %}
 {% load math_filters %}
@@ -16,11 +13,12 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price (₹)</th>
-                        <th>Quantity</th>
-                        <th>Subtotal (₹)</th>
+                        {% comment %} <th>Quantity</th>
+                        <th>Subtotal (₹)</th> {% endcomment %}
                     </tr>
                 </thead>
                 <tbody id="cart-items">
+                    {% csrf_token %}
                     {% for book, qty in books.items %}
                     <tr>
                         <td class="text-center">
@@ -28,24 +26,24 @@
                         </td>
                         <td>{{book.book_name}}</td>
                         <td>{{book.price}}.00</td>
-                        <td class="d-flex align-items-center justify-content-center">
+                        {% comment %} <td class="d-flex align-items-center justify-content-center">
                             <div class="d-flex align-items-center justify-content-center border rounded col-10">
-                                <button class="btn btn-light border-0 px-3" onclick="decreaseQuantity()">
+                                <button class="btn btn-light border-0 px-3" onclick="decreaseQuantity(this, {{book.id}}, {{qty}})">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="text" id="" class="form-control text-center border-0 quantityInCart" value="{{qty}}" style="width: 50px;" readonly>
-                                <button class="btn btn-light border-0 pe-3" onclick="increaseQuantity()">
+                                <input type="text" class="form-control text-center border-0 quantityInCart" value="{{qty}}" style="width: 50px;" readonly>
+                                <button class="btn btn-light border-0 pe-3" onclick="increaseQuantity(this, {{book.id}}, {{qty}})">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </td>
-                        <td class="text-end pe-3">{{book.price|multiply:qty}}</td>
+                        <td class="text-end pe-3">{{book.price|multiply:qty}}</td> {% endcomment %}
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                        <td colspan="2" class="text-end"><strong>Total:</strong></td>
                         <td id="total-price" class="fw-bold text-end pe-3">₹ {{books|total_price}}</td>
                     </tr>
                 </tfoot>
@@ -53,3 +51,8 @@
         </div>
     </div>
 {% endblock content %}
+
+
+{% block js %}
+{% comment %} <script src="{% static "books/cart.js" %}"></script> {% endcomment %}
+{% endblock js %}
