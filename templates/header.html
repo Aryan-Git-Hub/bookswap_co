@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
         </a>
-        <div class="form_dropdown d-flex m-0 p-0 gap-1">
+        <div class="form_dropdown d-flex m-0 p-0 gap-1 justify-content-evenly">
             <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
                 <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for_1">
                 <button type="submit" class="search_btn" style="border: none; padding: 0; background: none;">

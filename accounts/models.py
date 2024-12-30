@@ -66,3 +66,5 @@ class CustomUser(AbstractUser):
         super().delete(*args, **kwargs)
         if self_user_photo_path!=base_path+'/media/default_user_photo.png':
             del_img(self_user_photo_path)
+
+    
