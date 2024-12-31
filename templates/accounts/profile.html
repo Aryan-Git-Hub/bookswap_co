@@ -1,14 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-<style>
-      .edit-icon:hover {
-        {% comment %} transform: scale(1.15); {% endcomment %}
-      }
-      
-</style>
-{% endblock css %}
 
 {% block content %}
 
@@ -29,7 +21,7 @@
         <form id="profile-form" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {% for field in form %}
-                {% if field.label != "Photo*" %}
+                {% if field.name != 'photo' %}
                     <div class="mb-2">
                     <label class="form-label" style="font-weight:600;">{{field.label}}</label>
                     {{field}}

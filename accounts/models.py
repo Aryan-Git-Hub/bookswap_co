@@ -67,4 +67,14 @@ class CustomUser(AbstractUser):
         if self_user_photo_path!=base_path+'/media/default_user_photo.png':
             del_img(self_user_photo_path)
 
-    
+
+
+class Address(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="addresses")
+    full_name = models.CharField(max_length=50)
+    pincode = models.IntegerField()
+    state = models.CharField(max_length=70)
+    city = models.CharField(max_length=70)
+    mobile = models.IntegerField()
+    full_address = models.CharField(max_length=200)
+    some_instructions = models.CharField(max_length=300, null=True, blank=True)

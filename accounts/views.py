@@ -3,8 +3,8 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import SignupForm, LoginForm, UserProfileForm
-from accounts.models import CustomUser
+from accounts.forms import SignupForm, LoginForm, UserProfileForm, AddressForm
+from accounts.models import CustomUser, Address
 from django.contrib.auth.hashers import make_password, check_password
 # for OTP
 from django.core.mail import send_mail
@@ -12,6 +12,7 @@ import random
 from django.conf import settings
 # creating user cart
 from books.models import Cart
+
 
 # Send Email Function
 def sendEmail(to, subject, message):
@@ -125,3 +126,9 @@ def profile(request):
             messages.success(request, "Profile Updated!")
     return render(request, "accounts/profile.html", {"form":fm})
 
+
+
+@login_required
+def user_saved_addresses(request):
+    addresses = Address.objects.filter(user=request.user)
+    return render(request, "accounts/user_saved_addresses.html", {"addresses":addresses})

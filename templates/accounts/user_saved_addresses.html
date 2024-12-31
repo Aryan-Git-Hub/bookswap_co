@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<style>
+.empty-addresses {
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+    margin-top: 50px;
+}
+.errorlist {
+    color: red;
+}
+</style>
+{% endblock css %}
+
+{% block content %}
+{% include "sticky_messages_alert.html" %}
+
+<div class="container my-4 min-vh-100">
+    {% if addresses %}
+    <h2 class="mb-5 text-center">Your Added Addresses</h2>
+    <div class="row" id="address-cards">
+        {% for address in addresses %}
+            <div class="col-md-4 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Address {{forloop.counter}}</h5>
+                        <p class="card-text">
+                            <strong>Full Name:</strong> {{address.full_name}} <br>
+                            <strong>Pincode:</strong> {{address.pincode}} <br>
+                            <strong>State:</strong> {{address.state}} <br>
+                            <strong>City:</strong> {{address.city}} <br>
+                            <strong>Mobile:</strong> {{address.mobile}}
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-sm" onclick="EditAddress({{address.id}}) ">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeAddress({{address.id}}) ">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-addresses">Your don't have any address yet!</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,5 +1,7 @@
 from django import forms
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Address
+# for passing label with html tags
+from django.utils.safestring import mark_safe
 
 class SignupForm(forms.ModelForm):
     username = forms.CharField(label='Name*', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -34,11 +36,77 @@ GENDER_CHOICES = [
     ['F', 'Female'],
     ['O', 'Other']
 ]
+
+asterisk_css = '<span style="color: red; font-weight:bolder;">*</span>'
 class UserProfileForm(forms.ModelForm):
-    username = forms.CharField(label='Your Name*', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    mobile = forms.IntegerField(min_value=1000000000, max_value=9999999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
-    gender = forms.ChoiceField(label='Gender*', choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
-    photo = forms.ImageField(label='Photo*', widget=forms.ClearableFileInput(attrs={'class': 'form-control'}), required=False)
+    username = forms.CharField(label=mark_safe('Your Name'+asterisk_css), max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    mobile = forms.IntegerField(label=mark_safe('Mobile'+asterisk_css), min_value=1000000000, max_value=9999999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    gender = forms.ChoiceField(label=mark_safe('Gender'+asterisk_css), choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    photo = forms.ImageField(label=mark_safe('Photo'+asterisk_css), widget=forms.ClearableFileInput(attrs={'class': 'form-control'}), required=False)
     class Meta:
         model = CustomUser
         fields = ['username', 'mobile', 'gender', 'photo']
+
+
+
+STATE_CHOICES = [
+  [None, "---Select State---"],
+  ["Andaman and Nicobar Islands", "Andaman and Nicobar Islands"],
+  ["Andhra Pradesh", "Andhra Pradesh"],
+  ["Arunachal Pradesh", "Arunachal Pradesh"],
+  ["Assam", "Assam"],
+  ["Bihar", "Bihar"],
+  ["Chandigarh", "Chandigarh"],
+  ["Chhattisgarh", "Chhattisgarh"],
+  ["Dadra and Nagar Haveli", "Dadra and Nagar Haveli"],
+  ["Daman and Diu", "Daman and Diu"],
+  ["Delhi", "Delhi"],
+  ["Goa", "Goa"],
+  ["Gujarat", "Gujarat"],
+  ["Haryana", "Haryana"],
+  ["Himachal Pradesh", "Himachal Pradesh"],
+  ["Jammu and Kashmir", "Jammu and Kashmir"],
+  ["Jharkhand", "Jharkhand"],
+  ["Karnataka", "Karnataka"],
+  ["Kerala", "Kerala"],
+  ["Ladakh", "Ladakh"],
+  ["Lakshadweep", "Lakshadweep"],
+  ["Madhya Pradesh", "Madhya Pradesh"],
+  ["Maharashtra", "Maharashtra"],
+  ["Manipur", "Manipur"],
+  ["Meghalaya", "Meghalaya"],
+  ["Mizoram", "Mizoram"],
+  ["Nagaland", "Nagaland"],
+  ["Narora", "Narora"],
+  ["Odisha", "Odisha"],
+  ["Pondicherry", "Pondicherry"],
+  ["Punjab", "Punjab"],
+  ["Rajasthan", "Rajasthan"],
+  ["Sikkim", "Sikkim"],
+  ["Tamil Nadu", "Tamil Nadu"],
+  ["Telangana", "Telangana"],
+  ["Tripura", "Tripura"],
+  ["Uttar Pradesh", "Uttar Pradesh"],
+  ["Uttarakhand", "Uttarakhand"],
+  ["West Bengal", "West Bengal"]
+]
+
+class AddressForm(forms.ModelForm):
+    user = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
+    pincode = forms.IntegerField(label=mark_safe("Pincode"+asterisk_css), min_value=100000, max_value=999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    mobile = forms.IntegerField(label=mark_safe("Mobile"+asterisk_css), min_value=1000000000, max_value=9999999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    state = forms.ChoiceField(label=mark_safe('State'+asterisk_css), choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
+    city = forms.ChoiceField(label=mark_safe('City'+asterisk_css), choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
+    class Meta:
+        model = Address
+        fields = ['user', 'full_name', 'mobile', 'pincode', 'state', 'city', 'full_address', 'some_instructions']
+        labels = {
+            "full_name": mark_safe("Full Name"+asterisk_css),
+            "full_address": mark_safe("Full Address"+asterisk_css),
+            "some_instructions": "Some Instructions",
+        }
+        widgets = {
+            "full_name": forms.TextInput(attrs={'class':'form-control'}),
+            "full_address": forms.Textarea(attrs={'class':'form-control'}),
+            "some_instructions": forms.Textarea(attrs={'class':'form-control'})
+        }
