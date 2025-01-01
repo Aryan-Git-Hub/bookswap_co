@@ -35,7 +35,7 @@
                         </p>
                         <div class="d-flex justify-content-between">
                             <a href="/accounts/address/{{address.id}}/" class="btn btn-primary btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm" onclick="removeAddress({{address.id}}) ">Remove</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteAddress({{address.id}}) ">Remove</button>
                         </div>
                     </div>
                 </div>
@@ -49,3 +49,17 @@
 </div>
 
 {% endblock content %}
+
+{% block js %}
+
+<script>
+// for deleteAddress()
+function deleteAddress(address_id) {
+      let rem_addr = confirm("Are you sure, You wanna remove this address?");
+      if (rem_addr === true) {
+        location.href = "/accounts/addresses/remove/" + address_id + "/";
+      }
+    }
+</script>
+
+{% endblock js %}

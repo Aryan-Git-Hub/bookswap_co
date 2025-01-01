@@ -135,12 +135,12 @@ def user_saved_addresses(request):
 
 
 @login_required
-def add_address(request, book_id = 0):
+def add_address(request, address_id = 0):
     add_or_edit = "Add"
     inst = None
-    if book_id:
+    if address_id:
         try:
-            inst = Address.objects.get(id=book_id)
+            inst = Address.objects.get(id=address_id)
         except:
             messages.error(request, "Please try again!")
             return HttpResponseRedirect('/accounts/addresses/')
@@ -167,3 +167,15 @@ def add_address(request, book_id = 0):
             messages.success(request, "Address Saved Successfully!")
             return HttpResponseRedirect('/accounts/addresses/')
     return render(request, "accounts/add_address.html", {"form":fm, "add_or_edit":add_or_edit})
+
+
+
+@login_required
+def delete_address(request, address_id):
+    try:
+        address = Address.objects.get(id=address_id)
+        address.delete()
+        messages.success(request, "Address Deleted Successfully!")
+    except:
+        messages.error(request, "Please try again!")
+    return HttpResponseRedirect('/accounts/addresses/')
