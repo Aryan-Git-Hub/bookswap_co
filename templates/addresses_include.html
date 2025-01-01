@@ -1,0 +1,30 @@
+<div class="row">
+  {% for address in addresses %}
+  <div class="col-md-4 col-sm-6 col-12 mb-4">
+    <label class="form-check-label" style="width: 100%;" for="id_selected_id_{{ forloop.counter }}">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Address {{ forloop.counter }}</h5>
+        <p class="card-text">
+          <strong>Full Name:</strong> {{ address.full_name }} <br />
+          <strong>Pincode:</strong> {{ address.pincode }} <br />
+          <strong>State:</strong> {{ address.state }} <br />
+          <strong>City:</strong> {{ address.city }} <br />
+          <strong>Mobile:</strong> {{ address.mobile }}
+        </p>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="selected_address_id"
+            id="id_selected_id_{{ forloop.counter }}"
+            value="{{ address.id }}"
+          />
+          </div>
+        </div>
+      </div>
+    </label>
+    </div>
+  {% endfor %}
+  <div class="feedback" style="color: red">{{form.errors.selected_address_id}}</div>
+</div>

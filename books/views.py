@@ -19,10 +19,18 @@ def checkout(request):
 
 @login_required
 def post_ad(request):
+    all_addresses = request.user.addresses.all()
+    if len(all_addresses)==0:
+        messages.error(request, "Please add an address first!")
+        return HttpResponseRedirect('/accounts/address/0/')
     fm = BookForm(initial={'seller': request.user})
+    ADDRESS_CHOICES = []
+    for address in all_addresses:
+        ADDRESS_CHOICES.append([address.id, address.id])
     book_image_fm = BookImageForm()
     if request.method=="POST":
         fm = BookForm(request.POST)
+        fm.fields["selected_address_id"].choices = ADDRESS_CHOICES
         book_image_fm = BookImageForm(request.POST, request.FILES)
         image_files = request.FILES.getlist("images")
         # limiting image selection
@@ -51,7 +59,7 @@ def post_ad(request):
                 ImageModel.objects.create(book=book, image=image)
             messages.success(request, "Your Ad is now Published!")
             return HttpResponseRedirect('/')
-    return render(request, "books/post_ad.html", {"form":fm, "book_image_form":book_image_fm})
+    return render(request, "books/post_ad.html", {"form":fm, "book_image_form":book_image_fm, "addresses":all_addresses})
 
 
 def user_posted_ads(request):

@@ -16,10 +16,10 @@
         <div class="card" style="width: 18rem;z-index:0 !important;">
             <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
             <div class="card-body">
-              <h5 class="card-title">{{book.book_name|truncatechars:48}} <br>
-                <span class="fw-normal fs-6">By {{book.author}}</span> 
+              <h5 class="card-title">{{book.book_name|truncatechars:20}} <br>
+                <span class="fw-normal fs-6">By {{book.author|truncatechars:20}}</span>
               </h5>
-              
+
               <p class="card-text">
                 <span class=" d-flex justify-content-end"><span class="text-black category-badge" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid black; font-size: 0.75rem;">{{book.category}}</span></span> 
                 <span class="price-space-in-card"><span class="fw-bold" style="">Price:</span> ₹ {{book.price}}.00 </span>

@@ -9,4 +9,4 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Address)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['user']
+    list_display = ['id', 'user']

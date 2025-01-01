@@ -29,8 +29,6 @@ def del_img(file_path):
 # Create your models here.
 class Book(models.Model):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='book')
-    state = models.CharField(max_length=70)
-    city = models.CharField(max_length=70)
     book_name = models.CharField(max_length=100, blank=True)
     author = models.CharField(max_length=100, blank=True)
     desc = models.CharField(max_length=300, blank=True)
@@ -39,6 +37,7 @@ class Book(models.Model):
     category = models.CharField(max_length=50, blank=True)
     pages = models.IntegerField(blank=True)
     price = models.IntegerField(blank=True)
+    selected_address_id = models.IntegerField()
 
     def delete(self, *args, **kwargs):
         for img in self.images.all():

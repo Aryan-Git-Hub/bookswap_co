@@ -4,50 +4,9 @@ from accounts.models import CustomUser
 # for passing label with html tags
 from django.utils.safestring import mark_safe
 
-STATE_CHOICES = [
-  [None, "---Select State---"],
-  ["Andaman and Nicobar Islands", "Andaman and Nicobar Islands"],
-  ["Andhra Pradesh", "Andhra Pradesh"],
-  ["Arunachal Pradesh", "Arunachal Pradesh"],
-  ["Assam", "Assam"],
-  ["Bihar", "Bihar"],
-  ["Chandigarh", "Chandigarh"],
-  ["Chhattisgarh", "Chhattisgarh"],
-  ["Dadra and Nagar Haveli", "Dadra and Nagar Haveli"],
-  ["Daman and Diu", "Daman and Diu"],
-  ["Delhi", "Delhi"],
-  ["Goa", "Goa"],
-  ["Gujarat", "Gujarat"],
-  ["Haryana", "Haryana"],
-  ["Himachal Pradesh", "Himachal Pradesh"],
-  ["Jammu and Kashmir", "Jammu and Kashmir"],
-  ["Jharkhand", "Jharkhand"],
-  ["Karnataka", "Karnataka"],
-  ["Kerala", "Kerala"],
-  ["Ladakh", "Ladakh"],
-  ["Lakshadweep", "Lakshadweep"],
-  ["Madhya Pradesh", "Madhya Pradesh"],
-  ["Maharashtra", "Maharashtra"],
-  ["Manipur", "Manipur"],
-  ["Meghalaya", "Meghalaya"],
-  ["Mizoram", "Mizoram"],
-  ["Nagaland", "Nagaland"],
-  ["Narora", "Narora"],
-  ["Odisha", "Odisha"],
-  ["Pondicherry", "Pondicherry"],
-  ["Punjab", "Punjab"],
-  ["Rajasthan", "Rajasthan"],
-  ["Sikkim", "Sikkim"],
-  ["Tamil Nadu", "Tamil Nadu"],
-  ["Telangana", "Telangana"],
-  ["Tripura", "Tripura"],
-  ["Uttar Pradesh", "Uttar Pradesh"],
-  ["Uttarakhand", "Uttarakhand"],
-  ["West Bengal", "West Bengal"]
-]
 
 CATEGORY_CHOICES = (
-   (None, "---Select State---"),
+   (None, "---Select Category---"),
    ("B.Tech.", "B.Tech."),
    ("M.Tech.", "M.Tech."),
    ("MBBS", "MBBS"),
@@ -69,13 +28,12 @@ class BookForm(forms.ModelForm):
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, label=mark_safe('Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control'}))
     pages = forms.IntegerField(label=mark_safe('Pages'+asterisk_css), min_value=0, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
-    state = forms.ChoiceField(label=mark_safe('State'+asterisk_css), choices=STATE_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'id':'state_id'}))
-    city = forms.ChoiceField(label=mark_safe('City'+asterisk_css), choices=[], widget=forms.Select(attrs={'class': 'form-control', 'id':'city_id'}))
+    selected_address_id = forms.ChoiceField(widget=forms.RadioSelect)
     price = forms.IntegerField(label=mark_safe('Price'+asterisk_css), min_value=10, widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Book
-        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'seller', 'state', 'city', 'price']
+        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'seller', 'price', 'selected_address_id']
 
 
 class BookImageForm(forms.ModelForm):
