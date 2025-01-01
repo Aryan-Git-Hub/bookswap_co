@@ -139,7 +139,11 @@ def add_address(request, book_id = 0):
     add_or_edit = "Add"
     inst = None
     if book_id:
-        inst = Address.objects.get(id=book_id)
+        try:
+            inst = Address.objects.get(id=book_id)
+        except:
+            messages.error(request, "Please try again!")
+            return HttpResponseRedirect('/accounts/addresses/')
         add_or_edit = "Edit"
     fm = AddressForm(initial={"user":request.user}, instance=inst)
 
