@@ -34,13 +34,14 @@
                             <strong>Mobile:</strong> {{address.mobile}}
                         </p>
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary btn-sm" onclick="EditAddress({{address.id}}) ">Edit</button>
+                            <a href="/accounts/address/{{address.id}}/" class="btn btn-primary btn-sm">Edit</a>
                             <button class="btn btn-danger btn-sm" onclick="removeAddress({{address.id}}) ">Remove</button>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+            <a href="/accounts/address/0/"><button class="btn btn-primary">Add new address</button></a>
     </div>
     {% else %}
     <p class="empty-addresses">Your don't have any address yet!</p>

@@ -132,3 +132,34 @@ def profile(request):
 def user_saved_addresses(request):
     addresses = Address.objects.filter(user=request.user)
     return render(request, "accounts/user_saved_addresses.html", {"addresses":addresses})
+
+
+@login_required
+def add_address(request, book_id = 0):
+    add_or_edit = "Add"
+    inst = None
+    if book_id:
+        inst = Address.objects.get(id=book_id)
+        add_or_edit = "Edit"
+    fm = AddressForm(initial={"user":request.user}, instance=inst)
+
+    if request.method=="POST":
+        fm = AddressForm(request.POST, instance=inst)
+        # setting city choices according to the state value
+        try:
+            state_val = request.POST.get("state", "")
+            if state_val!="":
+                import json
+                with open("static/JSON/state_cities.json", "r") as f:
+                    data = json.load(f)
+                    for i in data:
+                        if i["state"]==state_val:
+                            fm.fields["city"].choices = i["cities"]
+                            break;
+        except:
+            messages.error(request, "Please try again!")
+        if fm.is_valid():
+            fm.save()
+            messages.success(request, "Address Saved Successfully!")
+            return HttpResponseRedirect('/accounts/addresses/')
+    return render(request, "accounts/add_address.html", {"form":fm, "add_or_edit":add_or_edit})
