@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% load static %} 
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static "books/book_index.css" %}">
@@ -16,8 +18,8 @@
         <div class="card" style="width: 18rem;z-index:0 !important;">
             <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
             <div class="card-body">
-              <h5 class="card-title">{{book.book_name|truncatechars:20}} <br>
-                <span class="fw-normal fs-6">By {{book.author|truncatechars:20}}</span>
+              <h5 class="card-title">{{book.book_name|truncatechars:15}} <br>
+                <span class="fw-normal fs-6">By {{book.author|truncatechars:18}}</span>
               </h5>
 
               <p class="card-text">
@@ -25,8 +27,12 @@
                 <span class="price-space-in-card"><span class="fw-bold" style="">Price:</span> ₹ {{book.price}}.00 </span>
               </p>
               <div class="d-flex">
-                <a href="/book-view/{{book.id}}" class="btn btn-outline-primary col-6">Add to <i class="fa fa-shopping-cart"></i></a>
-                <a href="/book-view/{{book.id}}" class="btn btn-primary col-6 ms-1">Details <i class="fa fa-chevron-right ms-1"></i></a>
+                {% if request.user.cart.books|book_in_cart:book.id %}
+                <a href="{% url "cart" %}" class="btn btn-primary col-6">Go to <i class="fa fa-shopping-cart"></i></a>
+                {% else %}
+                <a href="{% url "add_to_cart" book.id %}" class="btn btn-outline-primary col-6">Add to <i class="fa fa-shopping-cart"></i></a>
+                {% endif %}
+                <a href="/book-view/{{book.id}}" class="btn theme-btn-deep col-6 ms-1">Details <i class="fa fa-chevron-right ms-1"></i></a>
               </div>
             </div>
           </div>

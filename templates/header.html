@@ -41,7 +41,7 @@
                     <img class="profile_pic" src="/media/{{request.user.photo.name}}" >
                     {% endif %}
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end z-1">
+                <ul class="dropdown-menu dropdown-menu-end" style="z-index: 10000;">
                     <li><a class="dropdown-item" href="{% url "profile" %}">Your Profile</a></li>
                     <li><a class="dropdown-item" href="{% url "user_posted_ads" %}">Your Ads</a></li>
                     <li><a class="dropdown-item" href="{% url "user_saved_addresses" %}">Your Addresses</a></li>

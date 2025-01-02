@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static "books/book_preview.css" %}">
 {% endblock css %}
 
 {% block content %}
+{% include "sticky_messages_alert.html" %}
+
 <div class="container my-5 min-vh-100">
     <div class="row">
         <div class="col-md-6 col-lg-4">
@@ -51,16 +54,18 @@
             <p class="text-muted fst-italic">{{ book.desc }}</p>
 
             <div class="d-lg-flex">        
-                <a href="#" class="btn btn-success btn-md col-12 col-lg-6 w-sm-100 h-100 buy-now">
+                <a href="#" class="btn theme-btn-dark btn-md col-12 col-lg-6 w-sm-100 h-100 buy-now">
                     <i class="fas fa-bolt"></i> Buy Now
                 </a>
-                <form method="POST" style="display:contents;">
-                    {% csrf_token %}
-                    <input type="hidden" name="add_to_cart" value="true">
-                    <button type="submit" class="btn btn-outline-success my-2 my-lg-0 ms-lg-2 btn-md col-12 col-lg-6 add-to-cart">
-                        <i class="fas fa-shopping-cart"></i> Add to Cart
-                    </button >
-                </form>
+                {% if request.user.cart.books|book_in_cart:book.id %}
+                <a href="{% url "cart" %}" class="btn btn-primary my-2 my-lg-0 ms-lg-2 btn-md col-12 col-lg-6 add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Go to Cart
+                </a>
+                {% else %}
+                <a href="{% url "add_to_cart" book.id %}" class="btn btn-outline-primary my-2 my-lg-0 ms-lg-2 btn-md col-12 col-lg-6 add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>

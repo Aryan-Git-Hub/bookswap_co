@@ -90,22 +90,27 @@ def user_posted_ads(request):
 
 def book_preview(request, book_id):
     book = Book.objects.filter(id=book_id).first()
-    if(book==None):
-        return HttpResponseRedirect("/")
-    user = request.user
-    if((request.method=="POST") & (user.is_authenticated)):
-        add_to_cart = request.POST.get("add_to_cart", None)
-        if(add_to_cart=="true"):
-            user.cart.cart_val += 1
-            user.cart.books[str(book_id)] = 1
-            # for increasing qty
-            # if(user.cart.books.get(str(book_id))):
-            #     user.cart.books[str(book_id)] += 1
-            # else:
-            #     user.cart.books[str(book_id)] = 1
-            user.cart.save()
     return render(request, "books/book_preview.html", {"book":book})
 
+
+@login_required
+def add_to_cart(request, book_id):
+    user = request.user
+    previous_url = request.META.get('HTTP_REFERER', '/')
+    if not user.cart.books.get(str(book_id), None):
+        print("hello")
+        user.cart.cart_val += 1
+        user.cart.books[str(book_id)] = 1
+        # for increasing qty
+        # if(user.cart.books.get(str(book_id))):
+        #     user.cart.books[str(book_id)] += 1
+        # else:
+        #     user.cart.books[str(book_id)] = 1
+        user.cart.save()
+        messages.success(request, "Book added to cart!")
+    else:
+        messages.warning(request, "Book already added in cart!")
+    return HttpResponseRedirect(previous_url)
 
 def search_results(request):
     query = request.GET.get("search_for")
@@ -129,35 +134,32 @@ def cart(request):
         data_body = json.loads(request.body) # to convert string data into json object
         user_cart = request.user.cart
 
-        # to add qty
+        
         bk = Book.objects.get(id=data_body["book_id"])
         total_price = float(data_body["total_price"])
         qty = user_cart.books[str(data_body["book_id"])]
-        if(data_body["inc_or_dec_or_rem"]=="increaseQuantity"):
-            user_cart.books[str(data_body["book_id"])] += 1
-            total_price += bk.price
-            qty = user_cart.books[str(data_body["book_id"])]
-            user_cart.cart_val += 1
-            user_cart.save()
-        
-        # to decrease qty
-        elif(data_body["inc_or_dec_or_rem"]=="decreaseQuantity"):
-            user_cart.books[str(data_body["book_id"])] -= 1
-            total_price -= bk.price
-            qty = user_cart.books[str(data_body["book_id"])]
-            if(qty<=0):
-                del user_cart.books[str(data_body["book_id"])]
-            if(qty>=0): user_cart.cart_val -= 1
-            user_cart.save()
-        
-        # to delete book from cart
-        
-        elif(data_body["inc_or_dec_or_rem"]=="deleteBook"):
+        # to delete book from cart        
+        if(data_body["inc_or_dec_or_rem"]=="deleteBook"):
             total_price -= bk.price*qty
             user_cart.cart_val -= qty
             del user_cart.books[str(data_body["book_id"])]
             user_cart.save()
-            
+        # to add qty
+        # elif(data_body["inc_or_dec_or_rem"]=="increaseQuantity"):
+        #     user_cart.books[str(data_body["book_id"])] += 1
+        #     total_price += bk.price
+        #     qty = user_cart.books[str(data_body["book_id"])]
+        #     user_cart.cart_val += 1
+        #     user_cart.save()
+        # to decrease qty
+        # elif(data_body["inc_or_dec_or_rem"]=="decreaseQuantity"):
+        #     user_cart.books[str(data_body["book_id"])] -= 1
+        #     total_price -= bk.price
+        #     qty = user_cart.books[str(data_body["book_id"])]
+        #     if(qty<=0):
+        #         del user_cart.books[str(data_body["book_id"])]
+        #     if(qty>=0): user_cart.cart_val -= 1
+        #     user_cart.save()
         return JsonResponse({"qty":qty, "total_price":total_price})
         
     bks = request.user.cart.books
