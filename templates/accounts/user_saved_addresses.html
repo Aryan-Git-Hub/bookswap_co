@@ -6,8 +6,8 @@
 {% endblock css %}
 
 {% block content %}
+{% include "sticky_messages_alert.html" %}
 <div class="container my-4 min-vh-100">
-    {% include "sticky_messages_alert.html" %}
 
     {% if addresses %}
     <h2 class="mb-5 text-center text-primary">Your Added Addresses</h2>

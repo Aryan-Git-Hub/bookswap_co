@@ -67,6 +67,7 @@ def user_posted_ads(request):
         fm = BookAdEditForm(request.POST)
         if fm.is_valid():
             bk = Book.objects.get(id=request.session["book_id"])
+            del request.session["book_id"]
             data_changes = fm.cleaned_data
             if bk.book_name==data_changes["book_name"] and bk.author==data_changes["author"] and bk.desc==data_changes["desc"] and bk.edition==data_changes["edition"] and bk.publication==data_changes["publication"] and bk.category==data_changes["category"] and bk.pages==data_changes["pages"] and bk.price==data_changes["price"]:
                 messages.warning(request, "No changes made!")
@@ -80,7 +81,6 @@ def user_posted_ads(request):
             bk.pages = data_changes["pages"]
             bk.price = data_changes["price"]
             bk.save()
-            del request.session["book_id"]
             messages.success(request, "Ad Updated Successfully!")
             return JsonResponse({"success":True})
         return JsonResponse({"success":False, "form":fm.as_div()})
