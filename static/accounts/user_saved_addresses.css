@@ -1,0 +1,73 @@
+strong {
+    font-weight: 600;
+}
+p {
+    margin: 4px 0;
+}
+a {
+    text-decoration: none;
+}
+
+.card:hover span.category-badge {
+    border: 1px solid #0d6efd !important;
+    background-color: #0d6efd;
+    color: white !important;
+    font-weight: 600;
+    transition: .4s;
+}
+
+.card:has(:hover > .remove-btn:hover) {
+    background-color:rgba(240, 251, 255, 0.85);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 1px 12px rgba(255, 0, 0, 0.36);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.address-card {
+    height: 17.2rem;
+    max-height: 18rem;
+    display: flex;
+}
+.address-card a div {
+    height: 11.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.address-card a div i {
+    font-size: 3.75rem;
+    padding: 0.15rem;
+    border: 1px dashed dodgerblue;
+    border-radius: 50%;
+}
+.address-card a div i:hover {
+    font-size: 4.25rem;
+    padding: 1.2rem;
+    transition: 0.5s;
+}
+
+.empty-addresses {
+font-size: 1.2rem;
+color: #777;
+text-align: center;
+margin-top: 50px;
+}
+.errorlist {
+color: red;
+}
+.card {
+background-color: #f0f8ff;
+border: none;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.card-title {
+color: rgba(0, 0, 197, 0.767);
+font-weight: bold;
+}
