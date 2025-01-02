@@ -1,30 +1,76 @@
-<div class="row">
-  {% for address in addresses %}
-  <div class="col-md-4 col-sm-6 col-12 mb-4">
-    <label class="form-check-label" style="width: 100%;" for="id_selected_id_{{ forloop.counter }}">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Address {{ forloop.counter }}</h5>
-        <p class="card-text">
-          <strong>Full Name:</strong> {{ address.full_name }} <br />
-          <strong>Pincode:</strong> {{ address.pincode }} <br />
-          <strong>State:</strong> {{ address.state }} <br />
-          <strong>City:</strong> {{ address.city }} <br />
-          <strong>Mobile:</strong> {{ address.mobile }}
-        </p>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="selected_address_id"
-            id="id_selected_id_{{ forloop.counter }}"
-            value="{{ address.id }}"
-          />
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "accounts/user_saved_addresses.css" %}">
+{% endblock css %}
+
+<div class="container mb-4">
+  {% include "sticky_messages_alert.html" %}
+
+  {% if addresses %}
+  <h2 class="mb-5 text-center">Choose Address</h2>
+  <div class="row" id="address-cards">
+      {% for address in addresses %}
+      <div class="col-md-4 col-sm-6 col-12 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="card-title">
+                          <i class="fas fa-map-marker-alt"></i> Address {{ forloop.counter }}
+                      </h5>
+                      <input
+                          class="form-check-input"
+                          type="radio"
+                          name="selected_address_id"
+                          id="id_selected_id_{{ forloop.counter }}"
+                          value="{{ address.id }}"
+                      />
+                  </div>
+                  <hr class="my-2" />
+                  <p class="card-text">
+                      <p class="mb-2"><i class="fas fa-user userIcon orange-2"></i> <strong>{{ address.full_name }}</strong></p> 
+                      <p><span class="">{{address.full_address|truncatechars:28}}</span></p>
+                      <p><!--i class="fas fa-city text-primary"></i--> {{ address.city }}, {{address.state}}  </p> 
+                      <p class=" d-flex justify-content-end"> <span class="text-black category-badge" title="pin code" style="padding: 0.2rem 0.5rem;  border: 1px solid #000; border-radius:1rem; font-size: 0.8rem;"><i class="fas fa-envelope me-1"></i> {{address.pincode}}</span> </p>
+                      <p class="mt-2"><i class="fas fa-phone phoneIcon ornage-2"></i> <strong> {{ address.mobile }}</strong></p>
+                  </p>
+                  <div class="d-flex justify-content-between pt-1">
+                      <a href="/accounts/address/{{ address.id }}/" class="btn theme-btn-deep btn-sm col-6 me-1">
+                          <i class="fas fa-edit"></i> Edit
+                      </a>
+                      <button class="btn btn-outline-danger btn-sm col-6 remove-btn" onclick="deleteAddress({{ address.id }})">
+                          <i class="fas fa-trash-alt"></i> Remove
+                      </button>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </label>
-    </div>
-  {% endfor %}
-  <div class="feedback" style="color: red">{{form.errors.selected_address_id}}</div>
+      {% endfor %}
+  
+  {% else %}
+  <p class="empty-addresses">You don't have any addresses yet!</p>
+  {% endif %}
+
+      <div class="col-md-4 col-sm-6 col-12 mb-0 card address-card mx-2">
+          <h5 class="text-center pt-3" class="card-title">Add New Address</h5>
+          <hr class="my-2" />
+          <a href="/accounts/address/0/" class="">
+              <div>
+                  <i class="fas fa-plus-circle add-icon"></i>
+              </div>
+          </a>
+      </div>
+  </div>
+
+</div> 
+
 </div>
+
+<script>
+function deleteAddress(address_id) {
+  let confirmation = confirm("Are you sure you want to remove this address?");
+  if (confirmation) {
+      location.href = "/accounts/addresses/remove/" + address_id + "/";
+  }
+}
+</script>

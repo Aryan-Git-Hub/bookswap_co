@@ -8,9 +8,12 @@ a {
     text-decoration: none;
 }
 
+.text-orange {
+    color:rgb(255, 123, 0)
+}
 .card:hover span.category-badge {
-    border: 1px solid #0d6efd !important;
-    background-color: #0d6efd;
+    border: 1px solid #fd950d !important;
+    background-color: #fd950d;
     color: white !important;
     font-weight: 600;
     transition: .4s;
@@ -38,8 +41,9 @@ a {
 .address-card a div i {
     font-size: 3.75rem;
     padding: 0.15rem;
-    border: 1px dashed dodgerblue;
+    border: 1px dashed var(--orange-2);
     border-radius: 50%;
+    transition: 0.5s
 }
 .address-card a div i:hover {
     font-size: 4.25rem;
@@ -57,7 +61,7 @@ margin-top: 50px;
 color: red;
 }
 .card {
-background-color: #f0f8ff;
+background-color: #fff9f0;
 border: none;
 border-radius: 10px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -68,6 +72,26 @@ transform: translateY(-5px);
 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 .card-title {
-color: rgba(0, 0, 197, 0.767);
+color: var(--orange-3);
 font-weight: bold;
 }
+i.userIcon, i.phoneIcon {
+    color: var(--orange-2)
+}
+.address-card h5 {
+    color: var(--orange-3);
+    font-weight: 650;
+}
+.address-card i {
+    color: var(--orange-3)
+}
+/* .btn-primary {
+    background-color: #fd790d;
+    color: white;
+    border:0;
+}
+.btn-primary:hover {
+    background-color: #eb5e00;
+    color: white;
+    border:0;
+} */
