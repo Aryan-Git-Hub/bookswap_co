@@ -1,15 +1,15 @@
 <!-- Sticky Alert -->
 {% for message in messages %}
 {% if message.tags == "success" %}
-<div class="alert alert-success alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:9;">
+<div class="alert alert-success alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
   <strong>Success!</strong> {{message}}
   {% elif message.tags == "warning" %}
-  <div class="alert alert-warning alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:9;">
+  <div class="alert alert-warning alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
     <strong>Warning!</strong> {{message}}
   {% elif message.tags == "error" %}
-  <div class="alert alert-danger alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:9;">
+  <div class="alert alert-danger alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
     <strong>{{message}}</strong>
   {% endif %}
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-{% endfor %}
+{% endfor %} 

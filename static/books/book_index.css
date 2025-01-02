@@ -1,20 +1,27 @@
-.card:hover {
-    transform: scale(1.02);
-    transition: .2s;
-    box-shadow: 0 0 1.2rem rgba(60, 60, 60, 0.2)
-  }
-
-  .card:hover .card-body .category-badge {
-      color: #fafafa !important;
-    background-color: #555;
-    border:0 !important;
-    font-weight: 700;
-  }
-
-  .price-space-in-card {
-    font-size: 1.2rem;;
-  }
-
-  .errorlist {
-    color: red;
+.card {
+  width: 18rem;
+  z-index: 0 !important;
 }
+
+.card:hover {
+  transform: scale(1.02);
+  transition: .2s;
+  box-shadow: 0 0 1.2rem rgba(60, 60, 60, 0.2)
+}
+
+.card:hover .card-body .category-badge {
+  color: #fafafa !important;
+  background-color: var(--dark-orange-1);
+  border: 0 !important;
+  font-weight: 700;
+}
+
+.price-space-in-card {
+  font-size: 1.2rem;
+  ;
+}
+
+.errorlist {
+  color: red;
+}
+

@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--dark-orange-2);
 }
 
 #logo {
@@ -49,6 +50,23 @@ form.forLargerDevices {
 .profile_pic {
   width: 3rem;
   object-fit: cover;
+}
+
+@media (max-width: 1440px) {
+  .form_dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+    min-width: 20%;
+    height: 100%;
+  }
+  .alert {
+    position: sticky !important;
+    width: 100%;
+    top: 6.5rem !important;
+    color: pink;
+  }
 }
 
 

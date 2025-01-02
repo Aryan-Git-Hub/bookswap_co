@@ -38,24 +38,46 @@
 }
 
 /* Botton classes */
-.theme-btn {
+.theme-btn, .btn-theme {
     background-color: var(--orange-3);
     color: white;
 }
-.theme-btn-deep {
+.btn-outline-theme {
+    color: var(--orange-3);
+    border: 1px solid var(--orange-3)
+}
+
+.theme-btn-deep, .btn-deep-theme {
     background-color: var(--dark-orange-1);
     color: white;
 }
-.theme-btn-dark {
+.btn-outline-deep-theme {
+    color: var(--dark-orange-1);
+    border: 1px solid var(--dark-orange-1);
+    font-weight: 600;
+}
+
+.theme-btn-dark, .btn-dark-theme {
     background-color: var(--dark-orange-2);
     color: white;
 }
-.theme-btn:hover, .theme-btn-deep:hover {
+.btn-outline-dark-theme {
+    color: var(--dark-orange-2);
+    border: 1px solid var(--dark-orange-2)
+}
+
+
+.theme-btn:hover, .btn-theme:hover, .btn-deep-theme:hover, .theme-btn-deep:hover {
     background-color: var(--dark-orange-2);
     color: white;
+    font-weight: 600;
 }
-.theme-btn-dark:hover {
-    background-color: #ff4000;
+.btn-outline-theme:hover, .btn-outline-deep-theme:hover {
+    background-color: var(--dark-orange-1);
+    color: white;
+}
+.theme-btn-dark:hover, .btn-outline-dark-theme:hover {
+    background-color: var(--dark-orange-3);
     color: white;
 }
 
@@ -81,4 +103,7 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins';
+}
+.btn {
+    font-family: 'SUSE';
 }
