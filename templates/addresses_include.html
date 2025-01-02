@@ -1,17 +1,7 @@
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static "accounts/user_saved_addresses.css" %}">
-{% endblock css %}
-
-<div class="container mb-4">
-  {% include "sticky_messages_alert.html" %}
-
-  {% if addresses %}
   <h2 class="mb-5 text-center">Choose Address</h2>
   <div class="row" id="address-cards">
       {% for address in addresses %}
-      <div class="col-md-4 col-sm-6 col-12 mb-4">
+      <label for="id_selected_id_{{ forloop.counter }}" class="col-md-4 col-sm-6 col-12 mb-4">
           <div class="card">
               <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
@@ -35,23 +25,16 @@
                       <p class="mt-2"><i class="fas fa-phone phoneIcon ornage-2"></i> <strong> {{ address.mobile }}</strong></p>
                   </p>
                   <div class="d-flex justify-content-between pt-1">
-                      <a href="/accounts/address/{{ address.id }}/" class="btn theme-btn-deep btn-sm col-6 me-1">
+                      <a href="/accounts/address/{{ address.id }}/" class="btn theme-btn-deep btn-sm col-12 me-1">
                           <i class="fas fa-edit"></i> Edit
                       </a>
-                      <button class="btn btn-outline-danger btn-sm col-6 remove-btn" onclick="deleteAddress({{ address.id }})">
-                          <i class="fas fa-trash-alt"></i> Remove
-                      </button>
                   </div>
               </div>
           </div>
-      </div>
+        </label>
       {% endfor %}
-  
-  {% else %}
-  <p class="empty-addresses">You don't have any addresses yet!</p>
-  {% endif %}
 
-      <div class="col-md-4 col-sm-6 col-12 mb-0 card address-card mx-2">
+      <label class="col-md-4 col-sm-6 col-12 mb-4 card address-card">
           <h5 class="text-center pt-3" class="card-title">Add New Address</h5>
           <hr class="my-2" />
           <a href="/accounts/address/0/" class="">
@@ -59,18 +42,5 @@
                   <i class="fas fa-plus-circle add-icon"></i>
               </div>
           </a>
-      </div>
-  </div>
-
-</div> 
-
-</div>
-
-<script>
-function deleteAddress(address_id) {
-  let confirmation = confirm("Are you sure you want to remove this address?");
-  if (confirmation) {
-      location.href = "/accounts/addresses/remove/" + address_id + "/";
-  }
-}
-</script>
+        </label>
+    </div>
