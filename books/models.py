@@ -46,7 +46,7 @@ class Book(models.Model):
 
 class ImageModel(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='images')
-    image = models. ImageField (upload_to="books", blank=True)
+    image = models.ImageField(upload_to="books", blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

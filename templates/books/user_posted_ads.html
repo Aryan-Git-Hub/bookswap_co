@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "books/book_index.css" %}">
+{% endblock css %}
+
+{% block content %}
+
+{% include "sticky_messages_alert.html" %}
 
 <div class="container my-4">
   <h2>Your Ads</h2>
@@ -6,18 +14,52 @@
     <div class="row gap-3 justify-content-center">
 
       {% for book in user_ads %}
-        <div class="card" style="width: 18rem;z-index:-999;">
-            <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{book.book_name}}</h5>
-              <p class="card-text">{{book.desc}}</p>
-              <a href="#" class="btn btn-primary">Edit</a>
+      <div class="card" style="width: 18rem;z-index:0 !important;">
+          <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{book.book_name|truncatechars:20}} <br>
+              <span class="fw-normal fs-6">By {{book.author|truncatechars:20}}</span>
+            </h5>
+
+            <p class="card-text">
+              <span class=" d-flex justify-content-end"><span class="text-black category-badge" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid black; font-size: 0.75rem;">{{book.category}}</span></span> 
+              <span class="price-space-in-card"><span class="fw-bold" style="">Price:</span> ₹ {{book.price}}.00 </span>
+            </p>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-warning col-5 ms-1" data-bs-toggle="modal" data-bs-target="#editModal{{book.id}}" onclick="edit_user_posted_ad({{book.id}})">
+                Edit <i class="fa fa-chevron-right ms-1"></i>
+              </button>
+              <a href="/book-view/{{book.id}}" class="btn btn-primary col-7 ms-1">Details <i class="fa fa-chevron-right ms-1"></i></a>
             </div>
           </div>
-        {% endfor %}
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editModal{{book.id}}" tabindex="-1" aria-labelledby="editModalLabel{{book.id}}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel{{book.id}}">Edit Ad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" id="id_form" novalidate>
+                  {% csrf_token %}
+                  <div id="edit_user_posted_ad_form" class="d-flex flex-column gap-2">{{ form.as_div }}</div>
+                  <button type="submit" class="btn btn-primary mt-3 col-12">Save changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
         
     </div>
   </div>
 </div>
 
 {% endblock content %}
+
+{% block js %}
+<script src="{% static "books/user_posted_ads.js" %}"></script>
+{% endblock js %}

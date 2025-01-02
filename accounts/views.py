@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 # for authentication
 from django.contrib.auth import login, logout
 from django.contrib import messages
@@ -165,7 +165,9 @@ def add_address(request, address_id = 0):
         if fm.is_valid():
             fm.save()
             messages.success(request, "Address Saved Successfully!")
-            return HttpResponseRedirect('/accounts/addresses/')
+            # Redirect to the previous pages
+            next_url = request.GET.get('next', 'user_saved_addresses')
+            return redirect(next_url)
     return render(request, "accounts/add_address.html", {"form":fm, "add_or_edit":add_or_edit})
 
 

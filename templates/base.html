@@ -16,8 +16,8 @@
     {% include "header.html" %}
     {% block content %}{% endblock content %}
     {% include "footer.html" %}
-    <script src="{% static "jQuery/jquery-3.6.0.min.js" %}"></script>
-    <script src="{% static "js/script.js" %}"></script>
-    {% block js %}{% endblock js %}
 </body>
+<script src="{% static "jQuery/jquery-3.6.0.min.js" %}"></script>
+<script src="{% static "js/script.js" %}"></script>
+{% block js %}{% endblock js %}
 </html>

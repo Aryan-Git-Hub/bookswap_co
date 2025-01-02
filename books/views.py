@@ -1,10 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from books.models import Book, ImageModel
-from books.forms import BookForm, BookImageForm
+from books.forms import BookForm, BookImageForm, BookAdEditForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # for search_results()
 from django.db.models import Q
+# for user_posted_ads()
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -22,7 +24,7 @@ def post_ad(request):
     all_addresses = request.user.addresses.all()
     if len(all_addresses)==0:
         messages.error(request, "Please add an address first!")
-        return HttpResponseRedirect('/accounts/address/0/')
+        return HttpResponseRedirect('/accounts/address/0/?next=post_ad')
     fm = BookForm(initial={'seller': request.user})
     ADDRESS_CHOICES = []
     for address in all_addresses:
@@ -36,19 +38,6 @@ def post_ad(request):
         # limiting image selection
         if(len(image_files)>4):
             book_image_fm.add_error("images", "You can upload a maximum of 4 images.")
-        # setting city choices according to the state value
-        try:
-            state_val = request.POST.get("state", "")
-            if state_val!="":
-                import json
-                with open("static/JSON/state_cities.json", "r") as f:
-                    data = json.load(f)
-                    for i in data:
-                        if i["state"]==state_val:
-                            fm.fields["city"].choices = i["cities"]
-                            break;
-        except Exception as e:
-            messages.error(request, "Please try again!")
             return HttpResponseRedirect('/post/')
         if int(request.POST.get('seller'))!=request.user.id:
             messages.error(request, "Please try again!")
@@ -62,9 +51,41 @@ def post_ad(request):
     return render(request, "books/post_ad.html", {"form":fm, "book_image_form":book_image_fm, "addresses":all_addresses})
 
 
+@login_required
 def user_posted_ads(request):
+    fm = BookAdEditForm()
     user_ads = Book.objects.filter(seller=request.user)
-    return render(request, "books/user_posted_ads.html", {"user_ads":user_ads})
+    if request.method=="POST":
+        # to sending instance to template
+        if request.POST.get("action", None)=='edit':
+            bk = Book.objects.get(id=request.POST.get("book_id"))
+            request.session["book_id"] = bk.id
+            fm = BookAdEditForm(instance=bk)
+            return JsonResponse({"form":fm.as_div()})
+
+
+        fm = BookAdEditForm(request.POST)
+        if fm.is_valid():
+            bk = Book.objects.get(id=request.session["book_id"])
+            data_changes = fm.cleaned_data
+            if bk.book_name==data_changes["book_name"] and bk.author==data_changes["author"] and bk.desc==data_changes["desc"] and bk.edition==data_changes["edition"] and bk.publication==data_changes["publication"] and bk.category==data_changes["category"] and bk.pages==data_changes["pages"] and bk.price==data_changes["price"]:
+                messages.warning(request, "No changes made!")
+                return JsonResponse({"success":True})
+            bk.book_name = data_changes["book_name"]
+            bk.author = data_changes["author"]
+            bk.desc = data_changes["desc"]
+            bk.edition = data_changes["edition"]
+            bk.publication = data_changes["publication"]
+            bk.category = data_changes["category"]
+            bk.pages = data_changes["pages"]
+            bk.price = data_changes["price"]
+            bk.save()
+            del request.session["book_id"]
+            messages.success(request, "Ad Updated Successfully!")
+            return JsonResponse({"success":True})
+        return JsonResponse({"success":False, "form":fm.as_div()})
+        
+    return render(request, "books/user_posted_ads.html", {"user_ads":user_ads, "form":fm})
 
 
 def book_preview(request, book_id):
@@ -97,7 +118,7 @@ def search_results(request):
     else:
         query = ""
         bks = None
-    return render(request, "books/search_results.html", {"books":bks, "search_for":query})
+    return render(request, "books/search_results.html", {"all_books":bks, "search_for":query})
 
 
 @login_required
@@ -144,3 +165,4 @@ def cart(request):
     for book_id, qty in bks.items():
         books[Book.objects.get(id=int(book_id))] = qty
     return render(request, "books/cart.html", {"books":books})
+    
