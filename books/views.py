@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 # for user_posted_ads()
 from django.http import JsonResponse
+from accounts.views import profile_completed_decorator, address_added_decorator
 
 # Create your views here.
 def index(request):
@@ -20,11 +21,10 @@ def checkout(request):
 
 
 @login_required
+@profile_completed_decorator
+@address_added_decorator
 def post_ad(request):
     all_addresses = request.user.addresses.all()
-    if len(all_addresses)==0:
-        messages.error(request, "Please add an address first!")
-        return HttpResponseRedirect('/accounts/address/0/?next=post_ad')
     fm = BookForm(initial={'seller': request.user})
     ADDRESS_CHOICES = []
     for address in all_addresses:
@@ -168,3 +168,7 @@ def cart(request):
         books[Book.objects.get(id=int(book_id))] = qty
     return render(request, "books/cart.html", {"books":books})
     
+
+
+def your_orders(request):
+    return render(request, "books/orders.html")

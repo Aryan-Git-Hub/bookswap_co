@@ -49,6 +49,28 @@ def not_auth_user(func):
     return ref
 
 
+def profile_completed_decorator(func):
+    def modified_func(request, *args, **kwargs):
+        previous_url_name = request.resolver_match.url_name
+        if not request.user.profile_completed:
+            messages.warning(request, "Please complete your profile first!")
+            return HttpResponseRedirect('/accounts/profile/?next='+str(previous_url_name))
+        
+        return func(request, *args, **kwargs)
+    return modified_func
+
+
+def address_added_decorator(func):
+    def modified_func(request, *args, **kwargs):
+        previous_url_name = request.resolver_match.url_name
+        if not request.user.address_added:
+            messages.warning(request, "Please add an address first!")
+            return HttpResponseRedirect('/accounts/address/0/?next='+str(previous_url_name))
+        
+        return func(request, *args, **kwargs)
+    return modified_func
+
+
 @not_auth_user
 def signup(request):
     fm = SignupForm()
@@ -103,6 +125,7 @@ def auth_login(request):
 
 @login_required
 def auth_logout(request):
+    request.session.flush()
     logout(request)
     messages.success(request, 'Logged Out Successfully!')
     return HttpResponseRedirect('/accounts/login/')
@@ -111,8 +134,9 @@ def auth_logout(request):
 @login_required
 def profile(request):
     fm = UserProfileForm(instance=request.user)
-    user = CustomUser.objects.get(email=request.user.email)
+    user = CustomUser.objects.get(id=request.user.id)
     if request.method=="POST":
+        print(user.mobile)
         fm = UserProfileForm(request.POST, request.FILES, instance=request.user)
         if fm.is_valid():
             username = fm.cleaned_data["username"]
@@ -122,8 +146,13 @@ def profile(request):
             if((user.username==username) & (user.mobile==str(mobile)) & (user.gender==gender) & (user.photo==photo)):
                 messages.warning(request, "Your profile is already updated!")
                 return HttpResponseRedirect('/accounts/profile/')
-            fm.save()
+            user = fm.save()
+            user.profile_completed = True
+            user.save()
             messages.success(request, "Profile Updated!")
+            # Redirect to the previous pages
+            next_url = request.GET.get('next', 'profile')
+            return redirect(next_url)
     return render(request, "accounts/profile.html", {"form":fm})
 
 
@@ -131,6 +160,10 @@ def profile(request):
 @login_required
 def user_saved_addresses(request):
     addresses = Address.objects.filter(user=request.user)
+    if len(addresses)==0:
+        user = request.user
+        user.address_added = False
+        user.save()
     return render(request, "accounts/user_saved_addresses.html", {"addresses":addresses})
 
 
@@ -138,7 +171,7 @@ def user_saved_addresses(request):
 def add_address(request, address_id = 0):
     add_or_edit = "Add"
     inst = None
-    if address_id:
+    if address_id!=0:
         try:
             inst = Address.objects.get(id=address_id)
         except:
@@ -164,6 +197,8 @@ def add_address(request, address_id = 0):
             messages.error(request, "Please try again!")
         if fm.is_valid():
             fm.save()
+            request.user.address_added = True
+            request.user.save()
             messages.success(request, "Address Saved Successfully!")
             # Redirect to the previous pages
             next_url = request.GET.get('next', 'user_saved_addresses')
@@ -178,6 +213,10 @@ def delete_address(request, address_id):
         address = Address.objects.get(id=address_id)
         address.delete()
         messages.success(request, "Address Deleted Successfully!")
+        user = request.user
+        if len(Address.objects.filter(user=user))==0:
+            user.address_added = False
+            user.save()
     except:
         messages.error(request, "Please try again!")
     return HttpResponseRedirect('/accounts/addresses/')

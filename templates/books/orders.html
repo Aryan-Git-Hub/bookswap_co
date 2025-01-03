@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "books/cart.css" %}">
+{% endblock css %}
+
+{% block content %}
+<div class="container my-5 min-vh-100">
+    <h2 class="mb-4 text-center">Your Orders</h2>
+    <div class="row">
+        <!-- All user orders -->
+        <div class="col-12" id="cart_items_container">
+            {% csrf_token %}
+            {% if books %}
+                {% for book, qty in books.items %}
+                <a class="d-block cart-details">
+                    <div class="row align-items-center">
+                        <!-- Book Image -->
+                        <div class="col-12 col-md-3 text-center">
+                            <img src="/media/{{ book.images.all.0.image.name }}" 
+                                 alt="{{ book.book_name }}" 
+                                 class="img-fluid rounded shadow-sm">
+                        </div>
+
+                        <!-- Book Details -->
+                        <div class="col-12 col-md-9">
+                            <p class="book-title highlight fs-4 mt-md-0 mt-2">{{ book.book_name }}</p>
+                            <p class="book-detail"><i class="fas fa-user cart-icon"></i>By <strong>{{ book.author }}</strong></p>
+                            <p class="book-detail"><i class="fas fa-building cart-icon"></i><strong>Publication:</strong> {{ book.publication }}</p>
+                            <span class="book-detail d-flex justify-content-end"><span class="text-black category-badge d-flex justify-content-center vertical-align-center col-5 col-md-3" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid #777; font-size: 0.82rem;color:#777"><i class="fas fa-tags cart-icon category-icon" style="color:#777;"></i> {{book.category}}</span></span> 
+                            <p class="price">₹ {{ book.price }}.00</p>
+                            <!-- Remove Button for Small Devices -->
+                            <button class="btn btn-sm btn-outline-danger mt-2 d-block d-md-none remove-btn col-6 col-md-4 offset-3 offset-md-4" onclick="deleteBook(this, {{book.id}})">
+                                <i class="fas fa-trash me-1"></i> Remove
+                            </button>
+                            <!-- Remove Button for Larger Devices -->
+                            <button class="btn btn-sm btn-outline-danger mt-2 d-none d-md-inline-block remove-btn col-6 col-md-4 offset-3 offset-md-4 col-lg-3 offset-lg-0" onclick="deleteBook(this, {{book.id}})">
+                                <i class="fas fa-trash me-1"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p class="empty-cart">Your cart is empty. Explore amazing books on <span class="highlight">Book Swap</span>!</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if books %}
+    <div class="row mt-4" id="total_price_container">
+        <div class="col-12 text-end">
+            <h4 class="price">Total: ₹ <span id="total-price">{{ books|total_price }}</span></h4>
+            <button class="btn btn-primary btn-lg mt-3"> Place Order <i class="fas fa-shopping-bag ms-1"></i> </button>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% block js %}
+<script src="{% static "books/cart.js" %}"></script>
+{% endblock js %}
+
+{% endblock %}

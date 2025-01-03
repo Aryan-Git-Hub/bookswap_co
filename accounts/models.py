@@ -35,7 +35,8 @@ class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to='user_photos', default='default_user_photo.png')
     mobile = models.CharField(max_length=10, blank=True)
     gender = models.CharField(max_length=50, blank=True)
-
+    profile_completed = models.BooleanField(default=False)
+    address_added = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
