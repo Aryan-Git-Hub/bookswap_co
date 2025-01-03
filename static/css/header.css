@@ -57,13 +57,22 @@ form.forLargerDevices {
     display: flex;
     justify-content: space-around;
     align-items: center;
+<<<<<<< HEAD
+=======
+    width: 30%;
+>>>>>>> d4b3d95d98c5f131214884777e46053d1d84201c
     min-width: 20%;
     height: 100%;
   }
   .alert {
     position: sticky !important;
     width: 100%;
+<<<<<<< HEAD
     top: var(--height-nav-bar)!important;
+=======
+    top: 6.5rem !important;
+    color: pink;
+>>>>>>> d4b3d95d98c5f131214884777e46053d1d84201c
   }
 }
 
