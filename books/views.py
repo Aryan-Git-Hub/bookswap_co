@@ -58,8 +58,9 @@ def user_posted_ads(request):
     if request.method=="POST":
         # to sending instance to template
         if request.POST.get("action", None)=='edit':
-            bk = Book.objects.get(id=request.POST.get("book_id"))
-            request.session["book_id"] = bk.id
+            bk_id = request.POST.get("book_id")
+            bk = Book.objects.get(id=bk_id)
+            request.session["book_id"] = bk_id
             fm = BookAdEditForm(instance=bk)
             return JsonResponse({"form":fm.as_div()})
 
