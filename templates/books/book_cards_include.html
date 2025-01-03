@@ -1,26 +1,23 @@
 {% load custom_filters %}
 <div class="card" style="">
-    <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{book.book_name|truncatechars:15}} <br>
-        <span class="fw-normal fs-6">By {{book.author|truncatechars:18}}</span>
-      </h5>
+  <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{book.book_name|truncatechars:15}} <br>
+      <span class="fw-normal fs-6">By {{book.author|truncatechars:18}}</span>
+    </h5>
 
-      <p class="card-text">
-        <span class=" d-flex justify-content-end"><span class="text-black category-badge" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid black; font-size: 0.75rem;">{{book.category}}</span></span> 
-        <span class="price-space-in-card"><span class="fw-bold" style="">Price:</span> ₹ {{book.price}}.00 </span>
-      </p>
-      <div class="d-flex">
-        {% if request.user.cart.books|book_in_cart:book.id %}
-          <a href="#" class="btn btn-success col-6"><i class="fa fa-check"></i> Added</a>
-        {% else %}
-          <a href="{% url "add_to_cart" book.id %}" class="btn btn-outline-dark-theme col-6" title="Item already added to cart">Add to <i class="fa fa-shopping-cart"></i></a>
-        {% endif %}
-          <a href="/book-view/{{book.id}}" class="btn theme-btn-deep col-6 ms-1">Details <i class="fa fa-chevron-right ms-1"></i></a><br>
-        
-      </div>
+    <p class="card-text">
+      <span class=" d-flex justify-content-end"><span class="text-black category-badge" title="category" style="padding: 0.2rem 0.5rem; border-radius:1rem; border: 1px solid black; font-size: 0.75rem;">{{book.category}}</span></span> 
+      <span class="price-space-in-card"><span class="fw-bold" style="">Price:</span> ₹ {{book.price}}.00 </span>
+    </p>
+    <div class="d-flex">
       {% if request.user.cart.books|book_in_cart:book.id %}
-          <a href="{% url "cart" %}" class="btn btn-outline-deep-theme mt-2 col-12">Go to <i class="fa fa-shopping-cart"></i></a>
-        {% endif %}
+        <a href="{% url "cart" %}" class="btn btn-theme-success col-6">Go to <i class="fa fa-shopping-cart"></i></a>
+      {% else %}
+        <a href="{% url "add_to_cart" book.id %}" class="btn col-6 add-to-cart-btn" title="Item already added to cart">Add to <i class="fa fa-shopping-cart"></i></a>
+      {% endif %}
+        <a href="/book-view/{{book.id}}" class="btn theme-btn-deep col-6 ms-1 details-btn">Details <i class="fa fa-chevron-right ms-1"></i></a><br>
+      
     </div>
+  </div>
 </div>
