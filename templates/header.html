@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar bg-body-tertiary position-sticky top-0 z-1 pt-0 pb-1">
+<nav class="navbar bg-body-tertiary position-sticky top-0 z-1 pt-0 pb-1" style="z-index:99999 !important">
     <div class="custom_container">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static "images/logo.jpeg" %}" alt="Bootstrap" id="logo">
@@ -41,7 +41,7 @@
                     <img class="profile_pic" src="/media/{{request.user.photo.name}}" >
                     {% endif %}
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" style="z-index: 10000;">
+                <ul class="dropdown-menu dropdown-menu-end" style="position:absolute; z-index: 99 !Important;">
                     <li><a class="dropdown-item" href="{% url "profile" %}">Your Profile</a></li>
                     <li><a class="dropdown-item" href="{% url "user_posted_ads" %}">Your Ads</a></li>
                     <li><a class="dropdown-item" href="{% url "user_saved_addresses" %}">Your Addresses</a></li>

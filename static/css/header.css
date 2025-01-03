@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--dark-orange-2);
 }
 
 #logo {
@@ -15,7 +16,7 @@
   align-items: center;
   width: 100%;
   margin: 0px 1vw;
-  height: 4rem;
+  height: var(--height-nav-bar);
 }
 
 .form_dropdown {
@@ -49,6 +50,21 @@ form.forLargerDevices {
 .profile_pic {
   width: 3rem;
   object-fit: cover;
+}
+
+@media (max-width: 1440px) {
+  .form_dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 20%;
+    height: 100%;
+  }
+  .alert {
+    position: sticky !important;
+    width: 100%;
+    top: var(--height-nav-bar)!important;
+  }
 }
 
 
