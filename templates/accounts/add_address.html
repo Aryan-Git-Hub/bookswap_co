@@ -35,6 +35,7 @@
     const city = document.getElementById("city_id");
     // Fetching data from cities.json
     async function getData() {
+        city_val = city.value
         city.disabled = true;
         city.innerHTML = '<option value selected>---Select City---</option>';
         if(state.value!="") {
@@ -52,6 +53,7 @@
                 // Append the new options to the select element
                 await city.appendChild(newOption);
             }
+            city.value = city_val;
         }
     }
     getData();
