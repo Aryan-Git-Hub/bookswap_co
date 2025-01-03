@@ -10,6 +10,9 @@
     --dark-orange-1: #ff7a00;
     --dark-orange-2: #ff6200;
     --dark-orange-3: #ff4000;
+    --light-success: #17ad67;
+    --default-success: #27a544;
+    --deep-success: #21724c;
     --height-nav-bar: 4rem;
 }
 
@@ -81,6 +84,19 @@
     background-color: var(--dark-orange-3);
     color: white;
 }
+
+.btn-theme-success {
+    background-color: var(--light-success);
+    color: white;
+}
+.btn-theme-success:hover {
+    background-color: var(--deep-success);
+    color: white;
+}
+
+
+
+
 
 /* Font Classes */
 .font-handjet {
