@@ -23,7 +23,8 @@ def del_img(file_path):
         if os.path.exists(file_path):
             os.remove(file_path)
     except Exception as e:
-        print('file does not delete because of', e)
+        pass
+        # print('file does not delete because of', e)
 
 
 # Create your models here.

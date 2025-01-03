@@ -136,7 +136,6 @@ def profile(request):
     fm = UserProfileForm(instance=request.user)
     user = CustomUser.objects.get(id=request.user.id)
     if request.method=="POST":
-        print(user.mobile)
         fm = UserProfileForm(request.POST, request.FILES, instance=request.user)
         if fm.is_valid():
             username = fm.cleaned_data["username"]

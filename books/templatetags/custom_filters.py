@@ -11,7 +11,6 @@ def total_price(books):
             total += float(book.price)*float(qty)
         return total
     except Exception as e:
-        print(e)
         return 0
     
 
@@ -21,5 +20,4 @@ def book_in_cart(books_in_cart, book_id):
         if str(book_id) in books_in_cart:
             return True
     except:
-        print("error")
         return 0

@@ -99,7 +99,6 @@ def add_to_cart(request, book_id):
     user = request.user
     previous_url = request.META.get('HTTP_REFERER', '/')
     if not user.cart.books.get(str(book_id), None):
-        print("hello")
         user.cart.cart_val += 1
         user.cart.books[str(book_id)] = 1
         # for increasing qty
