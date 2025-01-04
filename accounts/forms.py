@@ -2,11 +2,27 @@ from django import forms
 from accounts.models import CustomUser, Address
 # for passing label with html tags
 from django.utils.safestring import mark_safe
+# to change password
+from django.core.validators import RegexValidator
 
 class SignupForm(forms.ModelForm):
     username = forms.CharField(label='Name*', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Email*', max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label="Password*",
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        validators=[
+            RegexValidator(
+                regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._])[A-Za-z\d@$!%*?&._]{8,}$',
+                message=(
+                    "Password must be at least 8 characters long, "
+                    "contain at least one uppercase letter, one number, "
+                    "and one special character."
+                ),
+                code='invalid_password'
+            ),
+        ]
+    )
     confirm_password = forms.CharField(label='Your Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
     class Meta:
@@ -114,4 +130,23 @@ class AddressForm(forms.ModelForm):
 
 
 class OtpForm(forms.Form):
-    otp = forms.IntegerField(min_value=100000, max_value=999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    otp = forms.IntegerField(label="Enter OTP: ", min_value=100000, max_value=999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
+
+    
+class ChangePassword(forms.Form):
+    email = forms.EmailField(label="Email: ", max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    new_password = forms.CharField(label="New Password: ",
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        validators=[
+            RegexValidator(
+                regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._])[A-Za-z\d@$!%*?&._]{8,}$',
+                message=(
+                    "Password must be at least 8 characters long, "
+                    "contain at least one uppercase letter, one number, "
+                    "and one special character."
+                ),
+                code='invalid_password'
+            ),
+        ]
+    )
