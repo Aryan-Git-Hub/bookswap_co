@@ -194,7 +194,7 @@ def otp(request):
                     del otp_session_dict
                 messages.error(request, "OTP not varified!")
         except Exception as e:
-            print(e)
+            # print(e)
             messages.error(request, "Please try again later!")
             return redirect('home')
     return render(request, "accounts/otp.html", {"form":fm})
