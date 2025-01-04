@@ -4,6 +4,8 @@ from accounts.models import CustomUser
 from django.conf import settings
 # to change dimentions of image
 from PIL import Image
+# to set address of particular book
+from accounts.models import Address
 
 
 def resize_img(img_path, output_size):
@@ -39,6 +41,12 @@ class Book(models.Model):
     pages = models.IntegerField(blank=True)
     price = models.IntegerField(blank=True)
     selected_address_id = models.IntegerField()
+    address = models.JSONField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        addr = Address.objects.get(id=self.selected_address_id)
+        self.address = {"full_name":addr.full_name, "pincode":addr.pincode, "state":addr.state, "city":addr.city, "mobile":addr.mobile, "full_address":addr.full_address, "some_instructions":addr.some_instructions}
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         for img in self.images.all():
