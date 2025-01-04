@@ -110,3 +110,8 @@ class AddressForm(forms.ModelForm):
             "full_address": forms.Textarea(attrs={'class':'form-control'}),
             "some_instructions": forms.Textarea(attrs={'class':'form-control'})
         }
+
+
+
+class OtpForm(forms.Form):
+    otp = forms.IntegerField(min_value=100000, max_value=999999, widget=forms.NumberInput(attrs={'class':'form-control'}))

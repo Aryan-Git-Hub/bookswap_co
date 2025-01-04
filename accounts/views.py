@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import SignupForm, LoginForm, UserProfileForm, AddressForm
+from accounts.forms import SignupForm, LoginForm, UserProfileForm, AddressForm, OtpForm
 from accounts.models import CustomUser, Address
 from django.contrib.auth.hashers import make_password, check_password
 # for OTP
@@ -18,13 +18,14 @@ from books.models import Cart
 def sendEmail(to, subject, message):
     if to=='' or to==None:
         return False
-    send_mail(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER,
-        [to],
-        fail_silently=False
-    )
+    # send_mail(
+    #     subject,
+    #     message,
+    #     settings.EMAIL_HOST_USER,
+    #     [to],
+    #     fail_silently=False
+    # )
+    print(message)
     return True
 
 
@@ -71,6 +72,22 @@ def address_added_decorator(func):
     return modified_func
 
 
+def generating_otp(request, email, otp_for, fm=None):
+    # Generate OTP
+    otp = random.randint(100000, 999999)
+    # Send Email
+    subject = 'Your OTP for Account Verification'
+    message = f'Your OTP is {otp}'
+    sendEmail(email, subject, message)
+    if not fm:
+        try: fm = fm.cleaned_data
+        except: pass
+    otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "form":fm, "email":email}
+    request.session["otp_session_dict"] = otp_session_dict
+    request.session.set_expiry(600) # settig expiry of this session for 10 mins(600 sec)
+    return redirect('otp')
+
+
 @not_auth_user
 def signup(request):
     fm = SignupForm()
@@ -82,22 +99,7 @@ def signup(request):
             password = fm.cleaned_data['password']
             confirm_password = fm.cleaned_data['confirm_password']
             if password==confirm_password:
-                # # Generate OTP
-                # otp = random.randint(100000, 999999)
-                # # Send Email
-                # subject = 'Your OTP for Account Verification'
-                # message = f'Your OTP is {otp}'
-                # sendEmail(email, subject, message)
-                # return render(request, "accounts/verify.html", {'email': email, 'otp': otp})
-                fm.fields['password'] = make_password(confirm_password)
-                user = fm.save()
-                # creating user cart
-                Cart.objects.create(user=user)
-                user.password = make_password(confirm_password)
-                user.save()
-                login(request, user)
-                messages.success(request, 'Account Created Successfully!')
-                return HttpResponseRedirect('/')
+                return generating_otp(request, email, "signup", fm=fm)
             else:
                 messages.error(request, 'Password and Confirm Password not matched!')
                 return render(request, "accounts/signup.html", {'form': fm})
@@ -114,9 +116,7 @@ def auth_login(request):
             password = fm.cleaned_data['password']
             user = custom_authenticate(email, password)
             if user is not None:
-                login(request, user)
-                messages.success(request, 'Logged In Successfully!')
-                return HttpResponseRedirect('/')
+                return generating_otp(request, email, "login")
             
             messages.error(request, 'Invalid Credentials!')
 
@@ -219,3 +219,43 @@ def delete_address(request, address_id):
     except:
         messages.error(request, "Please try again!")
     return HttpResponseRedirect('/accounts/addresses/')
+
+
+def otp(request):
+    fm = OtpForm()
+    if request.method=="POST":
+        fm = OtpForm(request.POST)
+        try:
+            if fm.is_valid():
+                form_otp = str(fm.cleaned_data.get("otp"))
+                otp_session_dict = request.session["otp_session_dict"]
+                session_otp = otp_session_dict["otp"]
+                varification = check_password(form_otp, session_otp)
+                if varification:
+                    # for which method we have to sent otp
+                    if otp_session_dict["otp_for"]=="signup":
+                        signup_fm = otp_session_dict["form"]
+                        user = CustomUser.objects.create(
+                            username = signup_fm.get("username"),
+                            email = signup_fm.get("email"),
+                            password = make_password(signup_fm.get("confirm_password")),
+                        )
+                        # creating user cart
+                        Cart.objects.create(user=user)
+                        login(request, user)
+                        messages.success(request, 'Account Created Successfully!')
+                        del otp_session_dict
+                        return HttpResponseRedirect('/')
+                    
+                    if otp_session_dict["otp_for"]=="login":
+                        email = otp_session_dict["email"]
+                        user = CustomUser.objects.get(email=email)
+                        login(request, user)
+                        messages.success(request, 'Logged In Successfully!')
+                        return HttpResponseRedirect('/')
+
+                messages.error(request, "OTP not varified!")
+        except:
+            messages.error(request, "Please try again later!")
+            return redirect('home')
+    return render(request, "accounts/otp.html", {"form":fm})

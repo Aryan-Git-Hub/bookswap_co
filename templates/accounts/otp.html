@@ -1,30 +1,19 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% block content %}
+{% include "sticky_messages_alert.html" %}
 
-{% block content %}
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="col-md-6">
-      <h2 class="text-center mb-4">Enter Your OTP</h2>
-      <form action="/accounts/otp/check_otp/" method='POST' id="form">{% csrf_token %}
-          <div class="mb-3">
-              <input class="form-control" maxlength="6" placeholder="XXXXXX" pattern="[0-9]{6}" required type="number" min="100000" max="999999" id="otpInput" name="otpInput">
-              <small id="small_name" class="form-text text-muted">{{otp_status}}</small>
-          </div>
-          <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary" id="btn">Verify OTP</button>
-          </div>
-          <p class="text-center mt-3"><button id="resend_otp" type="button"><a onclick="resend_otp()">Resend OTP</a></button></p>
-      </form>
-  </div>
+<div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+  <h2 class="text-center">OTP</h2>
+  <form method="POST" class="needs-validation" style="width: 50%;" novalidate>
+    {% csrf_token %} {% for field in form %}
+    <div>
+      <label class="form-label">{{field.label}}</label>
+      {{field}}
+      <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
+    </div>
+    {% endfor %}
+    <div class="col-12 mt-3 text-center">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
 </div>
-<script>
-function resend_otp(){
-    const otpInput = document.getElementById("otpInput")
-    const resend_otp = document.getElementById("resend_otp");
-    const form = document.getElementById("form");
-    form.action = '/accounts/otp/'
-    otpInput.required = false
-    resend_otp.type = "submit"
-}
-</script>
 {% endblock content %}
