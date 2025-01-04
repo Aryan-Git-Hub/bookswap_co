@@ -46,7 +46,7 @@
         <p class="empty-addresses">You don't have any addresses yet!</p>
         {% endif %}
 
-        <div class="col-md-4 col-sm-6 col-12 mb-4 card address-card mx-2">
+        <div class="col-md-4 col-sm-6 col-12 mb-4 card address-card">
             <h5 class="text-center pt-3" class="card-title">Add New Address</h5>
             <hr class="my-2" />
             <a href="/accounts/address/0/" class="">
@@ -64,10 +64,25 @@
 {% block js %}
 <script>
 function deleteAddress(address_id) {
-    let confirmation = confirm("Are you sure you want to remove this address?");
-    if (confirmation) {
-        location.href = "/accounts/addresses/remove/" + address_id + "/";
+    Swal.fire({
+        title: "Are you sure?",
+        text: `This Address will be permanently removed from your account!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#17ad67",
+        confirmButtonText: "Yes, remove it!",
+        cancelButtonText: "No, keep it"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "The address is successfully deleted",
+        icon: "success"
+      });
+      location.href = "/accounts/addresses/remove/" + address_id + "/";
     }
+  });
 }
 </script>
 {% endblock js %}
