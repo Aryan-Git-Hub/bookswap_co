@@ -9,7 +9,10 @@
 {% include "sticky_messages_alert.html" %}
 
 <div class="container my-4 min-vh-100">
-  <h3>Fresh recommendations</h3>
+  <div class="d-flex justify-content-between">
+    <h3 class="d-inline-block">Fresh recommendations</h3>
+    <span class="" onclick="selectFilter();"><i class="fas fa-filter filterIcon"></i></span>
+  </div>
   <div class="container my-4" style="display: grid; place-items:center;">
     <div class="row gap-3">
 
@@ -20,5 +23,47 @@
     </div>
   </div>
 </div>
+
+{% block js %}
+<script>
+  async function selectFilter() {
+    const { value: fruit } = await Swal.fire({
+      title: "Select a Filter",
+      input: "select",
+      inputOptions: {
+        Education: {
+          jee: "JEE",
+          neet: "NEET",
+          btech: "B.Tech",
+          mtech: "M.Tech",
+          olympaid: "Olympaid"
+        },
+        "Non Fiction": {
+          selfhelp: "Self-Help",
+          business: "Business",
+          philosophy: "Philosophy",
+          biography: "Biography"
+        },
+        Fiction: "fiction"
+      },
+      inputPlaceholder: "Select category",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === "btech") {
+            resolve();
+          } else {
+            if (value === "") {
+              resolve("Please select a value");
+            } else {
+              resolve(`${value} books are not available in the stock.`);
+            }
+          }
+        });
+      }
+    });
+  }
+</script>
+{% endblock js %}
 
 {% endblock content %}
