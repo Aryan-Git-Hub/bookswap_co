@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
-from books.models import Book, ImageModel
+from books.models import Book, ImageModel, Address
 from books.forms import BookForm, BookImageForm, BookAdEditForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -43,7 +43,10 @@ def post_ad(request):
             messages.error(request, "Please try again!")
             return HttpResponseRedirect('/post/')
         elif fm.is_valid() & book_image_fm.is_valid():
-            book = fm.save()
+            book = fm.save(commit=False)
+            addr = Address.objects.get(id=book.selected_address_id)
+            book.address = {"full_name":addr.full_name, "pincode":addr.pincode, "state":addr.state, "city":addr.city, "mobile":addr.mobile, "full_address":addr.full_address, "some_instructions":addr.some_instructions}
+            book.save()
             for image in image_files:
                 ImageModel.objects.create(book=book, image=image)
             messages.success(request, "Your Ad is now Published!")

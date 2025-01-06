@@ -26,6 +26,7 @@ class BookForm(forms.ModelForm):
     edition = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     publication = forms.CharField(label=mark_safe('Publication'+asterisk_css), max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, label=mark_safe('Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control'}))
+    sub_category = forms.ChoiceField(choices=((None, "---Select Sub Category---"),), label='Sub Category', widget=forms.Select(attrs={'class': 'form-control', 'id':'id_sub_category'}), required=False)
     pages = forms.IntegerField(label=mark_safe('Pages'+asterisk_css), min_value=0, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
     selected_address_id = forms.ChoiceField(widget=forms.RadioSelect)
@@ -33,7 +34,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'pages', 'seller', 'price', 'selected_address_id']
+        fields = ['book_name', 'author', 'desc', 'edition', 'publication', 'category', 'sub_category', 'pages', 'seller', 'price', 'selected_address_id']
 
 
 class BookImageForm(forms.ModelForm):
@@ -50,6 +51,7 @@ class BookAdEditForm(forms.ModelForm):
     desc = forms.CharField(label='Description', max_length=300, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     edition = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     publication = forms.CharField(label=mark_safe('Publication'+asterisk_css), max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    category = forms.ChoiceField(choices=CATEGORY_CHOICES, label=mark_safe('Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control'}))
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, label=mark_safe('Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control'}))
     pages = forms.IntegerField(label=mark_safe('Pages'+asterisk_css), min_value=0, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     price = forms.IntegerField(label=mark_safe('Price'+asterisk_css), min_value=10, widget=forms.NumberInput(attrs={'class': 'form-control'}))

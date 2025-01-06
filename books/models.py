@@ -32,20 +32,19 @@ def del_img(file_path):
 # Create your models here.
 class Book(models.Model):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='book')
-    book_name = models.CharField(max_length=100, blank=True)
-    author = models.CharField(max_length=100, blank=True)
+    book_name = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
     desc = models.CharField(max_length=300, blank=True)
-    edition = models.CharField(max_length=50, blank=True)
-    publication = models.CharField(max_length=100, blank=True)
-    category = models.CharField(max_length=50, blank=True)
+    edition = models.CharField(max_length=50, null=True, blank=True)
+    publication = models.CharField(max_length=100)
+    category = models.CharField(max_length=50)
+    sub_category = models.CharField(max_length=50, null=True, blank=True)
     pages = models.IntegerField(blank=True)
     price = models.IntegerField(blank=True)
     selected_address_id = models.IntegerField()
     address = models.JSONField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        addr = Address.objects.get(id=self.selected_address_id)
-        self.address = {"full_name":addr.full_name, "pincode":addr.pincode, "state":addr.state, "city":addr.city, "mobile":addr.mobile, "full_address":addr.full_address, "some_instructions":addr.some_instructions}
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
