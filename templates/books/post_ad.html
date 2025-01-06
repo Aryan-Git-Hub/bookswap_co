@@ -42,7 +42,7 @@
             {% endif %}
             {% endfor %}
             {{form.seller}} 
-            <div class="col-12 col-lg-4">
+            <div class="col-12">
                 <label class="form-label fw-semibold font-suse">Images<span style="color: red; font-weight:bolder;">*</span></label>
                 {{book_image_form.images}}
                 <div class="feedback" style="color: red">{{book_image_form.images.errors.as_text}}</div>
@@ -63,6 +63,43 @@
 <script>
     const images = document.getElementById("images");
     images.multiple = true;
+
+    // Setting sub category options
+    const category = document.getElementById("id_category");
+    const sub_category = document.getElementById("id_sub_category");
+    // Fetching data from category.json
+    async function getData() {
+        sub_category_val = sub_category.value
+        sub_category.disabled = true;
+        sub_category.innerHTML = '<option value selected>---Select Sub-Category---</option>';
+        if(category.value!="") {
+            sub_category.disabled = false;
+            let response = await fetch("{% static 'JSON/category.json' %}");
+            let data = await response.json();
+            
+            for (let i = 0; i < data.categories.length; i++) {
+                if (data.categories[i].name==category.value) {
+                    for(let j=0; j<data.categories[i].types.length; j++){
+                        let element = data.categories[i].types[j];
+                        // Create new option elements
+                        let newOption = document.createElement("option");
+                        newOption.value = element;
+                        newOption.textContent = element;
+                        // Append the new options to the select element
+                        await sub_category.appendChild(newOption);
+                    }
+                    let newOption = document.createElement("option");
+                    newOption.value = 'Others';
+                    newOption.textContent = 'Others';
+                    await sub_category.appendChild(newOption);
+                    sub_category.value = sub_category_val;
+                    break;
+                }
+            }
+        }
+    }
+    getData();
+    category.addEventListener("change", getData);
 </script>
 
 {% endblock js %}

@@ -1,0 +1,416 @@
+{
+  "categories": [
+    {
+      "name": "Fiction",
+      "types": [
+        "Literary Fiction",
+        "Historical Fiction",
+        "Science Fiction",
+        "Fantasy",
+        "Romance",
+        "Mystery",
+        "Thriller",
+        "Horror",
+        "Dystopian",
+        "Adventure",
+        "Contemporary Fiction",
+        "Magical Realism",
+        "Urban Fiction",
+        "Satire",
+        "Western",
+        "Paranormal Fiction"
+      ]
+    },
+    {
+      "name": "Non-Fiction",
+      "types": [
+        "Biography",
+        "Memoir",
+        "Autobiography",
+        "Self-Help",
+        "Health & Wellness",
+        "Personal Development",
+        "Business & Economics",
+        "Science & Technology",
+        "History",
+        "Philosophy",
+        "Politics",
+        "Psychology",
+        "True Crime",
+        "Education",
+        "Travel",
+        "Cooking",
+        "Art & Design",
+        "Parenting",
+        "Sports"
+      ]
+    },
+    {
+      "name": "Children's Books",
+      "types": [
+        "Picture Books",
+        "Bedtime Stories",
+        "Educational Books",
+        "Animal Stories",
+        "Fairy Tales",
+        "Adventure Stories",
+        "Fantasy for Children",
+        "Humorous Stories",
+        "Chapter Books",
+        "Interactive Books",
+        "Classic Children's Literature"
+      ]
+    },
+    {
+      "name": "Young Adult (YA)",
+      "types": [
+        "Fantasy",
+        "Dystopian",
+        "Romance",
+        "Adventure",
+        "Coming of Age",
+        "Science Fiction",
+        "Mystery",
+        "Paranormal",
+        "Realistic Fiction",
+        "Horror"
+      ]
+    },
+    {
+      "name": "Educational",
+      "types": [
+        "Textbooks",
+        "Reference Books",
+        "Language Learning",
+        "Study Guides",
+        "Test Prep",
+        "Mathematics",
+        "Science",
+        "History",
+        "Literature",
+        "Computer Science",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Comics & Graphic Novels",
+      "types": [
+        "Superheroes",
+        "Manga",
+        "Fantasy",
+        "Science Fiction",
+        "Slice of Life",
+        "Horror",
+        "Romance",
+        "Historical",
+        "Anthology",
+        "Humor",
+        "Webcomics"
+      ]
+    },
+    {
+      "name": "Poetry",
+      "types": [
+        "Epic Poetry",
+        "Lyric Poetry",
+        "Narrative Poetry",
+        "Haiku",
+        "Free Verse",
+        "Sonnets",
+        "Romantic Poetry",
+        "Modernist Poetry",
+        "Spoken Word",
+        "Performance Poetry"
+      ]
+    },
+    {
+      "name": "Religion & Spirituality",
+      "types": [
+        "Sacred Texts",
+        "Inspirational",
+        "Theology",
+        "Meditation",
+        "Occult",
+        "Philosophical",
+        "Mythology",
+        "New Age",
+        "Prayer Books",
+        "Devotional Literature"
+      ]
+    },
+    {
+      "name": "Science & Nature",
+      "types": [
+        "Astronomy",
+        "Biology",
+        "Physics",
+        "Chemistry",
+        "Earth Sciences",
+        "Environmental Science",
+        "Botany",
+        "Zoology",
+        "Technology",
+        "Ecology",
+        "Space Exploration"
+      ]
+    },
+    {
+      "name": "Self-Improvement",
+      "types": [
+        "Motivational",
+        "Mindfulness",
+        "Leadership",
+        "Productivity",
+        "Emotional Intelligence",
+        "Career Development",
+        "Time Management",
+        "Stress Management",
+        "Habit Formation",
+        "Happiness"
+      ]
+    },
+    {
+      "name": "Art & Photography",
+      "types": [
+        "Art History",
+        "Graphic Design",
+        "Photography",
+        "Painting",
+        "Sculpture",
+        "Drawing",
+        "Digital Art",
+        "Fashion",
+        "Calligraphy",
+        "Architecture"
+      ]
+    },
+    {
+      "name": "Travel & Adventure",
+      "types": [
+        "Guidebooks",
+        "Cultural Exploration",
+        "Adventure Travel",
+        "Travel Memoirs",
+        "Backpacking",
+        "Expedition Narratives",
+        "World Travel",
+        "Road Trips",
+        "Cruise Travel",
+        "Ecotourism"
+      ]
+    },
+    {
+      "name": "Cooking & Food",
+      "types": [
+        "Cookbooks",
+        "Baking",
+        "Vegan & Vegetarian",
+        "Regional Cuisine",
+        "Wine & Spirits",
+        "Food Memoirs",
+        "Nutrition",
+        "Gastronomy",
+        "Culinary Techniques",
+        "Special Diets"
+      ]
+    },
+    {
+      "name": "Sports & Outdoors",
+      "types": [
+        "Athlete Biographies",
+        "Team Sports",
+        "Individual Sports",
+        "Outdoor Activities",
+        "Fishing",
+        "Hiking",
+        "Camping",
+        "Survival Skills",
+        "Fitness",
+        "Yoga"
+      ]
+    },
+    {
+      "name": "Fantasy",
+      "types": [
+        "Epic Fantasy",
+        "Dark Fantasy",
+        "Urban Fantasy",
+        "High Fantasy",
+        "Sword and Sorcery",
+        "Paranormal Fantasy",
+        "Mythic Fantasy",
+        "Contemporary Fantasy"
+      ]
+    },
+    {
+      "name": "Science Fiction",
+      "types": [
+        "Hard Science Fiction",
+        "Space Opera",
+        "Cyberpunk",
+        "Time Travel",
+        "Post-Apocalyptic",
+        "Dystopian",
+        "Alien Encounters",
+        "AI and Robotics"
+      ]
+    },
+    {
+      "name": "School Education",
+      "types": [
+        "NCERT Books",
+        "Class 1-5",
+        "Class 6-8",
+        "Class 9-10",
+        "Class 11-12",
+        "Mathematics",
+        "Science",
+        "Social Science",
+        "English",
+        "Hindi",
+        "Regional Languages",
+        "Computer Science",
+        "Environmental Studies",
+        "Moral Science",
+        "Art & Craft"
+      ]
+    },
+    {
+      "name": "Competitive Exams",
+      "types": [
+        "JEE Main",
+        "JEE Advanced",
+        "NEET",
+        "GATE",
+        "UPSC Civil Services",
+        "CAT",
+        "CLAT",
+        "SSC Exams",
+        "Banking Exams (IBPS, SBI PO)",
+        "Railway Exams",
+        "NDA & CDS",
+        "GRE",
+        "GMAT",
+        "TOEFL",
+        "IELTS",
+        "SAT",
+        "ACT",
+        "State Public Service Exams"
+      ]
+    },
+    {
+      "name": "Undergraduate Courses",
+      "types": [
+        "BTech (Engineering)",
+        "MBBS (Medical)",
+        "BSc (Bachelor of Science)",
+        "BA (Bachelor of Arts)",
+        "BCom (Bachelor of Commerce)",
+        "BBA (Bachelor of Business Administration)",
+        "LLB (Law)",
+        "BDS (Dentistry)",
+        "BArch (Architecture)",
+        "Nursing",
+        "Pharmacy",
+        "Agriculture",
+        "Fashion Design",
+        "Hotel Management"
+      ]
+    },
+    {
+      "name": "Postgraduate Courses",
+      "types": [
+        "MTech (Engineering)",
+        "MBA (Business Administration)",
+        "MSc (Master of Science)",
+        "MA (Master of Arts)",
+        "MCom (Master of Commerce)",
+        "MD/MS (Medical Specializations)",
+        "LLM (Law)",
+        "PhD (Doctorate)",
+        "MCA (Computer Applications)",
+        "MEd (Education)"
+      ]
+    },
+    {
+      "name": "Vocational and Skill Development",
+      "types": [
+        "Coding Bootcamps",
+        "Digital Marketing",
+        "Graphic Design",
+        "Animation and VFX",
+        "Culinary Arts",
+        "Photography",
+        "Fashion Designing",
+        "Automobile Repair",
+        "Electrical Engineering",
+        "Plumbing",
+        "Carpentry",
+        "Beauty and Wellness",
+        "Tailoring",
+        "Event Management"
+      ]
+    },
+    {
+      "name": "Entrance Exam Preparation",
+      "types": [
+        "Engineering Entrance (JEE, State CETs)",
+        "Medical Entrance (NEET, AIIMS)",
+        "MBA Entrance (CAT, XAT, MAT)",
+        "Law Entrance (CLAT, AILET)",
+        "Banking (IBPS, SBI, RBI Exams)",
+        "UPSC IAS/IPS",
+        "Defense Exams (NDA, CDS, AFCAT)",
+        "Teaching (CTET, TET)",
+        "Railways (RRB Exams)",
+        "Study Abroad (GRE, GMAT, TOEFL, IELTS)"
+      ]
+    },
+    {
+      "name": "School Subjects by Stream",
+      "types": [
+        "Science Stream (PCM, PCB)",
+        "Commerce Stream (Accountancy, Economics, Business Studies)",
+        "Arts Stream (History, Political Science, Geography, Sociology)"
+      ]
+    },
+    {
+      "name": "Technology and Professional Studies",
+      "types": [
+        "Computer Science Engineering",
+        "Information Technology",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Civil Engineering",
+        "Electronics & Communication Engineering",
+        "Artificial Intelligence and Machine Learning",
+        "Data Science",
+        "Cybersecurity",
+        "Web Development",
+        "App Development",
+        "Robotics",
+        "IoT (Internet of Things)"
+      ]
+    },
+    {
+      "name": "Medical and Healthcare",
+      "types": [
+        "Anatomy",
+        "Physiology",
+        "Pathology",
+        "Pharmacology",
+        "Surgery",
+        "Pediatrics",
+        "Gynecology",
+        "Nursing",
+        "Public Health",
+        "Dentistry",
+        "Ayurveda",
+        "Homeopathy",
+        "Pharmacy",
+        "Physiotherapy",
+        "Radiology"
+      ]
+    }
+  ]
+}

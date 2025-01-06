@@ -35,6 +35,21 @@ def post_ad(request):
         fm.fields["selected_address_id"].choices = ADDRESS_CHOICES
         book_image_fm = BookImageForm(request.POST, request.FILES)
         image_files = request.FILES.getlist("images")
+        # setting sub_category choices according to the category value
+        try:
+            category_val = request.POST.get("category", "")
+            if category_val!="":
+                import json
+                with open("static/JSON/category.json", "r") as f:
+                    data = json.load(f)
+                    SUB_CATEGORY_CHOICES = [[None, "---Select Sub-Category---"], ['Others', 'Others']]
+                    for i in data['categories']:
+                        if i['name']==category_val:
+                            for sub_category in i['types']:
+                                SUB_CATEGORY_CHOICES.append([sub_category, sub_category])
+                    fm.fields["sub_category"].choices = SUB_CATEGORY_CHOICES
+        except:
+            messages.error(request, "Please try again!")
         # limiting image selection
         if(len(image_files)>4):
             book_image_fm.add_error("images", "You can upload a maximum of 4 images.")

@@ -82,7 +82,6 @@ def generating_otp(request, email, otp_for, **kwargs):
     otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "email":email}
     otp_session_dict.update(kwargs)
     request.session["otp_session_dict"] = otp_session_dict
-    request.session.set_expiry(600) # settig expiry of this session for 10 mins(600 sec)
     return redirect('otp')
 
 
