@@ -5,18 +5,35 @@ from accounts.models import CustomUser
 from django.utils.safestring import mark_safe
 
 
-CATEGORY_CHOICES = (
-   (None, "---Select Category---"),
-   ("B.Tech.", "B.Tech."),
-   ("M.Tech.", "M.Tech."),
-   ("MBBS", "MBBS"),
-   ("JEE", "JEE"),
-   ("NEET PG", "NEET PG"),
-   ("NEET UG", "NEET UG"),
-   ("NCERT", "NCERT"),
-   ("Education", "Education"),
-   ("Other", "Other"),
-)
+CATEGORY_CHOICES = [
+    [None, "---Select Category---"],
+    ['Fiction', 'Fiction'], 
+    ['Non-Fiction', 'Non-Fiction'],
+    ["Children's Books", "Children's Books"],
+    ['Young Adult (YA)', 'Young Adult (YA)'], 
+    ['Educational', 'Educational'], 
+    ['Comics & Graphic Novels', 'Comics & Graphic Novels'], 
+    ['Poetry', 'Poetry'], 
+    ['Religion & Spirituality', 'Religion & Spirituality'], 
+    ['Science & Nature', 'Science & Nature'], 
+    ['Self-Improvement', 'Self-Improvement'], 
+    ['Art & Photography', 'Art & Photography'], 
+    ['Travel & Adventure', 'Travel & Adventure'], 
+    ['Cooking & Food', 'Cooking & Food'], 
+    ['Sports & Outdoors', 'Sports & Outdoors'], 
+    ['Fantasy', 'Fantasy'], 
+    ['Science Fiction', 'Science Fiction'], 
+    ['School Education', 'School Education'], 
+    ['Competitive Exams', 'Competitive Exams'], 
+    ['Undergraduate Courses', 'Undergraduate Courses'], 
+    ['Postgraduate Courses', 'Postgraduate Courses'], 
+    ['Vocational and Skill Development', 'Vocational and Skill Development'], 
+    ['Entrance Exam Preparation', 'Entrance Exam Preparation'], 
+    ['School Subjects by Stream', 'School Subjects by Stream'], 
+    ['Technology and Professional Studies', 'Technology and Professional Studies'], 
+    ['Medical and Healthcare', 'Medical and Healthcare'],
+    ['Others', 'Others']
+    ]
 
 asterisk_css = '<span style="color: red; font-weight:bolder;">*</span>'
 class BookForm(forms.ModelForm):
@@ -26,7 +43,7 @@ class BookForm(forms.ModelForm):
     edition = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     publication = forms.CharField(label=mark_safe('Publication'+asterisk_css), max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, label=mark_safe('Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control'}))
-    sub_category = forms.ChoiceField(choices=((None, "---Select Sub Category---"),), label='Sub Category', widget=forms.Select(attrs={'class': 'form-control', 'id':'id_sub_category'}), required=False)
+    sub_category = forms.ChoiceField(choices=((None, "---Select Sub-Category---"),), label=mark_safe('Sub Category'+asterisk_css), widget=forms.Select(attrs={'class': 'form-control', 'id':'id_sub_category'}))
     pages = forms.IntegerField(label=mark_safe('Pages'+asterisk_css), min_value=0, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     seller = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.HiddenInput)
     selected_address_id = forms.ChoiceField(widget=forms.RadioSelect)

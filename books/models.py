@@ -38,7 +38,7 @@ class Book(models.Model):
     edition = models.CharField(max_length=50, null=True, blank=True)
     publication = models.CharField(max_length=100)
     category = models.CharField(max_length=50)
-    sub_category = models.CharField(max_length=50, null=True, blank=True)
+    sub_category = models.CharField(max_length=50)
     pages = models.IntegerField(blank=True)
     price = models.IntegerField(blank=True)
     selected_address_id = models.IntegerField()
