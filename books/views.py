@@ -175,3 +175,7 @@ def cart(request):
 
 def your_orders(request):
     return render(request, "books/orders.html")
+
+def track_your_order(request, order_id):
+    order = order_id
+    return render(request, "books/track_order.html", {"order_id": order})

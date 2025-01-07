@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "books/track_order.css" %}">
+{% endblock css %}
+
+{% block content %}
+<div class="container my-5">
+  <h3 class="text-center text-orange-3 font-poppins">Track Your Order</h3>
+  <div class="order-box">
+    <h5 class="text-orange-2 mb-3">Order ID: #123456</h5>
+
+    <!-- Book 1 -->
+    <div class="book-details">
+      <img
+        src="https://images.booksense.com/images/686/983/9798656983686.jpg"
+        alt="Book 1"
+        class="book-image"
+      />
+      <div>
+        <h6 class="font-poppins">The Great Gatsby</h6>
+        <span class="mb-1">
+            <span class="badge-category">B.Tech</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress">
+        <div
+          class="progress-bar"
+          style="width: 50%;"
+          role="progressbar" 
+          aria-label="Animated striped"
+          aria-valuenow="50"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+      <div class="progress-labels">
+        <span class="completed-label"><i class="fa fa-check-circle"></i><span class="label-text">Order Placed</span></span>
+        <span class="completed-label"><i class="fa fa-warehouse completed"></i><span class="label-text">Departed from Warehouse</span></span>
+        <span class="current-label"><i class="fa fa-truck"></i><span class="label-text">Arrived Delivery Center</span></span>
+        <span><i class="fa fa-box"></i><span class="label-text">Out for Delivery</span></span>
+      </div>
+    </div>
+
+    <!-- Estimated Delivery -->
+    <p class="estimated-delivery">Estimated Delivery Date: <span class="text-orange-3">January 10, 2025</span></p>
+  </div>
+</div>
+
+{% block js %}
+<script>
+    function orderStatus(currentStatus) {
+        $(`.progress-labels span`).addClass = "completed-label";
+    }
+    
+    orderStatus(1)
+</script>
+{% endblock js %}
+
+{% endblock content %}

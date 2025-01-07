@@ -1,0 +1,120 @@
+
+.order-box {
+    /* background-color: var(--light-orange-1); */
+    /* border: 2px solid var(--orange-2); */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0.2rem 0.45rem 1.5rem rgba(185, 185, 185, 0.699);
+  }
+
+  h6 {
+    font-size: 1.25rem;
+  }
+
+  .book-details {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .book-image {
+    width: 120px;
+    height: 180px;
+    border-radius: 10px;
+    border: 1px solid var(--orange-1);
+  }
+
+  .progress-container {
+    position: relative;
+    margin: 20px 0;
+    padding-top: 20px;
+  }
+  
+  .progress {
+    height: 8px;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    position: relative;
+  }
+  
+  .progress-bar {
+    background-color: var(--orange-3);
+    height: 100%;
+    position: relative;
+    overflow: visible !important;
+  }
+  
+  
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: 'Nunito Sans';
+  }
+  
+  .progress-labels span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .progress-labels i {
+    font-size: 16px;
+    /* color: var(--orange-2); */
+  }
+  
+  .completed i {
+    color: var(--default-success);
+  }
+
+
+  .completed-label {
+    color: var(--default-success);
+  }
+
+  .current-label {
+    color: var(--dark-orange-1);
+    font-weight: 600;
+  }
+
+  .progress-labels span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+
+  .estimated-delivery {
+    margin-top: 20px;
+    font-weight: bold;
+    font-family: 'Nunito Sans';
+    color: var(--deep-success);
+  }
+
+  .book-details {
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media (max-width: 400px) {
+    .book-details {
+        display: flex;
+        flex-direction: column;
+    }
+    .progress-labels span .label-text {
+        display: none;
+    }
+  }
+
+  .badge-category {
+    font-size: 0.85rem;
+    background-color: var(--orange-2);
+    color: white;
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
