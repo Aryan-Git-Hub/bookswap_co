@@ -20,14 +20,6 @@
 {% endblock css %}
 
 {% block content %}
-{% if form.selected_address_id.errors %}
-<div class="alert alert-danger alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
-      <strong>Please Select Your Address!</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-{% endif %}
-
-
     <div class="container d-flex flex-column gap-5 justify-content-center align-items-center min-vh-100">
         <h2 class="">Post Ad</h2>
         <form class="needs-validation row" method="POST" novalidate enctype="multipart/form-data">
@@ -101,5 +93,29 @@
     getData();
     category.addEventListener("change", getData);
 </script>
+<script>
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom",
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+  </script>
+  
+  {% if form.selected_address_id.errors %}
+  <script>
+    Toast.fire({
+      icon: "error",
+      title: "Please Select Your Address Also!"
+    });
+  </script>
+  {% endif %}
+
+
 {% include "sticky_messages_alert.html" %}
 {% endblock js %}
