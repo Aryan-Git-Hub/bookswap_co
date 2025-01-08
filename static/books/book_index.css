@@ -59,11 +59,10 @@
 
 .btn-wrapper button,
 .btn-wrapper a {
-  transition: .45s;
+  transition: .36s;
 }
 .btn-wrapper button:hover,
 .btn-wrapper a:hover {
-  transform: scale(1.1);
-  box-shadow: 0 3px 12px rgba(44, 44, 44, 0.623);
-  transition: .36s;
+  box-shadow: 0 3px 12px rgba(97, 97, 97, 0.493);
+  transition: .26s;
 }
