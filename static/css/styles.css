@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #f5f3f3;
+}
+
 footer {
   bottom: 0;
   width: 100%;
@@ -13,6 +17,8 @@ footer {
   padding: 1vh 0;
   font-size: large;
   margin-top: 1vh;
+  background-color: var(--dark-orange-1);
+  color: white;
 }
 
 /* for profile.html */

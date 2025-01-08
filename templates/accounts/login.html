@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 
-{% include "sticky_messages_alert.html" %}
+
 
 
 <div
@@ -23,3 +23,6 @@
   </form>
 </div>
 {% endblock content %}
+{% block js %}
+{% include "sticky_messages_alert.html" %}
+{% endblock js %}

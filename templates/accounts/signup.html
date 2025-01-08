@@ -1,9 +1,6 @@
 {% extends "base.html" %} {% block content %}
 
 
-{% include "sticky_messages_alert.html" %}
-
-
 <div
   class="container d-flex flex-column justify-content-center align-items-center min-vh-100"
 >
@@ -22,3 +19,6 @@
   </form>
 </div>
 {% endblock content %}
+{% block js %}
+{% include "sticky_messages_alert.html" %}
+{% endblock js %}

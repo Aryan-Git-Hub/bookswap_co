@@ -8,7 +8,7 @@
             <form class="d-none col-8 forLargerrDevices d-sm-none d-md-none d-lg-flex" role="search" action="{% url "search_results" %}">
                 <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for_1">
                 <button type="submit" class="search_btn" style="border: none; padding: 0; background: none;">
-                    <span class="input-group-text d-flex bg-light border-0 ">
+                    <span class="input-group-text d-flex bg-light border-0 search_logo">
                         <i class="fas fa-search search_logo fa-lg"></i>
                     </span>
                 </button>
@@ -62,8 +62,8 @@
     <form class="d-flex forSmallerDevices mt-1 col-11 d-lg-none" role="search">
         <input class="form-control text-center p-1" type="search" placeholder="Search Books" aria-label="Search" style="font-size: 1rem; position:relative;" name="search_for" value="{{search_for}}" id="search_for_2">
         <button type="submit" class="search_btn" style="border: none; padding: 0; background: none;">
-            <span class="input-group-text bg-light border-0">
-                <i class="fas fa-search search_logo fa-lg"></i>
+            <span class="input-group-text bg-light border-0 search_logo">
+                <i class="fas fa-search fa-lg"></i>
             </span>
         </button>
     </form>

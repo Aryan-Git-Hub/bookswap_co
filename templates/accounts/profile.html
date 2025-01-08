@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% include "sticky_messages_alert.html" %}
+
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="mt-5">Your Profile</h1>
     <div class="text-center">
@@ -36,6 +36,7 @@
     </div>
 </div>
 
+{% block js %}
 <script>
 for (i=2; i<=4; i++) {
     document.getElementsByClassName("form-control")[i].setAttribute("disabled", true);
@@ -58,5 +59,7 @@ function enableInputs(val=true) {
     }
 }
 </script>
-    
+
+{% include "sticky_messages_alert.html" %}
+{% endblock js %}
 {% endblock content %}

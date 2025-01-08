@@ -1,15 +1,22 @@
-<!-- Sticky Alert -->
+<script>
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+</script>
+
 {% for message in messages %}
-{% if message.tags == "success" %}
-<div class="alert alert-success alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
-  <strong>Success!</strong> {{message}}
-  {% elif message.tags == "warning" %}
-  <div class="alert alert-warning alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
-    <strong>Warning!</strong> {{message}}
-  {% elif message.tags == "error" %}
-  <div class="alert alert-danger alert-dismissible fade show sticky-alert mb-0" role="alert" style="z-index:1;position:sticky; top: 4.2rem">
-    <strong>{{message}}</strong>
-  {% endif %}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+<script>
+  Toast.fire({
+    icon: "{{message.tags}}",
+    title: "{{message}}"
+  });
+</script>
 {% endfor %} 

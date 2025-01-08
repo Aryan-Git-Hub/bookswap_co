@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-{% include "sticky_messages_alert.html" %}
+
 
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
   <h2 class="text-center">OTP</h2>
@@ -17,3 +17,7 @@
   </form>
 </div>
 {% endblock content %}
+
+{% block js %}
+{% include "sticky_messages_alert.html" %}
+{% endblock js %}

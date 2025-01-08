@@ -5,7 +5,7 @@
 {% endblock css %}
 
 {% block content %}
-{% include "sticky_messages_alert.html" %}
+
 
 <div class="container my-4">
   <h2>Search Results for {{search_for}}</h2>
@@ -21,3 +21,6 @@
 </div>
 
 {% endblock content %}
+{% block js %}
+{% include "sticky_messages_alert.html" %}
+{% endblock js %}

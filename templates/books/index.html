@@ -6,7 +6,7 @@
 {% endblock css %}
 
 {% block content %}
-{% include "sticky_messages_alert.html" %}
+
 
 <div class="container my-4 min-vh-100">
   <div class="d-flex justify-content-between">
@@ -56,22 +56,6 @@
     </div>
   </div>
 </div>
-
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-
-
-
-
-
-
-
-
 
 {% endblock content %}
 
@@ -126,10 +110,9 @@ async function loadSubCategories(category) {
     console.error('Error fetching the JSON file:', error);
   });
 }
-  
-
-
-
 </script>
+{% include "sticky_messages_alert.html" %}
+
+
 {% endblock js %}
 

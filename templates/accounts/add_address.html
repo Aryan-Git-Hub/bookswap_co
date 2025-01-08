@@ -2,8 +2,6 @@
 {% load static %}
 {% block content %}
 
-{% include "sticky_messages_alert.html" %}
-
     <div class="container d-flex flex-column gap-5 justify-content-center align-items-center min-vh-100">
         <h2>{{add_or_edit}} Address</h2>
         <form class="needs-validation row" method="POST" novalidate enctype="multipart/form-data">
@@ -60,4 +58,5 @@
     state.addEventListener("change", getData);
 </script>
 
+{% include "sticky_messages_alert.html" %}
 {% endblock js %}

@@ -6,8 +6,6 @@
 
 {% block content %}
 
-{% include "sticky_messages_alert.html" %}
-
 <div class="container my-4">
   <h2>Your Ads</h2>
   <div class="container my-4" style="display: grid; place-items:center;">
@@ -62,4 +60,5 @@
 
 {% block js %}
 <script src="{% static "books/user_posted_ads.js" %}"></script>
+{% include "sticky_messages_alert.html" %}
 {% endblock js %}
