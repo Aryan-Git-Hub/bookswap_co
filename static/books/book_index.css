@@ -8,12 +8,15 @@
   transition: .2s;
   box-shadow: 0 0 1.2rem rgba(60, 60, 60, 0.2)
 }
-
+.category-badge {
+  transition: .5s;
+}
 .card:hover .card-body .category-badge {
   color: #fafafa !important;
   background-color: var(--dark-orange-1);
   border: 0 !important;
   font-weight: 700;
+  transition: .25s;
 }
 
 .card:has(:hover > .details-btn:hover) {
@@ -52,4 +55,14 @@
 .filterIcon:hover, .filterIcon:focus {
   transform: scale(1.2);
   transition: .8s;
+}
+
+.btn-wrapper button,
+.btn-wrapper a {
+  transition: .36s;
+}
+.btn-wrapper button:hover,
+.btn-wrapper a:hover {
+  box-shadow: 0 3px 12px rgba(97, 97, 97, 0.493);
+  transition: .26s;
 }
