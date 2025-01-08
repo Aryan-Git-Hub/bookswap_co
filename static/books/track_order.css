@@ -1,16 +1,35 @@
 
 .order-box {
-    /* background-color: var(--light-orange-1); */
+    background-color: #fff8ef;
+    background-image: linear-gradient(to bottom, rgb(255, 123, 0) 1%, rgb(255, 223, 164) 32%, transparent 48%);
     /* border: 2px solid var(--orange-2); */
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 24px 0;
     box-shadow: 0.2rem 0.45rem 1.5rem rgba(185, 185, 185, 0.699);
+    transition: .8s;
+  }
+
+  .order-box:hover .cancel-btn:hover {
+    box-shadow: 0 4px 6px rgba(173, 173, 173, 0.5); 
+    transform: scale(1.025);
+  }
+  .order-box:has(.cancel-btn:hover) {
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.5); 
+    transform: scale(1.02);
+    transition: .25s;
   }
 
   h6 {
     font-size: 1.25rem;
   }
+
+  h5.orderId {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+  }
+ 
 
   .book-details {
     display: flex;
@@ -90,8 +109,14 @@
   .estimated-delivery {
     margin-top: 20px;
     font-weight: bold;
-    font-family: 'Nunito Sans';
-    color: var(--deep-success);
+    font-family: 'SUSE';
+    color: black;
+  }
+
+  .estimated-delivery span.date {
+    font-weight: bold;
+    font-family: 'SUSE';
+    color: var(--dark-orange-2);
   }
 
   .book-details {
@@ -99,19 +124,27 @@
     flex-direction: row;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 424px) {
     .book-details {
         display: flex;
         flex-direction: column;
     }
+  }
+
+  @media (max-width: 724px) {
     .progress-labels span .label-text {
-        display: none;
+        font-size: small;
+        text-align: center;
+    }
+    .progress-labels span {
+        display: flex;
+        flex-direction: column;
     }
   }
 
   .badge-category {
     font-size: 0.85rem;
-    background-color: var(--orange-2);
+    background-color: var(--dark-orange-1);
     color: white;
     border-radius: 5px;
     padding: 2px 8px;
