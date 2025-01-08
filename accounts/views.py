@@ -10,6 +10,9 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import send_mail
 import random
 from django.conf import settings
+from django.utils.timezone import now, timedelta
+# to convert time object to json serializable
+from datetime import datetime
 # creating user cart
 from books.models import Cart
 
@@ -79,7 +82,8 @@ def generating_otp(request, email, otp_for, **kwargs):
     subject = 'Your OTP for Account Verification'
     message = f'Your OTP is {otp}'
     sendEmail(email, subject, message)
-    otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "email":email}
+    expiration_time = now() + timedelta(minutes=10)  # Set expiration to 10 minutes from now
+    otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "email":email, "expiry":expiration_time.isoformat()}
     otp_session_dict.update(kwargs)
     request.session["otp_session_dict"] = otp_session_dict
     return redirect('otp')
@@ -149,6 +153,9 @@ def change_password(request):
 def otp(request):
     otp_session_dict = request.session.get("otp_session_dict", None)
     if not otp_session_dict:
+        return redirect('home')
+    if now()>datetime.fromisoformat(otp_session_dict["expiry"]):
+        messages.warning(request, "OTP is expired")
         return redirect('home')
     fm = OtpForm()
     if request.method=="POST":

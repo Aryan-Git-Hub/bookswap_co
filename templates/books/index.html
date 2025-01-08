@@ -27,6 +27,9 @@
 {% block js %}
 <script>
   async function selectFilter() {
+    let response = await fetch("{% static 'JSON/category.json' %}");
+    let data = await response.json();
+    console.log(data)
     const { value: fruit } = await Swal.fire({
       title: "Select a Filter",
       input: "select",
