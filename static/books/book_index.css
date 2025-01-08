@@ -66,3 +66,7 @@
   box-shadow: 0 3px 12px rgba(97, 97, 97, 0.493);
   transition: .26s;
 }
+
+.card-title {
+  font-family: 'Roboto Mono', monospace;
+}

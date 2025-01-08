@@ -147,6 +147,8 @@ i {
 
 input[type=search] {
   background-color: rgba(255, 255, 255, 0.931);
+  border-radius: 24px;
+  border: 1px solid black
 }
 
 

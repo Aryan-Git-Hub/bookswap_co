@@ -33,26 +33,24 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Select Filter</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <form name="filterForm" id="filterForm" method="GET" action="google.com">
       <div class="modal-body col-12">
         {% comment %} dropdown  {% endcomment %}
         <select class="form-select" aria-label="Default select example" id="categoriesDropdown" onchange="loadSubCategories(this.value);">
           <option selected value="0">Select a category</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
         </select>
 
         <select class="form-select mt-3" aria-label="Default select example" id="subCategoriesDropdown">
           <option selected value="0">Select a sub-category</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
         </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Apply Filter</button>
+        <button type="submit" class="btn btn-primary">Apply Filter</button>
       </div>
+    </form>
+
     </div>
   </div>
 </div>
@@ -110,7 +108,31 @@ async function loadSubCategories(category) {
     console.error('Error fetching the JSON file:', error);
   });
 }
+
+  document.getElementById('filterForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+
+    var category_val = document.getElementById('categoriesDropdown').value.replaceAll(" ", "%20").toLowerCase();
+    var subcategory_val = document.getElementById('categoriesDropdown').value.replaceAll(" ", "%20").toLowerCase();
+
+    const url = `${window.location.href}?category=${category_val}&subcategory=${subcategory_val}` ;
+    // const url = `/search?query=${encodeURIComponent(query)}`;
+    alert('URL: ' + url);
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      alert(JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
+  });
 </script>
+
+
 {% include "sticky_messages_alert.html" %}
 
 
