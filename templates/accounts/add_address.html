@@ -8,16 +8,24 @@
             {% csrf_token %}
             {% for field in form %}
             {% if not field.is_hidden %}
+                {% if field.label == 'Full Address<span style="color: red; font-weight:bolder;">*</span>' or field.label == 'Some Instructions' %}
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label mt-2">{{field.label}} </label>
+                        {{field}}
+                        <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
+                    </div>
+                {% else %}
                 <div class="col-12 col-lg-4">
-                <label class="form-label">{{field.label}}</label>
-                {{field}}
-                <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
-                </div>
+                    <label class="form-label">{{field.label}} </label>
+                    {{field}}
+                    <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
+                </div> 
+                {% endif %}
             {% endif %}
             {% endfor %}
             {{form.user}}
 
-            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center mt-3 mt-lg-0">
+            <div class="col-12 col-lg-4 offset-lg-4 d-flex justify-content-center align-items-center mt-4">
                 <button class="btn btn-info form-control" type="submit">POST</button>
             </div>
         </form>

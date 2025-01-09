@@ -25,6 +25,9 @@
 .card:has(:hover > .add-to-cart-btn:hover) {
   box-shadow: 0px 0px 12px #17da7fa1;
 }
+.card:has(:hover > .edit-btn:hover) {
+  box-shadow: 0px 0px 12px #19abe6a1;
+}
 
 
 .add-to-cart-btn {
