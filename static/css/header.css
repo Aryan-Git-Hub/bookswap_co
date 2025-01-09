@@ -60,11 +60,6 @@ form.forLargerDevices {
     min-width: 20%;
     height: 100%;
   }
-  .alert {
-    position: sticky !important;
-    width: 100%;
-    top: var(--height-nav-bar)!important;
-  }
 }
 
 
@@ -77,11 +72,6 @@ form.forLargerDevices {
     min-width: 20%;
     height: 100%;
   }
-  .alert {
-    position: sticky !important;
-    width: 100%;
-    top: 6.5rem !important;
-  }
 }
 @media (max-width: 710px) {
   .form_dropdown {
@@ -91,11 +81,6 @@ form.forLargerDevices {
     width: 60%;
     max-width: 80%;
     height: 100%;
-  }
-  .alert {
-    position: sticky !important;
-    width: 100%;
-    top: 6.5rem !important;
   }
 }
 @media (max-width: 390px) {
@@ -108,11 +93,6 @@ form.forLargerDevices {
   }
   a.navbar-brand {
     max-width: 12%;
-  }
-  .alert {
-    position: sticky !important;
-    width: 100%;
-    top: 6.5rem !important;
   }
   .notificationIcon, .cartIcon {
     height: 1.48rem;
@@ -154,4 +134,9 @@ input[type=search] {
 
 .search_logo {
   background-color: transparent !important;
+}
+
+
+.swal2-popup {
+  margin-bottom: 10vh;
 }
