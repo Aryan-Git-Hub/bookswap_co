@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--dark-orange-1) !important;
+  background-color: var(--orange-3) !important;
 }
 
 #logo {
@@ -139,4 +139,9 @@ input[type=search] {
 
 .swal2-popup {
   margin-bottom: 10vh;
+}
+
+.sell_btn {
+  background-color: rgb(255, 47, 47);
+  border-radius: 21px;
 }

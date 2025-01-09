@@ -21,14 +21,14 @@ from books.models import Cart
 def sendEmail(to, subject, message):
     if to=='' or to==None:
         return False
-    # send_mail(
-    #     subject,
-    #     message,
-    #     settings.EMAIL_HOST_USER,
-    #     [to],
-    #     fail_silently=False
-    # )
-    print(message)
+    send_mail(
+        subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [to],
+        fail_silently=False
+    )
+    # print(message)
     return True
 
 

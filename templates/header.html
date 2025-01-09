@@ -30,8 +30,8 @@
                 <span class="badge badge-custom" id="cart_val">{{request.user.cart.cart_val}}</span> 
             </div>
             <div class="d-flex justify-content-center align-items-center" style="cursor: pointer; height: 80%;">
-                <a class="btn btn-info btn-sm d-sm-none" href="{% url "post_ad" %}">SELL</a>
-                <a class="btn btn-info d-none d-sm-inline-block" href="{% url "post_ad" %}">SELL</a>
+                <a class="btn btn-sm d-sm-none sell_btn" href="{% url "post_ad" %}">SELL</a>
+                <a class="btn d-none d-sm-inline-block sell_btn" href="{% url "post_ad" %}">SELL</a>
             </div>
             <div class="dropdown d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
                 <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="box-shadow: none;">

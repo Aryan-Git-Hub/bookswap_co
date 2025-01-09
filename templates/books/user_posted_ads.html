@@ -2,15 +2,16 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static "books/book_index.css" %}">
+<link rel="stylesheet" href="{% static "books/cart.css" %}">
 {% endblock css %}
-
 {% block content %}
 
-<div class="container my-4">
+<div class="container my-4 min-vh-100">
   <h2>Your Ads</h2>
   <div class="container my-4" style="display: grid; place-items:center;">
     <div class="row gap-3">
 
+      {% if user_ads %}
       {% for book in user_ads %}
       <div class="card" style="width: 18rem;z-index:0 !important;">
           <img src="/media/{{book.images.all.0.image.name}}" class="card-img-top" alt="..." style="height: 18rem;">
@@ -51,6 +52,9 @@
             </div>
           </div>
         </div>
+        {% else %}
+        <p class="empty-cart">You have not any ad online. <a href="{% url "home" %}">Explore amazing books</a> on <span class="highlight">Book Swap</span>!</p>
+        {% endif %}
         
     </div>
   </div>
