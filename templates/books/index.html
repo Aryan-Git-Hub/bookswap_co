@@ -32,15 +32,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form name="filterForm" id="filterForm" method="GET" action="google.com">
+      <form name="filterForm" id="filterForm" method="GET" action="{% url "home" %}">
       <div class="modal-body col-12">
         {% comment %} dropdown  {% endcomment %}
-        <select class="form-select" aria-label="Default select example" id="categoriesDropdown" onchange="loadSubCategories(this.value);">
-          <option selected value="0">Select a category</option>
+        <select class="form-select" aria-label="Default select example" id="categoriesDropdown" onchange="loadSubCategories(this.value);" name="category">
+          <option selected value="">Select a category</option>
         </select>
 
-        <select class="form-select mt-3" aria-label="Default select example" id="subCategoriesDropdown">
-          <option selected value="0">Select a sub-category</option>
+        <select class="form-select mt-3" aria-label="Default select example" id="subCategoriesDropdown" name="sub_category">
+          <option selected value="">Select a Sub-Category</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -59,6 +59,7 @@
 {% block js %}
 <script>
 
+  // fething data from category.json
   fetch('./static/JSON/category.json')
   .then(response => {
     if (!response.ok) {
@@ -70,7 +71,7 @@
     // Access and display the JSON data
     // alert(data.categories[1].name)
     const outputDiv = document.getElementById('categoriesDropdown');
-    outputDiv.innerHTML = `<option selected value="0">Select a Category</option>`;
+    outputDiv.innerHTML = `<option selected value="">Select a Category</option>`;
 
     data.categories.forEach((val, index) => {
       outputDiv.innerHTML += `<option value="${data.categories[index].name}"> ${data.categories[index].name}</option>`;
@@ -92,7 +93,7 @@ async function loadSubCategories(category) {
   .then(data => {
     // Access and display the JSON data
     const outputDiv = document.getElementById('subCategoriesDropdown');
-    outputDiv.innerHTML = `<option selected value="0">Select a Sub-category</option>`;
+    outputDiv.innerHTML = `<option selected value="">Select a Sub-Category</option>`;
     
     data.categories.forEach((val, index) => {
       if (val.name == category) {
@@ -106,28 +107,6 @@ async function loadSubCategories(category) {
     console.error('Error fetching the JSON file:', error);
   });
 }
-
-  document.getElementById('filterForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); 
-
-    var category_val = document.getElementById('categoriesDropdown').value.replaceAll(" ", "%20").toLowerCase();
-    var subcategory_val = document.getElementById('categoriesDropdown').value.replaceAll(" ", "%20").toLowerCase();
-
-    const url = `${window.location.href}?category=${category_val}&subcategory=${subcategory_val}` ;
-    // const url = `/search?query=${encodeURIComponent(query)}`;
-    alert('URL: ' + url);
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      alert(JSON.stringify(data, null, 2));
-    } catch (error) {
-      console.log(`Error: ${error.message}`);
-    }
-  });
 </script>
 
 

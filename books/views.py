@@ -11,8 +11,16 @@ from accounts.views import profile_completed_decorator, address_added_decorator
 
 # Create your views here.
 def index(request):
-    all_books = Book.objects.all()
-    return render(request, 'books/index.html', {"all_books":all_books})
+    category = request.GET.get('category')
+    sub_category = request.GET.get('sub_category')
+    if category!="" and category!=None:
+        if sub_category!="" and sub_category!=None:
+            books = Book.objects.filter(category=category, sub_category=sub_category)
+        else:
+            books = Book.objects.filter(category=category)
+    else:
+        books = Book.objects.all()
+    return render(request, 'books/index.html', {"all_books":books})
 
 
 @login_required
