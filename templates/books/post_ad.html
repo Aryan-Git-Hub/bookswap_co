@@ -61,7 +61,7 @@
     const sub_category = document.getElementById("id_sub_category");
     // Fetching data from category.json
     async function getData() {
-        sub_category_val = sub_category.value
+        let sub_category_val = sub_category.value
         sub_category.disabled = true;
         sub_category.innerHTML = '<option value selected>---Select Sub-Category---</option>';
         if(category.value!="") {

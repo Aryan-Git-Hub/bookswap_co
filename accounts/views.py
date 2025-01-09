@@ -28,7 +28,6 @@ def sendEmail(to, subject, message):
         [to],
         fail_silently=False
     )
-    # print(message)
     return True
 
 
