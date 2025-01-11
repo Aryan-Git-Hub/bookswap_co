@@ -141,6 +141,9 @@ def search_results(request):
     query = request.GET.get("search_for")
     bks = Book.objects.all()
 
+    if (query==None) | (query==""):
+        return redirect("home")
+
     if query:
         bks = bks.filter(
             Q(book_name__icontains=query) | Q(desc__icontains=query) | Q(category__icontains=query) | Q(author__icontains=query) | Q(publication__icontains=query)
@@ -148,7 +151,7 @@ def search_results(request):
     else:
         query = ""
         bks = None
-    return render(request, "books/search_results.html", {"all_books":bks, "search_for":query})
+    return render(request, "books/search_results.html", {"books":bks, "search_for":query})
 
 
 @login_required
