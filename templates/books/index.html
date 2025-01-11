@@ -8,17 +8,15 @@
 {% block content %}
 
 
-<div class="container my-4 min-vh-100">
-  <div class="d-flex justify-content-between">
+<div class="container my-4 min-vh-100 d-flex flex-column align-items-center p-0">
+  <div class="d-flex justify-content-between" style="width: 100%;">
     <h3 class="d-inline-block">Fresh recommendations</h3>
-  <button class="btn btn-orange btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-filter filterIcon"></i></button>
+    <button class="btn btn-orange btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-filter filterIcon"></i></button>
   </div>
-    <div class="row gap-3 d-flex flex-row justify-content-center">
-
+    <div class="row"  style="width: 100%;">
       {% for book in all_books %}
         {% include "books/book_cards_include.html" %}
       {% endfor %}
-        
     </div>
 </div>
 

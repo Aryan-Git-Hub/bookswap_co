@@ -23,7 +23,7 @@ class SignupForm(forms.ModelForm):
             ),
         ]
     )
-    confirm_password = forms.CharField(label='Your Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(label='Confirm Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
     class Meta:
         model = CustomUser
