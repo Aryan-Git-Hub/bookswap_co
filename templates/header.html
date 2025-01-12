@@ -15,13 +15,14 @@
             </form>
 
             {% if request.user.is_authenticated %}
-            <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
+            <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;visibility:hidden;">
                 {% comment %} <img class="notificationIcon" src="{% static "images/notification_icon.png" %}"> {% endcomment %}
                 <a href="#" style="text-decoration: none; color: inherit;">
                     <i class="fas fa-bell fa-lg icon_transform"></i>
                 </a>
             <span class="badge badge-custom">3</span>
             </div>
+
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 {% comment %} <img class="notificationIcon" src="{% static "images/cart_icon.png" %}"> {% endcomment %}
                 <a href="{% url "cart" %}" style="text-decoration: none; color: inherit;">
