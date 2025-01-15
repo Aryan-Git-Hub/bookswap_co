@@ -6,8 +6,11 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import SignupForm, LoginForm, UserProfileForm, AddressForm, OtpForm, ChangePassword
 from accounts.models import CustomUser, Address
 from django.contrib.auth.hashers import make_password, check_password
+# for email
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 # for OTP
-from django.core.mail import send_mail
 import random
 from django.conf import settings
 from django.utils.timezone import now, timedelta
@@ -18,16 +21,23 @@ from books.models import Cart
 
 
 # Send Email Function
-def sendEmail(to, subject, message):
+def sendEmail(to, subject, **kwargs):
     if to=='' or to==None:
         return False
-    send_mail(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER,
-        [to],
-        fail_silently=False
-    )
+    # Subject and sender
+    subject = "Welcome to Our Service"
+    from_email = settings.EMAIL_HOST_USER
+    
+    # Render the HTML content
+    html_content = render_to_string('accounts/email_template.html', {'otp': kwargs.get("otp")})
+    text_content = strip_tags(html_content)  # Fallback plain text
+    
+    # Create the email
+    email = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    email.attach_alternative(html_content, "text/html")
+    
+    # Send the email
+    email.send()
     return True
 
 
@@ -79,8 +89,8 @@ def generating_otp(request, email, otp_for, **kwargs):
     otp = random.randint(100000, 999999)
     # Send Email
     subject = 'Your OTP for Account Verification'
-    message = f'Your OTP is {otp}'
-    sendEmail(email, subject, message)
+    message = {"otp":otp}
+    sendEmail(email, subject, **message)
     expiration_time = now() + timedelta(minutes=10)  # Set expiration to 10 minutes from now
     otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "email":email, "expiry":expiration_time.isoformat()}
     otp_session_dict.update(kwargs)
