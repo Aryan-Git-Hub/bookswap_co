@@ -39,11 +39,11 @@ def sendEmail(to, subject, **kwargs):
     email.attach_alternative(html_content, "text/html")
 
     # Attaching logo image
-    logo_path = os.path.join(settings.BASE_DIR, 'static/images/logo.jpeg')
+    logo_path = os.path.join(settings.BASE_DIR, 'static/images/logo.png')
     with open(logo_path, 'rb') as logo_file:
         logo = MIMEImage(logo_file.read())
         logo.add_header('Content-ID', '<logo>')
-        logo.add_header('Content-Disposition', 'inline', filename='logo.jpeg')
+        logo.add_header('Content-Disposition', 'inline', filename='logo.png')
         email.attach(logo)
     
     # Send the email
