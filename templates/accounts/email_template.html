@@ -59,23 +59,15 @@
         }
     </style>
 </head>
-<body>
-    {% load static %}
-    {% load static %}
-
-    <div class="email-container">
+<body><div class="email-container">
         <!-- Header with logo and orange box -->
-        <img src="cid:logo" alt="" class="logo_img">
         <div class="header">
-            <img src="{% static "images/logo.jpeg" %}" alt="BookSwap Logo">
+            <img src="cid:logo" alt="BookSwap Logo">
             <h1>Welcome to BookSwap</h1>
         </div>
         <!-- Content with OTP -->
         <div class="content">
             <p>Hi {{ username }},</p>
-            <p>Your OTP is {{ otp }},</p>
-            <p>We're excited to have you on board. Thank you for joining!</p>
-            <p>Hi User,</p>
             <p>Your OTP is:</p>
             <p class="otp">{{ otp }}</p>
             <p>Enter this code on our website to proceed. The OTP is valid for 10 minutes.</p>
