@@ -35,7 +35,7 @@ async function deleteBook(element, book_id) {
   if(cart_val.innerHTML==0){
     const cart_items_container = document.getElementById("cart_items_container");
     const total_price_container = document.getElementById("total_price_container");
-    cart_items_container.innerHTML = `<p class="empty-cart">Your cart is empty. Explore amazing books on <span class="highlight">Book Swap</span>!</p>`;
+    cart_items_container.innerHTML = `<p class="empty-cart">Your cart is empty. <a href="/">Explore amazing books</a> on <span class="highlight">Book Swap</span>!</p>`;
     total_price_container.innerHTML = "";
   }
 }
