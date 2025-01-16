@@ -35,15 +35,20 @@
             color: #888888;
             margin-top: 20px;
         }
+        .logo_img {
+            height: 50px;
+        }
     </style>
 </head>
 <body>
+    {% load static %}
     <div class="email-container">
+        <img src="cid:logo" alt="" class="logo_img">
         <div class="header">
             <h1>Welcome to BookSwap</h1>
         </div>
         <div class="content">
-            <p>Hi,</p>
+            <p>Hi {{ username }},</p>
             <p>Your OTP is {{ otp }},</p>
             <p>We're excited to have you on board. Thank you for joining!</p>
         </div>

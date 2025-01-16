@@ -14,6 +14,8 @@ from django.utils.html import strip_tags
 import random
 from django.conf import settings
 from django.utils.timezone import now, timedelta
+from email.mime.image import MIMEImage
+import os
 # to convert time object to json serializable
 from datetime import datetime
 # creating user cart
@@ -29,16 +31,27 @@ def sendEmail(to, subject, **kwargs):
     from_email = settings.EMAIL_HOST_USER
     
     # Render the HTML content
-    html_content = render_to_string('accounts/email_template.html', {'otp': kwargs.get("otp")})
+    html_content = render_to_string('accounts/email_template.html', kwargs)
     text_content = strip_tags(html_content)  # Fallback plain text
     
     # Create the email
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
     email.attach_alternative(html_content, "text/html")
+
+    # Attaching logo image
+    logo_path = os.path.join(settings.BASE_DIR, 'static/images/logo.jpeg')
+    with open(logo_path, 'rb') as logo_file:
+        logo = MIMEImage(logo_file.read())
+        logo.add_header('Content-ID', '<logo>')
+        logo.add_header('Content-Disposition', 'inline', filename='logo.jpeg')
+        email.attach(logo)
     
     # Send the email
-    email.send()
-    return True
+    try:
+        email.send()
+        return True
+    except:
+        return False
 
 
 def custom_authenticate(user_email, user_pass):
@@ -89,8 +102,10 @@ def generating_otp(request, email, otp_for, **kwargs):
     otp = random.randint(100000, 999999)
     # Send Email
     subject = 'Your OTP for Account Verification'
-    message = {"otp":otp}
-    sendEmail(email, subject, **message)
+    message = {"otp":otp, "username":kwargs.get("username")}
+    if(sendEmail(email, subject, **message)==False):
+        messages.error(request, "Please try again later!")
+        return redirect("home")
     expiration_time = now() + timedelta(minutes=10)  # Set expiration to 10 minutes from now
     otp_session_dict = {"otp_for":otp_for, "otp":make_password(str(otp)), "email":email, "expiry":expiration_time.isoformat()}
     otp_session_dict.update(kwargs)
@@ -105,11 +120,12 @@ def signup(request):
         fm = SignupForm(request.POST)
         
         if fm.is_valid():
+            username = fm.cleaned_data['username']
             email = fm.cleaned_data['email']
             password = fm.cleaned_data['password']
             confirm_password = fm.cleaned_data['confirm_password']
             if password==confirm_password:
-                additional_data = {"form":fm.cleaned_data}
+                additional_data = {"form":fm.cleaned_data, "username":username}
                 return generating_otp(request, email, "signup", **additional_data)
             else:
                 messages.error(request, 'Password and Confirm Password not matched!')
@@ -127,7 +143,8 @@ def auth_login(request):
             password = fm.cleaned_data['password']
             user = custom_authenticate(email, password)
             if user is not None:
-                return generating_otp(request, email, "login")
+                additional_data = {"username":user.username}
+                return generating_otp(request, email, "login", **additional_data)
  
             messages.error(request, 'Invalid Credentials!')
 
@@ -149,11 +166,12 @@ def change_password(request):
         fm = ChangePassword(request.POST)
         if fm.is_valid():
             email = fm.cleaned_data["email"]
-            if not CustomUser.objects.filter(email=email).exists():
+            user = CustomUser.objects.filter(email=email)
+            if not user.exists():
                 messages.error(request, "User does not exist!")
                 return redirect("change_pass")
             new_password = make_password(fm.cleaned_data["new_password"])
-            additional_data = {"new_password":new_password}
+            additional_data = {"new_password":new_password, "username":user.username}
             return generating_otp(request, email, "change_pass", **additional_data)
     return render(request, "accounts/change_pass.html", {"form":fm})
 
