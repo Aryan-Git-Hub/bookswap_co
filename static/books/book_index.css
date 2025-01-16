@@ -1,6 +1,7 @@
 .card {
   width: 18rem;
   z-index: 0 !important;
+  position: relative;
 }
 
 .card:hover {
@@ -73,3 +74,17 @@
 .card-title {
   font-family: 'Roboto Mono', monospace;
 }
+
+
+/* .wishListBox:hover {
+  color: #e60000;
+}
+
+.wishListBox .fa-heart-o {
+  color: #888;
+}
+
+
+.wishListBox .fa-heart {
+  color: #ff4d4d;
+} */

@@ -55,3 +55,55 @@ i.edit-icon {
 .image-container:hover .edit-icon {
   opacity: 1;
 }
+
+.wishListBox span  {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.wishListBox {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5rem;
+  color: rgb(65, 65, 65);
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s ease;
+  padding: .18rem .46rem;
+  font-size: 1.42rem !important;
+  border: 1px solid rgb(65, 65, 65);
+  border-radius: 50%;
+  background-color: rgb(250, 250, 250);
+}
+
+.added-to-wishlist {
+  color: rgb(255, 49, 49);
+}
+
+.animateHeart {
+  animation-name: heartBlink;
+  animation-duration: .66s;
+  animation-timing-function: linear;
+  animation-iteration-count: 2;
+  animation-delay: 0;
+}
+
+@keyframes heartBlink {
+  0% {
+    color: rgb(255, 49, 49);
+  } 25% {
+    color: rgb(255, 234, 40);
+    transform: scale(1.12) rotate(10deg);
+  } 50% {
+    color: rgb(255, 102, 247);
+    transform: scale(1) rotate(2deg);
+  } 75% {
+    color: rgb(134, 42, 255) rotate(0deg);
+    transform: scale(0.84);
+  } 100% {
+    color: rgb(255, 49, 49);
+  } 
+}

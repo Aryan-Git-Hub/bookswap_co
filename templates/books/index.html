@@ -105,6 +105,14 @@ async function loadSubCategories(category) {
     console.error('Error fetching the JSON file:', error);
   });
 }
+
+
+function clickOnHeart(id) {
+  document.getElementById(id).classList.toggle("added-to-wishlist");
+  $(`#${id} span i`).toggleClass("animateHeart");
+  $(`#${id} span i`).toggleClass("fa far");
+  
+}
 </script>
 
 

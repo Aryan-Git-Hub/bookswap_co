@@ -62,3 +62,5 @@ function disable_search() {
 disable_search();
 search_for_1.addEventListener('input', disable_search);
 search_for_2.addEventListener('input', disable_search);
+
+
