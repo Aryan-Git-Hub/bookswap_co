@@ -7,6 +7,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Handjet:wght@100..900&family=Nosifer&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=SUSE:wght@100..800&display=swap');
 
+       
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -20,6 +22,7 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            font-family: 'Nunito Sans';
         }
         .header {
             text-align: center;
@@ -35,6 +38,7 @@
         .header h1 {
             margin: 10px 0;
             font-size: 24px;
+            font-family: 'Poppins';
         }
         .content {
             text-align: center;
@@ -61,21 +65,16 @@
 </head>
 <body>
     {% load static %}
-    {% load static %}
 
     <div class="email-container">
         <!-- Header with logo and orange box -->
-        <img src="cid:logo" alt="" class="logo_img">
         <div class="header">
-            <img src="{% static "images/logo.jpeg" %}" alt="BookSwap Logo">
+            <img src="cid:logo" alt="BookSwap Logo" height="50" width="50">
             <h1>Welcome to BookSwap</h1>
         </div>
         <!-- Content with OTP -->
         <div class="content">
             <p>Hi {{ username }},</p>
-            <p>Your OTP is {{ otp }},</p>
-            <p>We're excited to have you on board. Thank you for joining!</p>
-            <p>Hi User,</p>
             <p>Your OTP is:</p>
             <p class="otp">{{ otp }}</p>
             <p>Enter this code on our website to proceed. The OTP is valid for 10 minutes.</p>
