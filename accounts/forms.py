@@ -5,10 +5,13 @@ from django.utils.safestring import mark_safe
 # to change password
 from django.core.validators import RegexValidator
 
+
+asterisk_css = '<span style="color: red; font-weight:bolder;">*</span>'
+
 class SignupForm(forms.ModelForm):
-    username = forms.CharField(label='Name*', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(label='Email*', max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label="Password*",
+    username = forms.CharField(label=mark_safe('Name'+asterisk_css), max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label=mark_safe('Email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label=mark_safe("Password"+asterisk_css),
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         validators=[
@@ -23,7 +26,7 @@ class SignupForm(forms.ModelForm):
             ),
         ]
     )
-    confirm_password = forms.CharField(label='Confirm Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(label=mark_safe('Confirm Password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
     class Meta:
         model = CustomUser
@@ -35,8 +38,8 @@ class SignupForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='Email*', max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Password*', max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label=mark_safe('Email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label=mark_safe('Password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
     class Meta:
         fields = ['email', 'password']
@@ -53,7 +56,7 @@ GENDER_CHOICES = [
     ['O', 'Other']
 ]
 
-asterisk_css = '<span style="color: red; font-weight:bolder;">*</span>'
+
 class UserProfileForm(forms.ModelForm):
     username = forms.CharField(label=mark_safe('Your Name'+asterisk_css), max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     mobile = forms.IntegerField(label=mark_safe('Mobile'+asterisk_css), min_value=1000000000, max_value=9999999999, widget=forms.NumberInput(attrs={'class':'form-control'}))
