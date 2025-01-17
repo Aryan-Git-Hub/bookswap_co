@@ -1,0 +1,122 @@
+
+{% load static %}
+
+
+<style>
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    h2 + span {
+        font-size: 2rem;
+        cursor: pointer;
+        margin:0;
+        margin-top: -16px;
+    }
+    .title_bar {
+        display: flex;
+        justify-content: space-between;
+    }
+    .sharePopup {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+        max-width: 400px;
+        margin: 20px auto;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+        transition: .2s;
+        display: none;
+    }
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 98;
+        display: none; 
+    }
+    .socialmedia_grid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    a {
+        text-decoration: none;
+    }
+    .sharePopup .social-item {
+        margin: 10px;
+        text-align: center;
+        flex: 1 0 30%;
+    }
+    .sharePopup .social-item img {
+        width: 50px;
+        height: 50px;
+        transition: transform 0.2s;
+    }
+    .sharePopup .social-item:hover img {
+        transform: scale(1.2);
+    }
+    .sharePopup .social-item span {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #212529;
+    }
+</style>
+
+
+<div class="backdrop"></div>
+<section class="sharePopup">
+    <div class="title_bar">
+        <h2>Share Book</h2>
+        <span onclick="closePopup()">&times;</span>
+    </div>
+    <div class="socialmedia_grid">
+        <div class="social-item">
+            <a href="https://wa.me/?text=Check%20this%20out!" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/whatsapp.svg" %}' alt="WhatsApp">
+                <span>WhatsApp</span>
+            </a>
+        </div>
+        <div class="social-item">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/instagram.svg" %}' alt="Instagram">
+                <span>Instagram</span>
+            </a>
+        </div>
+        <div class="social-item">
+            <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/facebook.svg" %}' alt="Facebook">
+                <span>Facebook</span>
+            </a>
+        </div>
+        <div class="social-item">
+            <a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/x.svg" %}' alt="X">
+                <span>X</span>
+            </a>
+        </div>
+        <div class="social-item">
+            <a href="https://www.threads.net" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/threads.svg" %}' alt="Threads">
+                <span>Threads</span>
+            </a>
+        </div>
+        <div class="social-item">
+            <a href="https://www.snapchat.com" target="_blank" rel="noopener noreferrer">
+                <img src='{% static "images/snapchat.svg" %}' alt="Snapchat">
+                <span>Snapchat</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+

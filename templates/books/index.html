@@ -8,6 +8,9 @@
 {% block content %}
 
 
+{% include "sharePopup.html" %}
+
+
 <div class="container my-4 min-vh-100 d-flex flex-column align-items-center">
   <div class="d-flex justify-content-between" style="width: 100%;">
     <h3 class="d-inline-block">Fresh recommendations</h3>
@@ -111,7 +114,17 @@ function clickOnHeart(id) {
   document.getElementById(id).classList.toggle("added-to-wishlist");
   // $(`#${id} span i`).toggleClass("animateHeart");
   $(`#${id} span i`).toggleClass("fa far");
-  
+}
+
+function closePopup() {
+  $(".sharePopup").hide();
+  $(".backdrop").hide();
+}
+
+function sharePopup(bookId) {
+  $(".sharePopup").show();
+  $(".backdrop").show();
+  // the code for custumisation of links will be here 
 }
 </script>
 
