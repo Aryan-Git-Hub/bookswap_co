@@ -166,8 +166,8 @@ def change_password(request):
         fm = ChangePassword(request.POST)
         if fm.is_valid():
             email = fm.cleaned_data["email"]
-            user = CustomUser.objects.filter(email=email)
-            if not user.exists():
+            user = CustomUser.objects.filter(email=email).first()
+            if not user:
                 messages.error(request, "User does not exist!")
                 return redirect("change_pass")
             new_password = make_password(fm.cleaned_data["new_password"])
