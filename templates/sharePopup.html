@@ -48,6 +48,19 @@
         align-items: center;
         flex-wrap: wrap;
     }
+    .clipboard {
+        flex-basis: 100%;
+        padding: 8px 12px;
+        margin: 8px 0;
+        text-align: center;
+        background-color: #ececec;
+        font-family: Poppins;
+        cursor: pointer;
+        color: #242424;
+      }
+      .clipboard:hover {
+        background-color: #e6e6e6;
+      }
     a {
         text-decoration: none;
     }
@@ -62,7 +75,7 @@
         transition: transform 0.2s;
     }
     .sharePopup .social-item:hover img {
-        transform: scale(1.2);
+        transform: scale(1.12);
     }
     .sharePopup .social-item span {
         display: block;
@@ -80,6 +93,9 @@
         <span onclick="closePopup()">&times;</span>
     </div>
     <div class="socialmedia_grid">
+        <div class="clipboard">
+            <span><i class="fa fa-link"></i> Copy to clipboard</span>
+        </div>
         <div class="social-item">
             <a href="https://wa.me/?text=Check%20this%20out!" target="_blank" rel="noopener noreferrer">
                 <img src='{% static "images/whatsapp.svg" %}' alt="WhatsApp">
