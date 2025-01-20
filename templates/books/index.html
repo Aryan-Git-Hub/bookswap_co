@@ -110,22 +110,14 @@ async function loadSubCategories(category) {
 }
 
 
+
 function clickOnHeart(id) {
   document.getElementById(id).classList.toggle("added-to-wishlist");
   // $(`#${id} span i`).toggleClass("animateHeart");
   $(`#${id} span i`).toggleClass("fa far");
 }
 
-function closePopup() {
-  $(".sharePopup").hide();
-  $(".backdrop").hide();
-}
 
-function sharePopup(bookId) {
-  $(".sharePopup").show();
-  $(".backdrop").show();
-  // the code for custumisation of links will be here 
-}
 </script>
 
 

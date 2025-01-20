@@ -90,6 +90,10 @@
 <section class="sharePopup">
     <div class="title_bar">
         <h2>Share Book</h2>
+        
+        <!-- {% for book in all_books %}
+        {{book.book_name|truncatechars:15}}
+      {% endfor %} -->
         <span onclick="closePopup()">&times;</span>
     </div>
     <div class="socialmedia_grid">
@@ -134,5 +138,46 @@
         </div>
     </div>
 </section>
+
+{% block js %}
+<script>
+    function closePopup() {
+        $(".sharePopup").hide();
+        $(".backdrop").hide();
+      }
+      
+      function sharePopup(bookId) {
+        $(".sharePopup").show();
+        $(".backdrop").show();
+        // the code for custumisation of links will be here 
+        $(".clipboard").click(() => {
+            copyToClipboard(window.location.href + "book-view/" + bookId);
+            Swal.fire({
+                title: "Book link copied",
+                icon: "success"
+            })
+        });
+      }
+
+    function copyToClipboard(text, method = true) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.style.position = 'fixed';
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                console.log('Text copied to clipboard successfully!');
+            } else {
+                console.warn('Fallback: Unable to copy text.');
+            }
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+        document.body.removeChild(textArea);
+  }
+</script>
+{% endblock js %}
 
 
