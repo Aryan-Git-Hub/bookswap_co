@@ -15,13 +15,12 @@
             </form>
 
             {% if request.user.is_authenticated %}
-            <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;visibility:hidden;">
-                {% comment %} <img class="notificationIcon" src="{% static "images/notification_icon.png" %}"> {% endcomment %}
+            {% comment %} <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 <a href="#" style="text-decoration: none; color: inherit;">
                     <i class="fas fa-bell fa-lg icon_transform"></i>
                 </a>
             <span class="badge badge-custom">3</span>
-            </div>
+            </div> {% endcomment %}
 
             <div class="d-flex justify-content-center align-items-center icon-container" style="cursor: pointer; height: 80%;">
                 {% comment %} <img class="notificationIcon" src="{% static "images/cart_icon.png" %}"> {% endcomment %}
@@ -47,6 +46,7 @@
                     <li><a class="dropdown-item" href="{% url "user_saved_addresses" %}">Your Addresses</a></li>
                     {% comment %} <li><a class="dropdown-item" href="{% url "orders" %}">Your Orders</a></li> {% endcomment %}
                     <li><a class="dropdown-item" href="{% url "user_posted_ads" %}">Your Ads</a></li>
+                    <li><a class="dropdown-item" href="{% url "wishlist" %}">Your Wishlist</a></li>
                     <li><a class="dropdown-item logout">Logout</a></li>
                 </ul>
             </div>

@@ -19,7 +19,7 @@ import os
 # to convert time object to json serializable
 from datetime import datetime
 # creating user cart
-from books.models import Cart
+from books.models import Cart, Wishlist
 
 
 # Send Email Function
@@ -203,6 +203,8 @@ def otp(request):
                         )
                         # creating user cart
                         Cart.objects.create(user=user)
+                        # creating user wishlist
+                        Wishlist.objects.create(user=user)
                         login(request, user)
                         messages.success(request, 'Account Created Successfully!')
                         return HttpResponseRedirect('/')

@@ -21,3 +21,13 @@ def book_in_cart(books_in_cart, book_id):
             return True
     except:
         return 0
+
+
+@register.filter
+def book_in_wishlist(books_in_wishlist, book_id):
+    try:
+        if str(book_id) in books_in_wishlist:
+            return True
+        return False
+    except:
+        return 0

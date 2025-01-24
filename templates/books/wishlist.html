@@ -11,7 +11,7 @@
 
 <div class="container my-4 min-vh-100">
   {% if books %}
-    <h3>Search Results for <strong><em>{{search_for}}</em></strong></h3>
+    <h3>Your Wishlist</h3>
       <div class="row"  style="width: 100%;">
         {% for book in books %}
           {% include "books/book_cards_include.html" %}
@@ -19,7 +19,7 @@
       </div>
     {% else %}
     <div class="col-12" id="cart_items_container">
-      <p class="empty-cart">Books not found for <strong><em>{{search_for}}</em></strong> <a href="{% url "home" %}">Explore other books</a> on <span class="highlight">Book Swap</span>!</p>
+      <p class="empty-cart"><a href="{% url "home" %}">Explore other books</a> on <span class="highlight">Book Swap</span>!</p>
     </div>
     {% endif %}
 </div>

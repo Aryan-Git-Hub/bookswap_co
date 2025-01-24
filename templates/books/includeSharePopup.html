@@ -151,7 +151,7 @@
         $(".backdrop").show();
         // the code for custumisation of links will be here 
         $(".clipboard").click(() => {
-            copyToClipboard(window.location.href + "book-view/" + bookId);
+            copyToClipboard(window.location.host + "/book-view/" + bookId);
             Swal.fire({
                 title: "Book link copied",
                 icon: "success"

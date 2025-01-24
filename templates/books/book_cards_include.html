@@ -1,9 +1,11 @@
 {% load custom_filters %}
 <div class="m-0 p-0 col-xxl-3 col-lg-4 col-md-6 d-flex justify-content-center my-3">
+  {% csrf_token %}
   <div class="card position-relative">
     <!-- Wishlist Box -->
+    
     <span class="wishListBox position-absolute" id="{{book.id}}" title="Toggle Wishlist" onclick="clickOnHeart('{{book.id}}')">
-      <span><i class="far fa-heart"></i></span>
+      <span><i class="far fa-heart {% if request.user.wishlist.books|book_in_wishlist:book.id %}added-to-wishlist fas{% endif %}"></i></span>
     </span>
 
     <span class="shareBtn position-absolute" id="{{book.id}}" title="Share" onclick="sharePopup('{{book.id}}')">
@@ -41,3 +43,51 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  function clickOnHeart(id) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom",
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    let csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+      url: "/", // Django view URL
+      type: "POST",
+      headers: {
+        "X-CSRFToken": csrf_token, // Include CSRF token in headers
+      },
+      data: {
+        book_id: id,
+        action: "wishlist",
+      },
+      success: function (response) {
+        if(response.wishlist_added) {
+          $(`#${id} span i`).addClass("added-to-wishlist fas");
+          Toast.fire({
+            icon: "success",
+            title: "Book added to wishlist"
+          });
+        }
+        else {
+          $(`#${id} span i`).removeClass("added-to-wishlist fas")
+          Toast.fire({
+            icon: "error",
+            title: "Book removed from wishlist"
+          });
+        }
+      },
+      error: function (xhr, status, error) {
+          // console.error(xhr.responseText);
+      },
+    });
+  }
+</script>

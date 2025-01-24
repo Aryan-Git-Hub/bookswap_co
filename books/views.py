@@ -20,6 +20,26 @@ def index(request):
             books = Book.objects.filter(category=category)
     else:
         books = Book.objects.all()
+    
+    user = request.user
+    if request.method=="POST":
+        if user.is_authenticated:
+            book_id = request.POST.get("book_id")
+            if book_id in user.wishlist.books:
+                user.wishlist.books.remove(book_id)
+                user.wishlist.wishlist_val -= 1
+                user.wishlist.save()
+                return JsonResponse({"wishlist_added":False})
+            else:
+                user.wishlist.books.append(book_id)
+                user.wishlist.wishlist_val += 1
+                user.wishlist.save()
+                return JsonResponse({"wishlist_added":True})
+        else:
+            messages.warning(request, "Please login first!")
+            return redirect('login')
+
+
     return render(request, 'books/index.html', {"all_books":books})
 
 
@@ -204,3 +224,10 @@ def your_orders(request):
 def track_your_order(request, order_id):
     order = order_id
     return render(request, "books/track_order.html", {"order_id": order})
+
+
+@login_required
+def wishlist(request):
+    bks = [Book.objects.get(id=int(b)) for b in request.user.wishlist.books]
+    print(bks)
+    return render(request, "books/wishlist.html", {"books":bks})

@@ -6,9 +6,7 @@
 {% endblock css %}
 
 {% block content %}
-
-
-{% include "sharePopup.html" %}
+{% include "books/includeSharePopup.html" %}
 
 
 <div class="container my-4 min-vh-100 d-flex flex-column align-items-center">
@@ -107,14 +105,6 @@ async function loadSubCategories(category) {
   .catch(error => {
     console.error('Error fetching the JSON file:', error);
   });
-}
-
-
-
-function clickOnHeart(id) {
-  document.getElementById(id).classList.toggle("added-to-wishlist");
-  // $(`#${id} span i`).toggleClass("animateHeart");
-  $(`#${id} span i`).toggleClass("fa far");
 }
 
 
