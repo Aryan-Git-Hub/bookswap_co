@@ -77,6 +77,9 @@
             title: "Book added to wishlist"
           });
         }
+        else if(response.redirect_to_login) {
+          location.href = "/accounts/login/";
+        }
         else {
           $(`#${id} span i`).removeClass("added-to-wishlist fas")
           Toast.fire({
