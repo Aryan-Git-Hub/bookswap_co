@@ -167,10 +167,11 @@ def change_password(request):
         if fm.is_valid():
             email = fm.cleaned_data["email"]
             user = CustomUser.objects.filter(email=email).first()
+            password = fm.cleaned_data["new_password"]
             if not user:
                 messages.error(request, "User does not exist!")
                 return redirect("change_pass")
-            new_password = make_password(fm.cleaned_data["new_password"])
+            new_password = make_password(password)
             additional_data = {"new_password":new_password, "username":user.username}
             return generating_otp(request, email, "change_pass", **additional_data)
     return render(request, "accounts/change_pass.html", {"form":fm})
@@ -220,7 +221,7 @@ def otp(request):
                         email = otp_session_dict.get("email")
                         new_password = otp_session_dict.get("new_password")
                         user = CustomUser.objects.get(email=email)
-                        user.set_password(new_password)
+                        user.password = new_password
                         user.save()
                         messages.success(request, "Your password changed successfully!")
                         login(request, user)
