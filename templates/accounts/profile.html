@@ -10,9 +10,19 @@
     <div class="text-center">
         {% if request.user.photo.url == "/media/default_user_photo.png" %}
         <div class="image-container mb-3">
-            <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;width:150px;height:150px;z-index:-1 !importtant">
+            {% comment %} <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;width:150px;height:150px;z-index:-1 !important"> {% endcomment %}
+            <div id="profile_pic_div2">{{request.user.multiavatar_svg|safe}}</div>
             <i class="fas fa-edit fa-lg edit-icon" onclick="document.getElementById('photo-input').click();" style="cursor: pointer"></i>
         </div>
+        <script>
+            console.log('hello')
+            let profile_pic_div2 = document.getElementById('profile_pic_div2');
+            let multiavatar_svg = profile_pic_div2.firstElementChild;
+            multiavatar_svg.classList.add('rounded-circle');
+            multiavatar_svg.classList.add('profile-photo');
+            multiavatar_svg.setAttribute("style", "cursor: pointer;width:150px;height:150px;z-index:-1 !important");
+            multiavatar_svg.setAttribute("onclick", "document.getElementById('photo-input').click();")
+        </script>
         {% else %}
         <img src="{{ user.photo.url }}" class="rounded-circle profile-photo" alt="User Photo" width="150" height="150" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;">
         {% endif %}
@@ -37,6 +47,8 @@
 </div>
 
 {% block js %}
+
+
 <script>
 for (i=2; i<=4; i++) {
     document.getElementsByClassName("form-control")[i].setAttribute("disabled", true);

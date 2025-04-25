@@ -40,6 +40,7 @@ class CustomUser(AbstractUser):
     address_added = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    multiavatar_svg = models.TextField(null=True, blank=True)
 
 
     def __str__(self):
@@ -48,6 +49,9 @@ class CustomUser(AbstractUser):
 
     # To saving image in a particular dimentions
     def save(self, *args, **kwargs):
+        from multiavatar.multiavatar import multiavatar
+        svgCode = multiavatar(self.username, None, None)
+        self.multiavatar_svg = svgCode
         # user photo saving
         try:
             self_user = CustomUser.objects.get(id=self.id)
