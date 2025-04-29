@@ -4,18 +4,22 @@
 
 {% block content %}
 
+{% for message in messages %}
+<div class="alert alert-warning" role="alert">
+    {{message}}
+  </div>
+{% endfor %}
+
 
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="mt-5">Your Profile</h1>
     <div class="text-center">
         {% if request.user.photo.url == "/media/default_user_photo.png" %}
         <div class="image-container mb-3">
-            {% comment %} <img src="https://api.multiavatar.com/{{request.user.username}}.svg" class="rounded-circle profile-photo" alt="User Photo" onclick="document.getElementById('photo-input').click();" style="cursor: pointer;width:150px;height:150px;z-index:-1 !important"> {% endcomment %}
             <div id="profile_pic_div2">{{request.user.multiavatar_svg|safe}}</div>
             <i class="fas fa-edit fa-lg edit-icon" onclick="document.getElementById('photo-input').click();" style="cursor: pointer"></i>
         </div>
         <script>
-            console.log('hello')
             let profile_pic_div2 = document.getElementById('profile_pic_div2');
             let multiavatar_svg = profile_pic_div2.firstElementChild;
             multiavatar_svg.classList.add('rounded-circle');
@@ -72,6 +76,5 @@ function enableInputs(val=true) {
 }
 </script>
 
-{% include "sticky_messages_alert.html" %}
 {% endblock js %}
 {% endblock content %}

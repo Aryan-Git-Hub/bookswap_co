@@ -35,9 +35,9 @@
             </div>
 
             <div class="dropdown d-flex justify-content-center align-items-center ms-2" style="cursor: pointer; height: 80%;">
-                <a href="#"  class="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="box-shadow: none;">
+                <a href="#"  class="nav-link " id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="box-shadow: none;">
                     {% if request.user.photo.url == "/media/default_user_photo.png" %}
-                    <div id="profile_pic_div1">{{request.user.multiavatar_svg|safe}}</div>
+                    <div id="profile_pic_div1" class="profile_pic">{{request.user.multiavatar_svg|safe}}</div>
                     {% else %}
                     <img class="profile_pic" src="/media/{{request.user.photo.name}}" >
                     {% endif %}
