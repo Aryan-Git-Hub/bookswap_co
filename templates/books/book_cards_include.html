@@ -8,7 +8,7 @@
       <span><i class="far fa-heart {% if request.user.wishlist.books|book_in_wishlist:book.id %}added-to-wishlist fas{% endif %}"></i></span>
     </span>
 
-    <span class="shareBtn position-absolute" id="{{book.id}}" title="Share" onclick="sharePopup('{{book.id}}')">
+    <span class="shareBtn position-absolute" id="{{book.id}}" title="Share" onclick="sharePopup('{{book.id}}', '{{book.book_name}}','{{book.category}}', '{{book.author}}')">
       <span><i class="fa fa-share"></i></span>
     </span>
 

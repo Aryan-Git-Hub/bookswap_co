@@ -101,13 +101,13 @@
             <span><i class="fa fa-link"></i> Copy to clipboard</span>
         </div>
         <div class="social-item">
-            <a href="https://wa.me/?text=Check%20this%20out!" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/?text=Check%20this%20out!" target="_blank" id="whatsappShareLink" rel="noopener noreferrer">
                 <img src='{% static "images/whatsapp.svg" %}' alt="WhatsApp">
                 <span>WhatsApp</span>
             </a>
         </div>
         <div class="social-item">
-            <a href="https://www.instagram.com?ref=app" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/direct/inbox/?ref=app" target="_blank" rel="noopener noreferrer">
                 <img src='{% static "images/instagram.svg" %}' alt="Instagram">
                 <span>Instagram</span>
             </a>
@@ -146,14 +146,25 @@
         $(".backdrop").hide();
       }
       
-      function sharePopup(bookId) {
+      function sharePopup(bookId, bookName, bookCategory, bookAuthor) {
         $(".sharePopup").show();
         $(".backdrop").show();
+
+        const book = "Atomic Habits";
+        const bookUrl = window.location.host + "/book-view/" + bookId;
+        const msg = `🚀 Looking to level up?\nDiscover *${bookName}* by *${bookAuthor}* — a must-read in the ${bookCategory} space.\n\nPreview the book here:\n${bookUrl}\n\nWhy pay full price? Grab a second-hand copy on *BookSwap* 📚 — smart for your brain *and* your wallet.`;
+
+        const encodedMsg = encodeURIComponent(msg);
+        const whatsappLink = `https://wa.me/?text=${encodedMsg}`;
+        $("#whatsappShareLink").attr("href", whatsappLink);
+
+
         // the code for custumisation of links will be here 
         $(".clipboard").click(() => {
             copyToClipboard(window.location.host + "/book-view/" + bookId);
             Swal.fire({
                 title: "Book link copied",
+                html: `Copied <strong>${bookUrl}</strong><br> <span style="color: #888888;">Discover ${bookName}: a powerful read. Grab a used copy on BookSwap!</span>`,
                 icon: "success"
             })
         });
