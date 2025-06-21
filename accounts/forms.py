@@ -9,11 +9,11 @@ from django.core.validators import RegexValidator
 asterisk_css = '<span style="color: red; font-weight:bolder;">*</span>'
 
 class SignupForm(forms.ModelForm):
-    username = forms.CharField(label=mark_safe('Name'+asterisk_css), max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(label=mark_safe('Email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label=mark_safe('Name'+asterisk_css), max_length=50, widget=forms.TextInput(attrs={'class': 'form-control', 'id':'username', 'placeholder': ' '}))
+    email = forms.EmailField(label=mark_safe('Email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'id':'email', 'placeholder': ' '}))
     password = forms.CharField(label=mark_safe("Password"+asterisk_css),
         max_length=100,
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'placeholder': ' '}),
         validators=[
             RegexValidator(
                 regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._])[A-Za-z\d@$!%*?&._]{8,}$',
@@ -26,7 +26,7 @@ class SignupForm(forms.ModelForm):
             ),
         ]
     )
-    confirm_password = forms.CharField(label=mark_safe('Confirm Password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(label=mark_safe('Confirm Password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control', 'id':'confirmPassword', 'placeholder': ' '}))
     
     class Meta:
         model = CustomUser

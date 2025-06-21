@@ -135,12 +135,12 @@ input:focus {
 form {
   width: 57%;
 }
-.form-floating {
+.formFloat {
   position: relative;
   margin-bottom: 1.5rem;
 }
 
-.form-floating input.form-control {
+.formFloat input.form-control {
   width: 100%;
   padding: 1rem 0.5rem 0.25rem 0.5rem;
   font-size: 1rem;
@@ -148,25 +148,26 @@ form {
   border-radius: 4px;
   background: white;
   outline: none;
+  height: 2.84rem;
 }
 
-.form-floating label {
+.formFloat label {
   position: absolute;
-  top: 1rem;
+  top: 0.9rem;
   left: 0.5rem;
   padding: 0 0.25rem;
-  background: transparent;
+  background-color: transparent;
   color: #777;
-  font-size: 1rem;
+  font-size: 0.94rem;
   pointer-events: none;
   transition: all 0.2s ease;
 }
 
-.form-floating input.form-control:focus + label,
-.form-floating input.form-control:not(:placeholder-shown) + label {
-  top: 0.45rem;
+.formFloat input.form-control:focus + label,
+.formFloat input.form-control:not(:placeholder-shown) + label {
+  top: 0.1rem;
   left: 0.1rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #3f51b5;
 }
 

@@ -6,10 +6,10 @@
 <div
   class="container-box d-flex flex-column justify-content-center align-items-center"
 >
-  <h2 class="text-center mb-4">Welcome to Bookswap 📚</h2>
+  <h2 class="text-center mb-4">Welcome again!</h2>
   <form method="POST" class="needs-validation" novalidate>
     {% csrf_token %} {% for field in form %}
-    <div class="mt-2 form-floating">
+    <div class="mt-2 formFloat">
       {{field}}
       <label class="form-label" for="{{field.id}}">{{field.label}}</label>
       <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
