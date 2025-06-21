@@ -38,8 +38,8 @@ class SignupForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label=mark_safe('Email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label=mark_safe('Password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label=mark_safe('Enter your email'+asterisk_css), max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'id':'email', 'placeholder': ' '}))
+    password = forms.CharField(label=mark_safe('Enter your password'+asterisk_css), max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control', 'id':'password', 'placeholder': ' '}))
     
     class Meta:
         fields = ['email', 'password']
@@ -125,9 +125,9 @@ class AddressForm(forms.ModelForm):
             "some_instructions": "Some Instructions",
         }
         widgets = {
-            "full_name": forms.TextInput(attrs={'class':'form-control'}),
-            "full_address": forms.Textarea(attrs={'class':'form-control'}),
-            "some_instructions": forms.Textarea(attrs={'class':'form-control'})
+            "full_name": forms.TextInput(attrs={'class':'form-control', 'id':'full_name', 'placeholder': ' '}),
+            "full_address": forms.Textarea(attrs={'class':'form-control', 'placeholder': ' '}),
+            "some_instructions": forms.Textarea(attrs={'class':'form-control', 'placeholder': ' '})
         }
 
 

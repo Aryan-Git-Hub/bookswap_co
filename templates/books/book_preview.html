@@ -4,6 +4,15 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static "books/book_preview.css" %}">
+
+<meta property="og:title" content="Recommended Book: {{book.book_name}}" />
+<meta property="og:description" content="Highly recommended read. Get a second-hand copy on BookSwap!" />
+{% comment %} <meta property="og:image" content="https://example.com/static/book-cover.jpg" /> {% endcomment %}
+{% if book.images.all %}
+  <meta property="og:image" content="{{ request.build_absolute_uri }}/media/{{ book.images.first.image.name }}" />
+{% endif %}
+<meta property="og:url" content="https://example.com/book-suggestion" />
+<meta property="og:type" content="website" />
 {% endblock css %}
 
 {% block content %}

@@ -2,26 +2,27 @@
 
 
 
-
-
+<div class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
 <div
-  class="container d-flex flex-column justify-content-center align-items-center min-vh-100"
+  class="container-box d-flex flex-column justify-content-center align-items-center"
 >
-  <h2 class="text-center mb-2">Login</h2>
+  <h2 class="text-center mb-4">Welcome to Bookswap 📚</h2>
   <form method="POST" class="needs-validation" novalidate>
     {% csrf_token %} {% for field in form %}
-    <div class="mt-2">
-      <label class="form-label">{{field.label}}</label>
+    <div class="mt-2 form-floating">
       {{field}}
+      <label class="form-label" for="{{field.id}}">{{field.label}}</label>
       <div class="feedback" style="color: red">{{field.errors.as_text}}</div>
     </div>
     {% endfor %}
     <div class="mt-4">
-      <button class="btn btn-primary d-block col-12" type="submit">Submit</button>
-      <a href="{% url "change_pass" %}" class="d-block mt-2 text-start text-decoration-none">Forgot Password?</a>
+      <button class="btn btn-primary d-block offset-md-3 col-6" type="submit">Login</button>
+      <a href="{% url "change_pass" %}" class="d-block mt-3 text-start text-decoration-none">Forgot Password?</a>
     </div>
   </form>
 </div>
+</div>
+
 {% endblock content %}
 {% block js %}
 {% include "sticky_messages_alert.html" %}

@@ -136,7 +136,7 @@ def user_posted_ads(request):
 
 def book_preview(request, book_id):
     book = Book.objects.filter(id=book_id).first()
-    return render(request, "books/book_preview.html", {"book":book})
+    return render(request, "books/book_preview.html", {"book":book, 'request':request})
 
 
 @login_required

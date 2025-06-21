@@ -124,3 +124,66 @@ i.edit-icon {
   } 
 }
 
+
+
+input:focus {
+  outline: none !important;
+}
+
+
+
+form {
+  width: 57%;
+}
+.form-floating {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-floating input.form-control {
+  width: 100%;
+  padding: 1rem 0.5rem 0.25rem 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  outline: none;
+}
+
+.form-floating label {
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  padding: 0 0.25rem;
+  background: transparent;
+  color: #777;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.form-floating input.form-control:focus + label,
+.form-floating input.form-control:not(:placeholder-shown) + label {
+  top: 0.45rem;
+  left: 0.1rem;
+  font-size: 0.9rem;
+  color: #3f51b5;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #3f51b5 !important;
+}
+
+.container-box {
+  margin: auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle elevation */
+  max-width: 500px;
+  width: 90%; 
+}
